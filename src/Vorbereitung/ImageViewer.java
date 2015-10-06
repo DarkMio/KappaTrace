@@ -22,7 +22,8 @@ public class ImageViewer {
                     final String absPath = fc.getSelectedFile().getAbsolutePath();
                     final String s = Files.probeContentType(Paths.get(absPath));
                     if (s == null) {
-                        System.out.println("Filetype not recorgnized.");
+                        JOptionPane.showMessageDialog(null, "Selected file not recorgnized. Maybe corrupt?", "Dialog",
+                                JOptionPane.ERROR_MESSAGE);
                     } else if (s.contains("image")) {
                         displayImage(new File(absPath));
                     } else {
