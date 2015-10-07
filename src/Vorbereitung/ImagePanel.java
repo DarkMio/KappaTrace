@@ -54,4 +54,8 @@ public class ImagePanel extends JPanel implements ComponentListener {
     public void componentHidden(ComponentEvent e) {
 
     }
+
+    public BufferedImage getImg() {
+        return img;
+    }
 }
