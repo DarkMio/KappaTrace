@@ -9,9 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by Mio on 07/10/2015.
- */
+
 public class ImageFrame extends JFrame implements ActionListener {
 
     protected ImagePanel ip;

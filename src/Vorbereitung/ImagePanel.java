@@ -6,9 +6,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 
-/**
- * Created by Mio on 07/10/2015.
- */
+
 public class ImagePanel extends JPanel implements ComponentListener {
 
     protected BufferedImage img;
