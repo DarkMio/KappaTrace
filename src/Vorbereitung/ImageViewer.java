@@ -20,7 +20,8 @@ public class ImageViewer {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 try {
                     final String absPath = fc.getSelectedFile().getAbsolutePath();
-                    final String s = Files.probeContentType(Paths.get(absPath));
+                    final String s = Files.probeContentType(Paths.get(absPath)); // Better here or in the image panel?
+                                                                                 // or both?
                     if (s == null) {
                         JOptionPane.showMessageDialog(null, "Selected file not recorgnized. Maybe corrupt?", "Dialog",
                                 JOptionPane.ERROR_MESSAGE);
@@ -46,7 +47,6 @@ public class ImageViewer {
         jf.setLayout(new FlowLayout());
         jf.setSize(img.getWidth(), img.getHeight());
         JLabel jl = new JLabel();
-        jf.setBackground(new Color(0, 0, 0));
         jl.setIcon(icon);
         jf.add(jl);
         jf.setVisible(true);
