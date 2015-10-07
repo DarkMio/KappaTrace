@@ -16,6 +16,10 @@ public class ImageFrame extends JFrame implements ActionListener {
 
     protected ImagePanel ip;
 
+    public static void main(String[] args) {
+        JFrame jf = new ImageFrame();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("save")) {
@@ -42,10 +46,19 @@ public class ImageFrame extends JFrame implements ActionListener {
         this.ip = ip;
         setLayout(new BorderLayout());
         add(ip, BorderLayout.CENTER);
-        add(new ImageMenuBar(this), BorderLayout.NORTH);
+        add(factorySaveButton("save", "save", this), BorderLayout.NORTH);
         addComponentListener(ip);
         setSize(640, 480);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    protected static JMenuBar factorySaveButton(String text, String actionCommand, ActionListener al) {
+        final JMenuBar jmb = new JMenuBar();
+        final JMenuItem jmi = new JMenuItem(text);
+        jmi.setActionCommand(actionCommand);
+        jmi.addActionListener(al);
+        jmb.add(jmi);
+        return jmb;
     }
 }
