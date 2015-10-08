@@ -38,6 +38,36 @@ public class Mat3x3 {
                 m31*mat3x3.m13+ m32*mat3x3.m23+ m33*mat3x3.m33);
     }
 
+    public Vector3 mul(Vector3 vector3){
+        return new Vector3(m11*vector3.x+m12*vector3.y+m13*vector3.z,
+                            m21*vector3.x+m22*vector3.y+m23*vector3.z,
+                            m31*vector3.x+m32*vector3.y+m33*vector3.z);
+    }
+
+    public Point3 mul(Point3 point3){
+        return new Point3(point3.x*m11+point3.y*m21+point3.z*m31,
+                            point3.x*m12+point3.y*m22+point3.z*m32,
+                            point3.x*m13+point3.y*m23+point3.z*m33);
+    }
+
+    public Mat3x3 changeCol1(Vector3 vector3){
+        return new Mat3x3(vector3.x,m12,m13,
+                            vector3.y,m22,m23,
+                            vector3.z,m32,m33);
+    }
+
+    public Mat3x3 changeCol2(Vector3 vector3){
+        return new Mat3x3(m11,vector3.x,m13,
+                            m21,vector3.y,m23,
+                            m31,vector3.z,m33);
+    }
+
+    public Mat3x3 changeCol3(Vector3 vector3){
+        return new Mat3x3(m11,m12,vector3.x,
+                            m21,m22,vector3.y,
+                            m31,m32,vector3.z);
+    }
+
     public String toString(){
         return String.format("("+"%10.2f"+"%10.2f"+"%10.2f"+")"+"%n"+"("+"%10.2f"+"%10.2f"+"%10.2f"+")"+"%n"+"("+"%10.2f"+"%10.2f"+"%10.2f"+")"+"%n",
                 m11,m12,m13,m21,m22,m23,m31,m32,m33);
