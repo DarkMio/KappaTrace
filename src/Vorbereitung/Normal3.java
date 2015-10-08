@@ -1,8 +1,6 @@
 package Vorbereitung;
 
-/**
- * Created by Christoph on 08.10.2015.
- */
+
 public class Normal3 {
     protected final double x;
     protected final double y;
