@@ -39,9 +39,11 @@ public class Mat3x3 {
     }
 
     public Vector3 mul(Vector3 vector3){
-        return new Vector3(m11*vector3.x+m12*vector3.y+m13*vector3.z,
-                            m21*vector3.x+m22*vector3.y+m23*vector3.z,
-                            m31*vector3.x+m32*vector3.y+m33*vector3.z);
+        double x=m11*vector3.x+m12*vector3.y+m13*vector3.z;
+        double y=m21*vector3.x+m22*vector3.y+m23*vector3.z;
+        double z=m31*vector3.x+m32*vector3.y+m33*vector3.z;
+        double magnitude = Math.sqrt(x*x+y*y+z*z);
+        return new Vector3(x, y, z, magnitude);
     }
 
     public Point3 mul(Point3 point3){

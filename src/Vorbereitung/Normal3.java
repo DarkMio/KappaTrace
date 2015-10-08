@@ -12,12 +12,15 @@ public class Normal3 {
         this.z=z;
     }
 
-
     public Normal3 mul(double n){
         return new Normal3(x*n,y*n,z*n);
     }
 
     public Normal3 add(Normal3 n){
         return new Normal3(x+n.x,y+n.y,z+n.z);
+    }
+    /**TODO**/
+    public double dot(Vector3 vector3){
+        return 0;
     }
 }
