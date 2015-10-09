@@ -33,7 +33,6 @@ public class ImageFrame extends JFrame implements ActionListener {
                 File f = new File(fc.getSelectedFile().getAbsolutePath());
                 BufferedImage bi = ip.getImg();
                 ImageIO.write(bi, "png", f);
-
             } catch (IOException e){
                 e.printStackTrace();
             }
