@@ -3,22 +3,45 @@ package Vorbereitung;
 
 final public class Normal3 {
 
+    /** x, y, z describing the normals position
+     */
     public final double x, y, z;
 
+    /**
+     * Standard Constructor of a Normaö
+     * @param x X-Coordinate
+     * @param y Y-Coordinate
+     * @param z Z-Coordinate
+     */
     public Normal3 (double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
+    /**
+     * Multiply a normal with n
+     * @param n Multiplier
+     * @return New Normal with new x, y, z values
+     */
     public Normal3 mul(double n) {
         return new Normal3(x*n, y*n, z*n);
     }
 
+    /**
+     * Add a second Normal3 to the original Normal3
+     * @param n Normal3 to add to
+     * @return New Normal3 that has been added
+     */
     public Normal3 add(Normal3 n) {
         return new Normal3(x+n.x, y+n.y, z+n.z);
     }
 
+    /**
+     * Substract Vector3 from this Normal3
+     * @param v Vector3 to subtract
+     * @return new Vector3 that has been subtracted
+     */
     public Vector3 sub(Vector3 v) {
         final double x, y, z;
         x = this.x - v.x;
@@ -27,6 +50,11 @@ final public class Normal3 {
         return new Vector3(x, y, z);
     }
 
+    /**
+     * Scalar product of this Normal3 with a Vector3
+     * @param v Vector3
+     * @return Scalar value from Normal3 and Vector3
+     */
     public double dot(Vector3 v) {
         return x*v.x + y*v.y + z*v.z;
     }

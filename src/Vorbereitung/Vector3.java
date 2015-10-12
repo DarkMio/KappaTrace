@@ -2,12 +2,28 @@ package Vorbereitung;
 
 final public class Vector3 {
 
+    /**
+     * x, y, z, magnitude of Vector3
+     */
     public final double x, y, z, magnitude;
 
+    /**
+     * Constructor of Vecror3 which calculates the magnitude
+     * @param x x-coordinate
+     * @param y y-coordinate
+     * @param z z-coordinate
+     */
     public Vector3(double x, double y, double z) {
         this(x, y, z, Math.sqrt(x*x + y*y + z*z));
     }
 
+    /**
+     * Standard Constructor of Vector3
+     * @param x x-coordinate
+     * @param y y-coordinate
+     * @param z z-coordinate
+     * @param magnitude magnitude of Vector3
+     */
     public Vector3(double x, double y, double z, double magnitude) {
         this.x = x;
         this.y = y;
@@ -15,46 +31,85 @@ final public class Vector3 {
         this.magnitude = magnitude;
     }
 
+    /**
+     * Add a Vector3 to this Vector3
+     * @param v Vector3 to be added
+     * @return resulting new Vector3
+     */
     public Vector3 add(Vector3 v) {
-        final double x, y, z;
+        final double x, y, z, mag;
         x = this.x + v.x;
         y = this.y + v.y;
         z = this.z + v.z;
-        return new Vector3(x, y, z);
+        mag = magnitude + v.magnitude;
+        return new Vector3(x, y, z, mag);
     }
 
+    /**
+     * Add a Normal3 to this Vector3
+     * @param n Normal3 that should be added
+     * @return resulting new Vector3
+     */
     public Vector3 add(Normal3 n) {
         final double x, y, z;
         x = this.x + n.x;
         y = this.y + n.y;
         z = this.z + n.z;
-        return new Vector3(x, y, z);
+        return new Vector3(x, y, z, magnitude);
     }
 
+    /**
+     * Subtracting a Normal3 from this Vector3
+     * @param n Normal3 to be subtracted
+     * @return resulting new Vector3
+     */
     public Vector3 sub(Normal3 n) {
         final double x, y, z;
         x = this.x - n.x;
         y = this.y - n.y;
         z = this.z - n.z;
-        return new Vector3(x, y, z);
+        return new Vector3(x, y, z, magnitude);
     }
 
+    /**
+     * Multiply with a constant
+     * @param c Constant to be multiplied
+     * @return resulting new Vector
+     */
     public Vector3 mul(double c) {
         return new Vector3(c*x, c*y, c*z);
     }
 
+    /**
+     * Scalar product of this Vector3 with a Vector3
+     * @param v Vector3
+     * @return resulting scalar prodict
+     */
     public double dot(Vector3 v) {
         return x*v.x + y*v.y + z*v.z;
     }
 
+    /**
+     * Scalar product of this Vector3 with a Normal3
+     * @param n Normal3
+     * @return resulting scalar product
+     */
     public double dot(Normal3 n) {
         return x*n.x + y*n.y + z*n.z;
     }
 
+    /**
+     * Normalizes this vector to have a magnitude of 1
+     * @return resulting new Vector3
+     */
     public Vector3 normalized() {
         return mul(1/magnitude);
     }
 
+    /**
+     * This Vector3 as Normal3
+     * @return resulting new Normal3
+     */
     public Normal3 asNormal() {
         return new Normal3(x, y, z);
     }
