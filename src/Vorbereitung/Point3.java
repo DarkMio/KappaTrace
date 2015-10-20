@@ -77,7 +77,6 @@ final public class Point3 {
     public Point3 add(Vector3 v) {
         final double x, y, z;
         x = this.x + v.x;
-
         y = this.y + v.y;
         z = this.z + v.z;
         return new Point3(x, y, z);
