@@ -13,6 +13,10 @@ public class ImagePanel extends JPanel implements ComponentListener {
     protected static final Color black = new Color(0, 0, 0);
     protected static final Color red = new Color(125, 0, 0);
 
+    /**
+     * Standard Constructor to init an image panel with a buffered
+     * image, with 640x480 (is by standard filled with black pixels)
+     */
     public ImagePanel() {
         img = new BufferedImage(640, 480, BufferedImage.TYPE_INT_RGB);
     }

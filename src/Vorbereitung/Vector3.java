@@ -8,7 +8,7 @@ final public class Vector3 {
     public final double x, y, z, magnitude;
 
     /**
-     * Constructor of Vecror3 which calculates the magnitude
+     * Constructor of Vector3 which calculates the magnitude
      * @param x x-coordinate
      * @param y y-coordinate
      * @param z z-coordinate

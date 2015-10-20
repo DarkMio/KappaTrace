@@ -2,6 +2,9 @@ package Vorbereitung;
 
 final public class Mat3x3 {
 
+    /**
+     * Entries of a matrix - with naming convention myx: y for row, x for column
+     */
     public final double m11, m12, m13, m21, m22, m23, m31, m32, m33;
 
     public Mat3x3(double m11, double m12, double m13,
@@ -18,6 +21,11 @@ final public class Mat3x3 {
         this.m33 = m33;
     }
 
+    /**
+     * Multiply this Mat3x3 with another Mat3x3
+     * @param m Mat3x3 to multiply
+     * @return resulting new Mat3x3
+     */
     public Mat3x3 mul(Mat3x3 m) {
         final double mx11, mx12, mx13, mx21, mx22, mx23, mx31, mx32, mx33;
         mx11 = m11 * m.m11 + m12 * m.m21 + m13 * m.m31;
@@ -32,6 +40,11 @@ final public class Mat3x3 {
         return new Mat3x3(mx11, mx12, mx13, mx21, mx22, mx23, mx31, mx32, mx33);
     }
 
+    /**
+     * Multiply a Vector3 to this Mat3x3
+     * @param v Vector3 to be multiplied on Mat3x3
+     * @return resulting new Vector3
+     */
     public Vector3 mul(Vector3 v) {
         final double v1, v2, v3, mg;
         v1 = m11*v.x + m12*v.y + m13*v.z;
@@ -41,6 +54,11 @@ final public class Mat3x3 {
         return new Vector3(v1, v2, v3, mg);
     }
 
+    /**
+     * Multiply Point3 on Mat3x3
+     * @param p Point3 to be multiplied on Mat3x3
+     * @return resulting new Point3
+     */
     public Point3 mul(Point3 p) {
         final double p1, p2, p3;
         p1 = m11*p.x + m12*p.y + m13*p.z;
@@ -49,17 +67,33 @@ final public class Mat3x3 {
         return new Point3(p1, p2, p3);
     }
 
+    /**
+     * Change the first column with values of this Vector3
+     * @param v Vector3 containing new Data for the column
+     * @return resulting new Mat3x3
+     */
     public Mat3x3 changeCol1(Vector3 v) {
         return new Mat3x3(v.x, m12, m13,
                           v.y, m22, m23,
                           v.z, m32, m33);
     }
 
+    /**
+     * Change the second column with values of this Vector3
+     * @param v Vector3 containing new Data for the column
+     * @return resulting new Mat3x3
+     */
     public Mat3x3 changeCol2(Vector3 v) {
         return new Mat3x3(m11, v.x, m13,
                           m21, v.y, m23,
                           m31, v.z, m33);
     }
+
+    /**
+     * Change the third column with values of this Vector3
+     * @param v Vector3 containing new Data for the column
+     * @return resulting new Mat3x3
+     */
     public Mat3x3 changeCol3(Vector3 v) {
         return new Mat3x3(m11, m12, v.x,
                           m21, m22, v.y,

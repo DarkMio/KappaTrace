@@ -3,7 +3,8 @@ package Vorbereitung;
 
 final public class Normal3 {
 
-    /** x, y, z describing the normals position
+    /**
+     * x, y, z describing the normals position
      */
     public final double x, y, z;
 

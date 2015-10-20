@@ -2,14 +2,28 @@ package Vorbereitung;
 
 final public class Point3 {
 
+    /**
+     * x, y, z coordinate of Point3
+     */
     public final double x, y, z;
 
+    /**
+     * Standard constructor of Point3
+     * @param x x-coordinate
+     * @param y y-coordinate
+     * @param z z-coordinate
+     */
     public Point3 (double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
+    /**
+     * Subtract a Point3 from this Poimt3
+     * @param p Point3 that should be subtracted
+     * @return resulting new Vector3
+     */
     public Vector3 sub(Point3 p) {
         final double x, y, z;
         x = this.x - p.x;
@@ -21,7 +35,8 @@ final public class Point3 {
     /**
      * http://geomalgorithms.com/points_and_vectors.html#Vector-Addition
      * "The resulting point Q is considered to be the displacement,
-     * or “translation”, of the point P in the direction of and by the magnitude of the vector"
+     * or “translation”, of the point P in the direction of and by
+     * the magnitude of the vector"
      * @param v A vector to translate
      * @return A Point3 translated from v
      */
