@@ -12,11 +12,16 @@ import java.io.IOException;
 
 public class ImageFrame extends JFrame implements ActionListener {
 
-    protected ImagePanel ip;
 
     public static void main(String[] args) {
-        JFrame jf = new ImageFrame();
+        ImageFrame imgf = new ImageFrame();
+        imgf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        imgf.setVisible(true);
     }
+    /**
+     * Reference to ImagePanel
+     */
+    protected ImagePanel ip;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -25,6 +30,10 @@ public class ImageFrame extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Creates a new JFileChooser to save an image as png.
+     * The data is queried from the BufferedImage inside ImagePanel.
+     */
     protected void saveImagePanel() {
         final JFileChooser fc = new JFileChooser();
         final int returnVal = fc.showDialog(this, "save me, baby.");
@@ -39,24 +48,35 @@ public class ImageFrame extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Standard constructor, builds already all UI components together.
+     */
     public ImageFrame() {
         ImagePanel ip = new ImagePanel();
         this.ip = ip;
         setLayout(new BorderLayout());
         add(ip, BorderLayout.CENTER);
-        add(factorySaveButton("save", "save", this), BorderLayout.NORTH);
+        setJMenuBar(factorySaveButton("save", this));
         addComponentListener(ip);
         setSize(640, 480);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
-    protected static JMenuBar factorySaveButton(String text, String actionCommand, ActionListener al) {
+    /**
+     * Builds together a JMenuBar with Datei > {text} to implement a save-functionality.
+     * @param text {text} for save button
+     * @param al ActionListener (in case we ever need a different one)
+     * @return JMenuBar with Datei > {text}
+     */
+    protected static JMenuBar factorySaveButton(String text, ActionListener al) {
         final JMenuBar jmb = new JMenuBar();
+        final JMenu jm = new JMenu("Datei");
         final JMenuItem jmi = new JMenuItem(text);
-        jmi.setActionCommand(actionCommand);
+        jmi.setActionCommand("save");
         jmi.addActionListener(al);
-        jmb.add(jmi);
+        jm.add(jmi);
+        jmb.add(jm);
         return jmb;
     }
 }

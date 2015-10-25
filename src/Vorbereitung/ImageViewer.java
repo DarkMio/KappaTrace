@@ -40,6 +40,11 @@ public class ImageViewer {
         }
     }
 
+    /**
+     * Load image, build ui, display it in new JFra,e
+     * @param image Image file, probably has to be either pmg, jpeg or bmp
+     * @throws IOException Just in case, not our fault at this point
+     */
     private static void displayImage(File image) throws IOException {
         BufferedImage img = ImageIO.read(image);
         ImageIcon icon = new ImageIcon(img); // Dude, Swing is so whacky.
