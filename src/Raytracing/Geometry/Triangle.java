@@ -5,9 +5,6 @@ import Raytracing.Color;
 import Raytracing.Hit;
 import Raytracing.Ray;
 
-/**
- * Created by Mio on 31/10/2015.
- */
 public class Triangle extends Geometry {
 
     public final Point3 a, b, c;
