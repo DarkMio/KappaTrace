@@ -13,5 +13,4 @@ public class Hit {
         this.ray = ray;
         this.geo = geo;
     }
-
 }
