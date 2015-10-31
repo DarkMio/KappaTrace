@@ -1,6 +1,11 @@
 package Vorbereitung;
 
 
+import MathFunc.Mat3x3;
+import MathFunc.Normal3;
+import MathFunc.Point3;
+import MathFunc.Vector3;
+
 import java.io.PrintWriter;
 
 public class MainTests {

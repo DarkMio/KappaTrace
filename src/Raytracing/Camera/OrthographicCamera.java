@@ -1,8 +1,8 @@
 package Raytracing.Camera;
 
 import Raytracing.Ray;
-import Vorbereitung.Point3;
-import Vorbereitung.Vector3;
+import MathFunc.Point3;
+import MathFunc.Vector3;
 
 public class OrthographicCamera extends Camera {
 
@@ -14,7 +14,7 @@ public class OrthographicCamera extends Camera {
     }
 
     public Ray rayFor(int w, int h, int x, int y) {
-        w = w-1;
+        w -= 1;
         final double wHalf = w/2;
         final double a = w/h;
         final double tempX = (x-wHalf) / w;
