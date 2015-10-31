@@ -125,6 +125,10 @@ final public class Vector3 {
         return y.sub(this);
     }
 
+    public Vector3 x(Vector3 v) {
+        return new Vector3(y*v.z - v.y*z, z*v.x - v.z * y, x*v.y - v.x*y);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
