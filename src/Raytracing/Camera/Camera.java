@@ -1,8 +1,8 @@
 package Raytracing.Camera;
 
 import Raytracing.Ray;
-import Vorbereitung.Point3;
-import Vorbereitung.Vector3;
+import MathFunc.Point3;
+import MathFunc.Vector3;
 
 public abstract class Camera {
 

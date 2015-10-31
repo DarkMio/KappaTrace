@@ -1,8 +1,8 @@
 package Raytracing.Camera;
 
 import Raytracing.Ray;
-import Vorbereitung.Point3;
-import Vorbereitung.Vector3;
+import MathFunc.Point3;
+import MathFunc.Vector3;
 
 public class PerspectiveCamera extends Camera {
 
@@ -14,6 +14,11 @@ public class PerspectiveCamera extends Camera {
     }
 
     public Ray rayFor(int w, int h, int x, int y) {
-
+        w -= 1;
+        Vector3 tempX = u.mul(x - w/2);
+        Vector3 tempY = v.mul(y - w/2);
+        Vector3 tempZ = this.w.mul(h/2 / Math.tan(angle));
+        Vector3 d = (tempZ.add(tempY).add(tempX)).normalized();
+        return new Ray(e, d);
     }
 }

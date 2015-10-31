@@ -1,7 +1,7 @@
 package Raytracing;
 
-import Vorbereitung.Point3;
-import Vorbereitung.Vector3;
+import MathFunc.Point3;
+import MathFunc.Vector3;
 
 public class Ray {
 

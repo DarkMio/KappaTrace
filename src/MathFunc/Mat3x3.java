@@ -1,4 +1,4 @@
-package Vorbereitung;
+package MathFunc;
 
 final public class Mat3x3 {
 
