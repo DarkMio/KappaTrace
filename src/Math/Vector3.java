@@ -2,10 +2,14 @@ package Math;
 
 final public class Vector3 {
 
-    /**
-     * x, y, z, magnitude of Vector3
-     */
-    public final double x, y, z, magnitude;
+    /** x describing the x coordinate of Vector3*/
+    public final double x;
+    /** y describing the y coordinate of Vector3*/
+    public final double y;
+    /** z describing the z coordinate of Vector3*/
+    public final double z;
+    /** magnitude describing the magnitude of Vector3*/
+    public final double magnitude;
 
     /**
      * Constructor of Vector3 which calculates the magnitude
@@ -13,7 +17,7 @@ final public class Vector3 {
      * @param y y-coordinate
      * @param z z-coordinate
      */
-    public Vector3(double x, double y, double z) {
+    public Vector3(final double x, final double y, final double z) {
         this(x, y, z, Math.sqrt(x*x + y*y + z*z));
     }
 
@@ -24,7 +28,7 @@ final public class Vector3 {
      * @param z z-coordinate
      * @param magnitude magnitude of Vector3
      */
-    public Vector3(double x, double y, double z, double magnitude) {
+    public Vector3(final double x, final double y, final double z, final double magnitude) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -33,10 +37,11 @@ final public class Vector3 {
 
     /**
      * Add a Vector3 to this Vector3
-     * @param v Vector3 to be added
+     * @param v Vector3 to be added - must not be null
      * @return resulting new Vector3
      */
     public Vector3 add(Vector3 v) {
+        if(v == null) throw new IllegalArgumentException("Must not be null");
         final double x, y, z, mag;
         x = this.x + v.x;
         y = this.y + v.y;
@@ -47,10 +52,11 @@ final public class Vector3 {
 
     /**
      * Add a Normal3 to this Vector3
-     * @param n Normal3 that should be added
+     * @param n Normal3 that should be added - must not be null
      * @return resulting new Vector3
      */
     public Vector3 add(Normal3 n) {
+        if( n == null ) throw new IllegalArgumentException("Must not be null");
         final double x, y, z;
         x = this.x + n.x;
         y = this.y + n.y;
@@ -60,10 +66,11 @@ final public class Vector3 {
 
     /**
      * Subtracting a Normal3 from this Vector3
-     * @param n Normal3 to be subtracted
+     * @param n Normal3 to be subtracted - must not be null
      * @return resulting new Vector3
      */
     public Vector3 sub(Normal3 n) {
+        if(n == null) throw new IllegalArgumentException("Must not be null");
         final double x, y, z;
         x = this.x - n.x;
         y = this.y - n.y;
@@ -82,19 +89,21 @@ final public class Vector3 {
 
     /**
      * Scalar product of this Vector3 with a Vector3
-     * @param v Vector3
+     * @param v Vector3 - must not be null
      * @return resulting scalar prodict
      */
     public double dot(Vector3 v) {
+        if (v==null) throw new IllegalArgumentException("Must not be null");
         return x*v.x + y*v.y + z*v.z;
     }
 
     /**
      * Scalar product of this Vector3 with a Normal3
-     * @param n Normal3
+     * @param n Normal3 - must not be null
      * @return resulting scalar product
      */
     public double dot(Normal3 n) {
+        if(n==null) throw new IllegalArgumentException("Must not be null");
         return x*n.x + y*n.y + z*n.z;
     }
 
@@ -116,10 +125,11 @@ final public class Vector3 {
 
     /** https://asalga.wordpress.com/2012/09/23/understanding-vector-reflection-visually/
      *
-     * @param n Normal to be reflected on
+     * @param n Normal to be reflected on - must not be null
      * @return Reflected Vector on Normal
      */
     public Vector3 reflectedOn(Normal3 n) {
+        if(n==null)throw new IllegalArgumentException("Must not be null");
         double x = 2* n.dot(this);
         Normal3 y = n.mul(x);
         return y.sub(this);
@@ -154,6 +164,7 @@ final public class Vector3 {
         return result;
     }
 
+    @Override
     public String toString() {
         return String.format("Vector3: (%8.2f, %8.2f, %8.2f) | mag %-8.2f", x, y, z, magnitude);
     }
