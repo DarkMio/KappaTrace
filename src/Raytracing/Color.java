@@ -28,4 +28,11 @@ public class Color {
     public Color mul(double v) {
         return new Color(r * v, g * v, b * v);
     }
+
+    public int toIntRGB() {
+        int color = (int) (r * 255) << 16;
+        color += (int) (g*255) << 8;
+        color += (int) (b*255);
+        return color;
+    }
 }

@@ -5,8 +5,8 @@ import MathFunc.Vector3;
 
 public class Ray {
 
-    final private Point3 o;
-    final private Vector3 d;
+    final public Point3 o;
+    final public Vector3 d;
 
     public Ray(Point3 o, Vector3 d){ // origin, direction
         this.o = o;
