@@ -6,8 +6,8 @@ import MathFunc.Vector3;
 
 public abstract class Camera {
 
-    final protected Point3 e;
-    final protected Vector3 g, t, u, v, w;
+    final public Point3 e;
+    final public Vector3 g, t, u, v, w;
 
     public Camera(Point3 e, Vector3 g, Vector3 t) {
         this.e = e;

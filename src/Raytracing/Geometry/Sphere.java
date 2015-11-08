@@ -5,9 +5,6 @@ import Raytracing.Color;
 import Raytracing.Hit;
 import Raytracing.Ray;
 
-/**
- * Created by Mio on 31/10/2015.
- */
 public class Sphere extends Geometry {
 
     public final Point3 c;
@@ -21,6 +18,13 @@ public class Sphere extends Geometry {
 
     @Override
     public Hit hit(Ray r) {
-        return null;
+        double a = r.d.dot(r.d);
+        double b = r.o.sub(c).mul(2).dot(r.d);
+        double c = r.o.sub(this.c).dot(r.o.sub(this.c)) - this.r*this.r;
+        double d = b*b - 4*a*c;
+        if (d < 0) return null;
+        if (d == 0) return new Hit(-b/(2*a), r, this);
+        if (-b > d) return new Hit((-b - d)/2*a, r, this);
+        return new Hit((-b+d)/2*a, r, this);
     }
 }
