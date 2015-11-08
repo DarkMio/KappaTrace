@@ -37,9 +37,12 @@ public class ImagePanel extends JPanel implements ComponentListener {
 
     @Override
     public void componentResized(ComponentEvent e) {
+        long startTime = System.nanoTime();
         final int width = e.getComponent().getWidth();
         final int height = e.getComponent().getHeight();
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        long stopTime = System.nanoTime();
+        System.out.println(stopTime - startTime);
     }
 
     @Override

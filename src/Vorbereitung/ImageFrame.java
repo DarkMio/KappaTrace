@@ -58,7 +58,7 @@ public class ImageFrame extends JFrame implements ActionListener {
         add(ip, BorderLayout.CENTER);
         setJMenuBar(factorySaveButton("save", this));
         addComponentListener(ip);
-        setSize(640, 480);
+        setSize(1024, 768);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
