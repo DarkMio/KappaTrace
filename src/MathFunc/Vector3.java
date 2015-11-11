@@ -77,7 +77,7 @@ final public class Vector3 {
      * @return resulting new Vector
      */
     public Vector3 mul(double c) {
-        return new Vector3(c*x, c*y, c*z);
+        return new Vector3(x*c, y*c, z*c);
     }
 
     /**
@@ -126,7 +126,7 @@ final public class Vector3 {
     }
 
     public Vector3 x(Vector3 v) {
-        return new Vector3(y*v.z - v.y*z, z*v.x - v.z * y, x*v.y - v.x*y);
+        return new Vector3(y*v.z - z*v.y, z*v.x -x*v.z, x*v.y - y*v.x);
     }
 
     @Override
