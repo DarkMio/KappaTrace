@@ -6,6 +6,7 @@ final public class Mat3x3 {
      * Entries of a matrix - with naming convention myx: y for row, x for column
      */
     public final double m11, m12, m13, m21, m22, m23, m31, m32, m33;
+    public final double determinant;
 
     public Mat3x3(double m11, double m12, double m13,
                   double m21, double m22, double m23,
@@ -19,6 +20,12 @@ final public class Mat3x3 {
         this.m31 = m31;
         this.m32 = m32;
         this.m33 = m33;
+        determinant = m11 * m22 * m33
+                    + m12 * m23 * m31
+                    + m13 * m21 * m32
+                    - m31 * m22 * m13
+                    - m32 * m23 * m11
+                    - m33 * m21 * m12;
     }
 
     /**

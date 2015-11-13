@@ -22,7 +22,7 @@ public class Plane extends Geometry {
     public Hit hit(Ray r) {
         double lower = r.d.dot(n); // was unter dem Bruch steht
         if(lower < 0.0001 ) return null;
-        double upper = new Vector3(a.x - r.o.x, a.y - r.o.y, a.z - r.o.z).dot(n); // Was über dem Bruch steht
+        double upper = new Vector3(a.x - r.o.x, a.y - r.o.y, a.z - r.o.z).dot(n); // Was ï¿½ber dem Bruch steht
         double t = upper/lower;
         return new Hit(t, r, this);
     }
