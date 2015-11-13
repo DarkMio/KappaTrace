@@ -7,9 +7,7 @@ import Raytracing.*;
 import Raytracing.Camera.Camera;
 import Raytracing.Camera.OrthographicCamera;
 import Raytracing.Camera.PerspectiveCamera;
-import Raytracing.Geometry.Geometry;
-import Raytracing.Geometry.Plane;
-import Raytracing.Geometry.Sphere;
+import Raytracing.Geometry.*;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
@@ -41,13 +39,14 @@ public class Raytracer {
         jl.setIcon(frame);
         jf.add(jl);
         scene = new ArrayList<Geometry>();
-        scene.add(new Plane(new Color(0, 1, 0), new Point3(0, -1, 0), new Normal3(0, 1, 0)));
-        scene.add(new Sphere(new Color(1, 0, 0), new Point3(-1, 0, -3), 0.5));
-        scene.add(new Sphere(new Color(1, 0, 0), new Point3(1, 0, -6), 0.5));
-
+        //scene.add(new Plane(new Color(0, 1, 0), new Point3(0, -1, 0), new Normal3(0, 1, 0)));
+        //scene.add(new Sphere(new Color(1, 0, 0), new Point3(-1, 0, -3), 0.5));
+        //scene.add(new Sphere(new Color(1, 0, 0), new Point3(1, 0, -6), 0.5));
+        //scene.add(new Triangle(new Color(1, 0, 1), new Point3(-0.5, 0.5, -3), new Point3(0.5, 0.5, -3), new Point3(0.5, -0.5, -3)));
+        scene.add(new AxisAlignedBox(new Color(0, 0, 1), new Point3(-0.5, 0, -0.5), new Point3(0.5, 1, 0.5)));
         world = new World(new Color(0, 0, 0), scene);
-        // cam = new OrthographicCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), 3);
-        cam = new PerspectiveCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), Math.PI/4);
+        cam = new OrthographicCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), 3);
+        //cam = new PerspectiveCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), Math.PI/4);
         render();
         jf.pack();
         jf.setVisible(true);
