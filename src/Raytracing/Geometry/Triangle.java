@@ -26,11 +26,11 @@ public class Triangle extends Geometry {
         Vector3 colChanger = new Vector3(a.x - r.o.x, b.y - r.o.y, a.z - r.o.z);
         Mat3x3 matrixBeta = matrixBase.changeCol1(colChanger);
         double beta = matrixBeta.determinant / matrixBase.determinant;
-        if (!(beta >= 0 && beta <= 1)) return null;
+        if (!(beta + PRECISION >= 0 && beta - PRECISION <= 1)) return null;
         Mat3x3 matrixGamma = matrixBase.changeCol2(colChanger);
         double gamma = matrixGamma.determinant / matrixBase.determinant;
-        if (!(gamma >= 0 && gamma <= 1)) return null;
-        if (beta + gamma > 1) return null;
+        if (!(gamma - PRECISION >= 0 && gamma - PRECISION <= 1)) return null;
+        if (beta + gamma - PRECISION > 1) return null;
         Mat3x3 matrixT = matrixBase.changeCol3(colChanger);
         return new Hit(matrixT.determinant / matrixBase.determinant, r, this);
     }

@@ -37,12 +37,8 @@ final public class Vector3 {
      * @return resulting new Vector3
      */
     public Vector3 add(Vector3 v) {
-        final double x, y, z, mag;
-        x = this.x + v.x;
-        y = this.y + v.y;
-        z = this.z + v.z;
-        mag = magnitude + v.magnitude;
-        return new Vector3(x, y, z, mag);
+        if (v == null) throw new IllegalArgumentException("v must not be null.");
+        return new Vector3(x + v.x, y + v.y, z + v.z);
     }
 
     /**
@@ -51,11 +47,8 @@ final public class Vector3 {
      * @return resulting new Vector3
      */
     public Vector3 add(Normal3 n) {
-        final double x, y, z;
-        x = this.x + n.x;
-        y = this.y + n.y;
-        z = this.z + n.z;
-        return new Vector3(x, y, z, magnitude);
+        if (n == null) throw new IllegalArgumentException("n must not be null.");
+        return new Vector3(x + n.x, y + n.y, z + n.z);
     }
 
     /**
@@ -64,11 +57,8 @@ final public class Vector3 {
      * @return resulting new Vector3
      */
     public Vector3 sub(Normal3 n) {
-        final double x, y, z;
-        x = this.x - n.x;
-        y = this.y - n.y;
-        z = this.z - n.z;
-        return new Vector3(x, y, z, magnitude);
+        if (n == null) throw new IllegalArgumentException("n must not be null.");
+        return new Vector3(x - n.x, y - n.y, z - n.z);
     }
 
     /**
@@ -86,6 +76,7 @@ final public class Vector3 {
      * @return resulting scalar prodict
      */
     public double dot(Vector3 v) {
+        if (v == null) throw new IllegalArgumentException("v must not be null.");
         return x*v.x + y*v.y + z*v.z;
     }
 
@@ -95,6 +86,7 @@ final public class Vector3 {
      * @return resulting scalar product
      */
     public double dot(Normal3 n) {
+        if (n == null) throw new IllegalArgumentException("n must not be null.");
         return x*n.x + y*n.y + z*n.z;
     }
 
@@ -111,7 +103,8 @@ final public class Vector3 {
      * @return resulting new Normal3
      */
     public Normal3 asNormal() {
-        return new Normal3(x, y, z);
+        Vector3 temp = this.normalized();
+        return new Normal3(temp.x, temp.y, temp.z);
     }
 
     /** https://asalga.wordpress.com/2012/09/23/understanding-vector-reflection-visually/
@@ -120,13 +113,15 @@ final public class Vector3 {
      * @return Reflected Vector on Normal
      */
     public Vector3 reflectedOn(Normal3 n) {
-        double x = 2* n.dot(this);
-        Normal3 y = n.mul(x);
-        return y.sub(this);
+        if (n == null) throw new IllegalArgumentException("n must not be null.");
+        double x = 2 * n.dot(this);
+        Normal3 temp = n.mul(x);
+        return temp.sub(this);
     }
 
     public Vector3 x(Vector3 v) {
-        return new Vector3(y*v.z - z*v.y, z*v.x -x*v.z, x*v.y - y*v.x);
+        if (v == null) throw new IllegalArgumentException("v must not be null.");
+        return new Vector3(y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x);
     }
 
     @Override

@@ -9,28 +9,32 @@ import Raytracing.Ray;
 public class AxisAlignedBox extends Geometry{
 
     public final Point3 lbf, run;
+    protected final Plane top, bottom, left, right, front, back;
+    protected final static Normal3 toTop = new Normal3(0, 1, 0);
+    protected final static Normal3 toRight = new Normal3(1, 0, 0);
+    protected final static Normal3 toFront = new Normal3(0, 0, 1);
+    protected final static Normal3 toBot = new Normal3(0, -1, 0);
+    protected final static Normal3 toLeft = new Normal3(-1, 0, 0);
+    protected final static Normal3 toBack = new Normal3(0, 0, -1);
 
     public AxisAlignedBox(Color c, Point3 lbf, Point3 run) {
         super(c);
         this.lbf = lbf; // left bottom far
         this.run = run; // right upper near
+        top = new Plane(c, run, toTop);
+        bottom = new Plane(c, lbf, toBot);
+        left = new Plane(c, lbf, toLeft);
+        right = new Plane(c, run, toRight);
+        front = new Plane(c, run, toFront);
+        back = new Plane(c, lbf, toBack);
     }
+
 
     @Override
     public Hit hit(Ray r) {
-        Normal3 toTop = new Normal3(0, 1, 0);
-        Normal3 toRight = new Normal3(1, 0, 0);
-        Normal3 toBack = new Normal3(0, 0, 1);
-        // Those boys gotta be as object methods, right ... right?
-        Plane top = new Plane(color, run, toTop);
-        Plane bottom = new Plane(color, lbf, toTop);
-        Plane left = new Plane(color, lbf, toRight);
-        Plane right = new Plane(color, run, toRight);
-        Plane front = new Plane(color, run, toBack);
-        Plane back = new Plane(color, lbf, toBack);
-        Plane near = r.o.sub(front.a).dot(front.n) > 0 ? front : back;
-        Plane side = r.o.sub(left.a).dot(left.n) > 0 ? left : right;
-        Plane upper = r.o.sub(top.a).dot(top.n) > 0 ? top : bottom;
+        Plane near = r.o.sub(front.a).dot(front.n) >= 0.0 ? front : back;
+        Plane side = r.o.sub(left.a).dot(left.n) >= 0.0 ? left : right;
+        Plane upper = r.o.sub(top.a).dot(top.n) >= 0.0 ? top : bottom;
         Hit nearHit = near.hit(r);
         Hit sideHit = side.hit(r);
         Hit upperHit = upper.hit(r);
@@ -38,9 +42,9 @@ public class AxisAlignedBox extends Geometry{
         if (nearHit != null) nearPoint = r.at(nearHit.t);
         if (sideHit != null) sidePoint = r.at(sideHit.t);
         if (upperHit != null) upperPoint = r.at(upperHit.t);
-        if (grAndSm(nearPoint)) return new Hit(nearHit.t, r, this);
-        if (grAndSm(sidePoint)) return new Hit(sideHit.t, r, this);
-        if (grAndSm(upperPoint)) return new Hit(upperHit.t, r, this);
+        if (grAndSmXY(nearPoint)) return nearHit;
+        if (grAndSmYZ(sidePoint)) return sideHit;
+        if (grAndSmXZ(upperPoint)) return upperHit;
         return null;
 /*
         Plane near = front.hit(r).t > back.hit(r).t ? front : back;
@@ -49,12 +53,26 @@ public class AxisAlignedBox extends Geometry{
 */
     }
 
-    protected boolean grAndSm(Point3 hit) {
+
+    protected boolean grAndSmXY(Point3 hit) {
         if (hit == null) return false;
-        return grAndSm(lbf.x, hit.x, run.x) && grAndSm(lbf.y, hit.y, run.y) && grAndSm(lbf.z, hit.z, run.z);
+        return grAndSm(lbf.x, hit.x, run.x) && grAndSm(lbf.y, hit.y, run.y);
+    }
+
+
+    protected boolean grAndSmYZ(Point3 hit) {
+        if (hit == null) return false;
+        return grAndSm(lbf.y, hit.y, run.y) && grAndSm(lbf.z, hit.z, run.z);
+    }
+
+
+    protected boolean grAndSmXZ(Point3 hit) {
+        if (hit == null) return false;
+        return grAndSm(lbf.x, hit.x, run.x) && grAndSm(lbf.z, hit.z, run.z);
     }
 
     protected static boolean grAndSm(double a, double p, double b) {
-        return (a <= p && p <= b);
+        double precision = precisionFor(a, b);
+        return (a - precision <= p && p <= b + precision);
     }
 }

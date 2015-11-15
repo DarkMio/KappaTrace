@@ -14,10 +14,9 @@ public class PerspectiveCamera extends Camera {
     }
 
     public Ray rayFor(int w, int h, int x, int y) {
-        w -= 1;
-        Vector3 tempX = u.mul(x - w/2);
-        Vector3 tempY = v.mul(y - w/2);
-        Vector3 tempZ = this.w.mul(h/2 / Math.tan(angle));
+        Vector3 tempX = u.mul(x - (w-1)/2);
+        Vector3 tempY = v.mul(y - (h-1)/2);
+        Vector3 tempZ = this.w.mul(-1).mul((h/2) / Math.tan(angle));
         Vector3 d = (tempZ.add(tempY).add(tempX)).normalized();
         return new Ray(e, d);
     }
