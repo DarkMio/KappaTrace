@@ -1,32 +1,20 @@
 package Raytracing.UI;
 
-import MathFunc.Normal3;
-import MathFunc.Point3;
-import MathFunc.Vector3;
 import Raytracing.*;
 import Raytracing.Camera.Camera;
-import Raytracing.Camera.OrthographicCamera;
-import Raytracing.Camera.PerspectiveCamera;
-import Raytracing.Geometry.*;
-
 import javax.swing.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
-/**
- * Created by Mio on 08/11/2015.
- */
 public class Raytracer {
 
     final private int width, height;
     final private JFrame jf;
     final private BufferedImage img;
-    final private ArrayList<Geometry> scene;
     private Camera cam;
     final private World world;
     private ImageIcon frame;
 
-    public Raytracer(final int width, final int height) {
+    public Raytracer(final int width, final int height, World world, Camera camera) {
         this.width = width;
         this.height = height;
         jf = new JFrame();
@@ -38,16 +26,8 @@ public class Raytracer {
         JLabel jl = new JLabel();
         jl.setIcon(frame);
         jf.add(jl);
-        scene = new ArrayList<Geometry>();
-        scene.add(new Plane(new Color(0, 1, 0), new Point3(0, -1, 0), new Normal3(0, 1, 0)));
-        scene.add(new Sphere(new Color(1, 0, 0), new Point3(-1, 0, -3), 0.5));
-        scene.add(new Sphere(new Color(1, 0, 0), new Point3(1, 0, -6), 0.5));
-        scene.add(new Triangle(new Color(1, 0, 1), new Point3(-0.5, 0.5, -3), new Point3(0.5, 0.5, -3), new Point3(0.5, -0.5, -3)));
-        scene.add(new AxisAlignedBox(new Color(0, 0, 1), new Point3(-0.5, 0, -0.5), new Point3(0.5, 1, 0.5)));
-        world = new World(new Color(0.1, 0.1, 0.1), scene);
-        // cam = new OrthographicCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), 3);
-        //cam = new PerspectiveCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), Math.PI/4);
-        cam = new PerspectiveCamera(new Point3(2, 2, 2), new Vector3(-2, -2, -2), new Vector3(0, 1, 0), Math.PI/4);
+        this.world = world;
+        cam = camera;
         render();
         jf.pack();
         jf.setVisible(true);
