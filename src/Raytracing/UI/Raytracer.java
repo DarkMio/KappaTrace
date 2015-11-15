@@ -39,14 +39,15 @@ public class Raytracer {
         jl.setIcon(frame);
         jf.add(jl);
         scene = new ArrayList<Geometry>();
-        //scene.add(new Plane(new Color(0, 1, 0), new Point3(0, -1, 0), new Normal3(0, 1, 0)));
-        //scene.add(new Sphere(new Color(1, 0, 0), new Point3(-1, 0, -3), 0.5));
-        //scene.add(new Sphere(new Color(1, 0, 0), new Point3(1, 0, -6), 0.5));
-        //scene.add(new Triangle(new Color(1, 0, 1), new Point3(-0.5, 0.5, -3), new Point3(0.5, 0.5, -3), new Point3(0.5, -0.5, -3)));
+        scene.add(new Plane(new Color(0, 1, 0), new Point3(0, -1, 0), new Normal3(0, 1, 0)));
+        scene.add(new Sphere(new Color(1, 0, 0), new Point3(-1, 0, -3), 0.5));
+        scene.add(new Sphere(new Color(1, 0, 0), new Point3(1, 0, -6), 0.5));
+        scene.add(new Triangle(new Color(1, 0, 1), new Point3(-0.5, 0.5, -3), new Point3(0.5, 0.5, -3), new Point3(0.5, -0.5, -3)));
         scene.add(new AxisAlignedBox(new Color(0, 0, 1), new Point3(-0.5, 0, -0.5), new Point3(0.5, 1, 0.5)));
-        world = new World(new Color(0, 0, 0), scene);
-        cam = new OrthographicCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), 3);
+        world = new World(new Color(0.1, 0.1, 0.1), scene);
+        // cam = new OrthographicCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), 3);
         //cam = new PerspectiveCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), Math.PI/4);
+        cam = new PerspectiveCamera(new Point3(2, 2, 2), new Vector3(-2, -2, -2), new Vector3(0, 1, 0), Math.PI/4);
         render();
         jf.pack();
         jf.setVisible(true);
@@ -57,7 +58,7 @@ public class Raytracer {
             for(int y = 0; y < height; y++) {
                 final Hit h = world.hit(cam.rayFor(width, height, x, y));
                 if(h == null) img.setRGB(x, height-y-1, world.backgroundColor.toIntRGB());
-                else img.setRGB(x, height-y-1, h.geo.color.toIntRGB());
+                else {img.setRGB(x, height-y-1, h.geo.color.toIntRGB());}
             }
         }
         reload();
