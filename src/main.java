@@ -18,7 +18,7 @@ public class main {
     public static void main(String[] args) {
         PerspectiveCamera pCam = new PerspectiveCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), Math.PI/4);
         OrthographicCamera oCam = new OrthographicCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), 3);
-        PerspectiveCamera boxCam = new PerspectiveCamera(new Point3(2, 2, 2), new Vector3(-2, -2, -2), new Vector3(0, 1, 0), Math.PI/4);
+        PerspectiveCamera boxCam = new PerspectiveCamera(new Point3(3, 3, 3), new Vector3(-3, -3, -3), new Vector3(0, 1, 0), Math.PI/4);
         Color background = new Color(0.1, 0.1, 0.1);
         Color red = new Color(220/255.0, 34/255.0, 25/255.0);
         Color blue = new Color(20/255.0, 120/255.0, 204/255.0);
@@ -38,5 +38,12 @@ public class main {
 
         new Raytracer(640, 480, new World(background, sphere), pCam);
         new Raytracer(640, 480, new World(background, sphere), oCam);
+
+        ArrayList<Geometry> all = new ArrayList<>();
+        all.addAll(plane);
+        all.addAll(sphere);
+        all.addAll(box);
+        all.addAll(triangle);
+        new Raytracer(800, 300, new World(background, all), boxCam);
     }
 }
