@@ -1,5 +1,9 @@
 package Raytracing.Geometry;
 
+/**
+ * class for AxisAlignedBox objects
+ */
+
 import MathFunc.Normal3;
 import MathFunc.Point3;
 import Raytracing.Color;
@@ -8,19 +12,40 @@ import Raytracing.Ray;
 
 public class AxisAlignedBox extends Geometry{
 
-    public final Point3 lbf, run;
-    protected final Plane top, bottom, left, right, front, back;
+    /** Point3 determining the left bottom far of the AAB*/
+    public final Point3 lbf;
+    /** Point3 determining the right upper near of the AAB*/
+    public final Point3 run;
+    /** Plane determining the top side of the ABB*/
+    protected final Plane top;
+    /** Plane determining the bottom side of the ABB*/
+    protected final Plane bottom;
+    /** Plane determining the left side of the ABB*/
+    protected final Plane left;
+    /** Plane determining the right side of the ABB*/
+    protected final Plane right;
+    /** Plane determining the front side of the ABB*/
+    protected final Plane  front;
+    /** Plane determining the back side of the ABB*/
+    protected final Plane back;
+    /** Normal3 is used to span a plane to top */
     protected final static Normal3 toTop = new Normal3(0, 1, 0);
+    /** Normal3 is used to span a plane to right */
     protected final static Normal3 toRight = new Normal3(1, 0, 0);
+    /** Normal3 is used to span a plane to front */
     protected final static Normal3 toFront = new Normal3(0, 0, 1);
+    /** Normal3 is used to span a plane to bot */
     protected final static Normal3 toBot = new Normal3(0, -1, 0);
+    /** Normal3 is used to span a plane to left */
     protected final static Normal3 toLeft = new Normal3(-1, 0, 0);
+    /** Normal3 is used to span a plane to back */
     protected final static Normal3 toBack = new Normal3(0, 0, -1);
 
+    /** constructor for AAB objects with a Color c, a Point3 lbf and a Point3 run*/
     public AxisAlignedBox(Color c, Point3 lbf, Point3 run) {
         super(c);
-        this.lbf = lbf; // left bottom far
-        this.run = run; // right upper near
+        this.lbf = lbf;
+        this.run = run;
         top = new Plane(c, run, toTop);
         bottom = new Plane(c, lbf, toBot);
         left = new Plane(c, lbf, toLeft);
@@ -74,5 +99,36 @@ public class AxisAlignedBox extends Geometry{
     protected static boolean grAndSm(double a, double p, double b) {
         double precision = precisionFor(a, b);
         return (a - precision <= p && p <= b + precision);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AxisAlignedBox that = (AxisAlignedBox) o;
+
+        if (lbf != null ? !lbf.equals(that.lbf) : that.lbf != null) return false;
+        if (run != null ? !run.equals(that.run) : that.run != null) return false;
+        if (top != null ? !top.equals(that.top) : that.top != null) return false;
+        if (bottom != null ? !bottom.equals(that.bottom) : that.bottom != null) return false;
+        if (left != null ? !left.equals(that.left) : that.left != null) return false;
+        if (right != null ? !right.equals(that.right) : that.right != null) return false;
+        if (front != null ? !front.equals(that.front) : that.front != null) return false;
+        return !(back != null ? !back.equals(that.back) : that.back != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = lbf != null ? lbf.hashCode() : 0;
+        result = 31 * result + (run != null ? run.hashCode() : 0);
+        result = 31 * result + (top != null ? top.hashCode() : 0);
+        result = 31 * result + (bottom != null ? bottom.hashCode() : 0);
+        result = 31 * result + (left != null ? left.hashCode() : 0);
+        result = 31 * result + (right != null ? right.hashCode() : 0);
+        result = 31 * result + (front != null ? front.hashCode() : 0);
+        result = 31 * result + (back != null ? back.hashCode() : 0);
+        return result;
     }
 }
