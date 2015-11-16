@@ -1,5 +1,8 @@
 package Math;
 
+/**
+ * Vector3 representing vector in three dimensional space
+ */
 final public class Vector3 {
 
     /** x describing the x coordinate of Vector3*/

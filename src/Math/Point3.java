@@ -1,10 +1,13 @@
 package Math;
 
+/**
+ * Point3 represents a point in three dimensional space
+ */
 final public class Point3 {
 
     /** x - describing the Point3s x coordinate */
     public final double x;
-    /** z - describing the Point3s z coordinate */
+    /** y - describing the Point3s z coordinate */
     public final double y;
     /** z - describing the Point3s z coordinate */
     public final double z;

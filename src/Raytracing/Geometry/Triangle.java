@@ -30,7 +30,7 @@ public class Triangle extends Geometry {
         Mat3x3 matrixGamma = matrixBase.changeCol2(colChanger);
         double gamma = matrixGamma.determinant / matrixBase.determinant;
         if (!(gamma - PRECISION >= 0 && gamma - PRECISION <= 1)) return null;
-        if (beta + gamma - PRECISION > 1) return null;
+        if (beta + gamma - PRECISION >= 1) return null;
         Mat3x3 matrixT = matrixBase.changeCol3(colChanger);
         return new Hit(matrixT.determinant / matrixBase.determinant, r, this);
     }

@@ -14,7 +14,7 @@ public class World {
     }
 
     public Hit hit(final Ray r) {
-        double t = Double.MAX_VALUE;
+       double t = Double.MAX_VALUE;
         Hit h = null;
         for(Geometry g: geometry) {
             final Hit hit = g.hit(r);
