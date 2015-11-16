@@ -1,11 +1,16 @@
 package MathFunc;
 
+/**
+ * Point3 represents a point in three dimensional space
+ */
 final public class Point3 {
 
-    /**
-     * x, y, z coordinate of Point3
-     */
-    public final double x, y, z;
+    /** x - describing the Point3s x coordinate */
+    public final double x;
+    /** y - describing the Point3s z coordinate */
+    public final double y;
+    /** z - describing the Point3s z coordinate */
+    public final double z;
 
     /**
      * Standard constructor of Point3
@@ -20,11 +25,12 @@ final public class Point3 {
     }
 
     /**
-     * Subtract a Point3 from this Poimt3
-     * @param p Point3 that should be subtracted
+     * Subtract a Point3 from this Vector3
+     * @param p Point3 that should be subtracted - must not be null
      * @return resulting new Vector3
      */
     public Vector3 sub(Point3 p) {
+        if (p == null) throw new IllegalArgumentException("Must not be null");
         final double x, y, z;
         x = this.x - p.x;
         y = this.y - p.y;
@@ -37,10 +43,11 @@ final public class Point3 {
      * "The resulting point Q is considered to be the displacement,
      * or “translation”, of the point P in the direction of and by
      * the magnitude of the vector"
-     * @param v A vector to translate
+     * @param v A vector to translate - must not be null
      * @return A Point3 translated from v
      */
     public Point3 sub(Vector3 v) {
+        if (v == null) throw new IllegalArgumentException("Must not be null");
         final double x, y, z;
         x = this.x - v.x;
         y = this.y - v.y;
@@ -74,7 +81,13 @@ final public class Point3 {
         return result;
     }
 
+    /**
+     * Subtract a Vector3 from this Point3
+     * @param v Vector3 that should be added - must not be null
+     * @return resulting new Point3
+     */
     public Point3 add(Vector3 v) {
+        if (v == null) throw new IllegalArgumentException("Must not be null");
         final double x, y, z;
         x = this.x + v.x;
         y = this.y + v.y;
@@ -82,6 +95,7 @@ final public class Point3 {
         return new Point3(x, y, z);
     }
 
+    @Override
     public String toString() {
         return String.format("Point3:  (%8.2f, %8.2f, %8.2f)", x, y, z);
     }

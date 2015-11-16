@@ -1,14 +1,28 @@
 package Raytracing.Camera;
 
+/**
+ * Camera represents abstract class for camera objects
+ */
 import Raytracing.Ray;
 import MathFunc.Point3;
 import MathFunc.Vector3;
 
 public abstract class Camera {
 
+    /** Point3 e representing the origin*/
     final public Point3 e;
-    final public Vector3 g, t, u, v, w;
+    /** Vector3 g representing the gaze*/
+    final public Vector3 g;
+    /** Vector3 t representing the up vector*/
+    final public Vector3 t;
+    /** Vector3 u representing the the local vector u*/
+    final public Vector3 u;
+    /** Vector3 v representing the the local vector v*/
+    final public Vector3 v;
+    /** Vector3 w representing the a local vector w*/
+    final public Vector3 w;
 
+    /** abstract constructor for camera objects */
     public Camera(Point3 e, Vector3 g, Vector3 t) {
         this.e = e;
         this.g = g;
@@ -18,6 +32,7 @@ public abstract class Camera {
         v = w.x(u);
     }
 
+    /** abstract constructor for a ray in a specified pixel */
     public abstract Ray rayFor(int w, int h, int x, int y);
 
     @Override

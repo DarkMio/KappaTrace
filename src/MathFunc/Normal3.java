@@ -1,20 +1,24 @@
 package MathFunc;
 
-
+/**
+ * Normal3 represents normal in three dimensional space
+ */
 final public class Normal3 {
 
-    /**
-     * x, y, z describing the normals position
-     */
-    public final double x, y, z;
+    /** x - describing the normals x coordinate */
+    public final double x;
+    /** z - describing the normals z coordinate */
+    public final double y;
+    /** z - describing the normals z coordinate */
+    public final double z;
 
     /**
-     * Standard Constructor of a Normaö
+     * Standard Constructor of a Normal3
      * @param x X-Coordinate
      * @param y Y-Coordinate
      * @param z Z-Coordinate
      */
-    public Normal3 (double x, double y, double z) {
+    public Normal3 (final double x, final double y, final double z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -31,19 +35,21 @@ final public class Normal3 {
 
     /**
      * Add a second Normal3 to the original Normal3
-     * @param n Normal3 to add to
+     * @param n Normal3 to add to - must not be null
      * @return New Normal3 that has been added
      */
     public Normal3 add(Normal3 n) {
+        if (n == null) throw new IllegalArgumentException("Must not be null");
         return new Normal3(x+n.x, y+n.y, z+n.z);
     }
 
     /**
      * Substract Vector3 from this Normal3
-     * @param v Vector3 to subtract
+     * @param v Vector3 to subtract - must not be null
      * @return new Vector3 that has been subtracted
      */
     public Vector3 sub(Vector3 v) {
+        if (v == null) throw new IllegalArgumentException("Must not be null");
         final double x, y, z;
         x = this.x - v.x;
         y = this.y - v.y;
@@ -53,13 +59,15 @@ final public class Normal3 {
 
     /**
      * Scalar product of this Normal3 with a Vector3
-     * @param v Vector3
+     * @param v Vector3 - must not be null
      * @return Scalar value from Normal3 and Vector3
      */
     public double dot(Vector3 v) {
+        if (v == null) throw new IllegalArgumentException("Must not be null");
         return x*v.x + y*v.y + z*v.z;
     }
 
+    @Override
     public String toString() {
         return String.format("Normal3: (%8.2f, %8.2f, %8.2f)", x, y, z);
     }
