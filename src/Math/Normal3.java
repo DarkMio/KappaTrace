@@ -1,6 +1,8 @@
 package Math;
 
-
+/**
+ * Normal3 represents normal in three dimensional space
+ */
 final public class Normal3 {
 
     /** x - describing the normals x coordinate */

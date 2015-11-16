@@ -1,5 +1,8 @@
 package Math;
 
+/**
+ * Mat3x3 accepting 3x3 vectors.
+ */
 final public class Mat3x3 {
 
     /** m11 - first row, first column of matrix */
