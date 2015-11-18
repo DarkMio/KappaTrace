@@ -14,9 +14,9 @@ public class Color {
 
     /** constructor used to determine the color space of an object */
     public Color(double r, double g, double b) {
-        if(r < 0 || r > 1) throw new IllegalArgumentException("0 =< r =< 1"); // Throw exceptions? Or recalc with modulo?
-        if(g < 0 || g > 1) throw new IllegalArgumentException("0 =< g =< 1");
-        if(b < 0 || b > 1) throw new IllegalArgumentException("0 =< g =< 1");
+        if(r < 0) throw new IllegalArgumentException("0 =< r =< 1"); // Throw exceptions? Or recalc with modulo?
+        if(g < 0) throw new IllegalArgumentException("0 =< g =< 1");
+        if(b < 0) throw new IllegalArgumentException("0 =< g =< 1");
         this.r = r;
         this.g = g;
         this.b = b;
@@ -60,9 +60,9 @@ public class Color {
 
     /** calculates from double color to single color int */
     public int toIntRGB() {
-        int color = (int) (r * 255) << 16;
-        color += (int) (g*255) << 8;
-        color += (int) (b*255);
+        int color = Math.min((int) (r * 255), 255) << 16;
+        color += Math.min((int) (g*255), 255) << 8;
+        color += Math.min((int) (b*255), 255);
         return color;
     }
 

@@ -35,14 +35,14 @@ public class main {
         new Raytracer(640, 480, new World(background, triangle), pCam);
 */
         sphere.add(new Sphere(red, new Point3(1, 0, -6), 0.5));
-
+/*
         new Raytracer(640, 480, new World(background, sphere), pCam);
-        new Raytracer(640, 480, new World(background, sphere), oCam);
-
+*/        new Raytracer(640, 480, new World(background, sphere), oCam);
+/*
         box.addAll(plane);
         box.addAll(sphere);
         box.addAll(triangle);
         new Raytracer(640, 480, new World(background, box), boxCam);
-
+*/
     }
 }

@@ -13,11 +13,14 @@ public class World {
     public final Color backgroundColor;
     /** an ArrayList consisting of Geometry objects */
     public final ArrayList<Geometry> geometry;
+    /** an directional light for basic global lightning */
+    public final Color ambientLight;
 
     /** constructor used to create a world with a background color and a scene */
-    public World(Color backgroundColor, ArrayList<Geometry> geometry) {
+    public World(Color backgroundColor, ArrayList<Geometry> geometry, Color ambientLight) {
         this.backgroundColor = backgroundColor;
         this.geometry = geometry;
+        this.ambientLight = ambientLight;
     }
 
     /** function used to calculate the nearest ray hit */
