@@ -21,14 +21,30 @@ public class OrthographicCamera extends Camera {
     @Override
     public Ray rayFor(int w, int h, int x, int y) {
         w -= 1;
-        final double wHalf = w/2;
-        final double a = w/h;
+        h -= 1;
+        final double wHalf = w/2.0;
+        final double hHalf = h/2.0;
+        final double a = ((double)w)/h;
         final double tempX = (x-wHalf) / w;
-        final double tempY = (y-wHalf) / w;
+        final double tempY = (y-hHalf) / h;
         Vector3 posX = u.mul(a*s*tempX);
         Vector3 posY = v.mul(s*tempY);
         return new Ray(e.add(posX).add(posY), g);
     }
+
+    /*
+        @Override
+    public Ray rayFor(int w, int h, int x, int y) {
+        final double a = w/h;
+        final double tempU = a * s * ((x-(h-1)/2)/(h-1));
+        final Vector3 tempUV = u.mul(tempU);
+        final double tempV = s*((y-(w-1)/2)/(w-1));
+        final Vector3 tempVV = v.mul(tempV);
+        final Point3 o = e.add(tempUV).add(tempVV);
+
+        return new Ray(o, this.w.mul(-1));
+    }
+     */
 
     @Override
     public boolean equals(Object o) {
