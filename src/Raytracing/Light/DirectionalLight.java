@@ -14,8 +14,8 @@ public class DirectionalLight extends Light {
     }
 
     @Override
-    public boolean illuminate(Point3 p) {
-        return false;
+    public boolean illuminates(Point3 p) {
+        return true;
     }
 
     @Override

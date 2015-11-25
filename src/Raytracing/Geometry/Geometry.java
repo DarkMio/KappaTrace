@@ -5,6 +5,7 @@ package Raytracing.Geometry;
  */
 import Raytracing.Color;
 import Raytracing.Hit;
+import Raytracing.Material.Material;
 import Raytracing.Ray;
 
 public abstract class Geometry {
@@ -12,11 +13,11 @@ public abstract class Geometry {
     /** epsilon precision of doubles */
     public final static double PRECISION = 0.0000001;
     /** Color representing color */
-    public final Color color;
+    public final Material material;
 
     /** abstract constructor for geometry */
-    public Geometry(Color color) {
-        this.color = color;
+    public Geometry(Material material) {
+        this.material = material;
     }
 
     /** abstract constructor for a ray hit */
@@ -49,12 +50,12 @@ public abstract class Geometry {
 
         Geometry geometry = (Geometry) o;
 
-        return !(color != null ? !color.equals(geometry.color) : geometry.color != null);
+        return !(material != null ? !material.equals(geometry.material) : geometry.material != null);
 
     }
 
     @Override
     public int hashCode() {
-        return color != null ? color.hashCode() : 0;
+        return material != null ? material.hashCode() : 0;
     }
 }

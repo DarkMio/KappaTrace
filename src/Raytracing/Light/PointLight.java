@@ -14,12 +14,12 @@ public class PointLight extends Light {
     }
 
     @Override
-    public boolean illuminate(Point3 p) {
+    public boolean illuminates(Point3 p) {
         return true;
     }
 
     @Override
     public Vector3 directionFrom(Point3 p) {
-        return null;
+        return position.sub(p).normalized();
     }
 }

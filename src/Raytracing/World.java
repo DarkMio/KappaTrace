@@ -5,6 +5,8 @@ package Raytracing;
  */
 
 import Raytracing.Geometry.Geometry;
+import Raytracing.Light.Light;
+
 import java.util.ArrayList;
 
 public class World {
@@ -16,8 +18,11 @@ public class World {
     /** an directional light for basic global lightning */
     public final Color ambientLight;
 
+    public final ArrayList<Light> lights;
+
     /** constructor used to create a world with a background color and a scene */
-    public World(Color backgroundColor, ArrayList<Geometry> geometry, Color ambientLight) {
+    public World(Color backgroundColor, ArrayList<Geometry> geometry, Color ambientLight, ArrayList<Light> lights) {
+        this.lights = lights;
         this.backgroundColor = backgroundColor;
         this.geometry = geometry;
         this.ambientLight = ambientLight;

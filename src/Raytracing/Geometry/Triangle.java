@@ -4,10 +4,12 @@ package Raytracing.Geometry;
  * class for Triangle objects
  */
 import MathFunc.Mat3x3;
+import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Color;
 import Raytracing.Hit;
+import Raytracing.Material.Material;
 import Raytracing.Ray;
 
 public class Triangle extends Geometry {
@@ -20,8 +22,8 @@ public class Triangle extends Geometry {
     public final Point3 c;
 
     /** constructor used to create triangle objects with a Color color, a Point3 a, a Point3 b and a Point3 c */
-    public Triangle(Color color, Point3 a, Point3 b, Point3 c) {
-        super(color);
+    public Triangle(Material material, Point3 a, Point3 b, Point3 c) {
+        super(material);
         this.a = a;
         this.b = b;
         this.c = c;
@@ -41,7 +43,7 @@ public class Triangle extends Geometry {
         if (!(gamma - PRECISION >= 0 && gamma - PRECISION <= 1)) return null;
         if (beta + gamma - PRECISION >= 1) return null;
         Mat3x3 matrixT = matrixBase.changeCol3(colChanger);
-        return new Hit(matrixT.determinant / matrixBase.determinant, r, this);
+        return new Hit(matrixT.determinant / matrixBase.determinant, r, this, new Normal3(beta, gamma, matrixT.determinant / matrixBase.determinant));
     }
 
     @Override
