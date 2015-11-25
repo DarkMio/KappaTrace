@@ -8,6 +8,7 @@ import MathFunc.Normal3;
 import MathFunc.Point3;
 import Raytracing.Color;
 import Raytracing.Hit;
+import Raytracing.Material.Material;
 import Raytracing.Ray;
 
 public class AxisAlignedBox extends Geometry{
@@ -42,16 +43,16 @@ public class AxisAlignedBox extends Geometry{
     protected final static Normal3 toBack = new Normal3(0, 0, -1);
 
     /** constructor for AAB objects with a Color c, a Point3 lbf and a Point3 run*/
-    public AxisAlignedBox(Color c, Point3 lbf, Point3 run) {
-        super(c);
+    public AxisAlignedBox(Material m, Point3 lbf, Point3 run) {
+        super(m);
         this.lbf = lbf;
         this.run = run;
-        top = new Plane(c, run, toTop);
-        bottom = new Plane(c, lbf, toBot);
-        left = new Plane(c, lbf, toLeft);
-        right = new Plane(c, run, toRight);
-        front = new Plane(c, run, toFront);
-        back = new Plane(c, lbf, toBack);
+        top = new Plane(m, run, toTop);
+        bottom = new Plane(m, lbf, toBot);
+        left = new Plane(m, lbf, toLeft);
+        right = new Plane(m, run, toRight);
+        front = new Plane(m, run, toFront);
+        back = new Plane(m, lbf, toBack);
     }
 
 

@@ -8,6 +8,7 @@ import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Color;
 import Raytracing.Hit;
+import Raytracing.Material.Material;
 import Raytracing.Ray;
 
 public class Plane extends Geometry {
@@ -18,8 +19,8 @@ public class Plane extends Geometry {
     public final Normal3 n;
 
     /** constructor for plane objects with a Color color, a Point3 a and a Normal3 n*/
-    public Plane(Color color, Point3 a, Normal3 n) {
-        super(color);
+    public Plane(Material material, Point3 a, Normal3 n) {
+        super(material);
         this.a = a;
         this.n = n;
     }
@@ -30,7 +31,7 @@ public class Plane extends Geometry {
         double upper = n.dot(new Vector3(a.x - r.o.x, a.y - r.o.y, a.z - r.o.z)); // Was �ber dem Bruch steht
         if (lower == 0) return null; // You cannot divide through zero, thanks.
         double t = upper/lower;
-        if(t>= 0) return new Hit(t, r, this);
+        if(t>= 0) return new Hit(t, r, this, n);
         return null;
     }
 

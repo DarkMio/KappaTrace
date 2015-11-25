@@ -3,9 +3,11 @@ package Raytracing.Geometry;
 /**
  * class for Sphere objects
  */
+import MathFunc.Normal3;
 import MathFunc.Point3;
 import Raytracing.Color;
 import Raytracing.Hit;
+import Raytracing.Material.Material;
 import Raytracing.Ray;
 
 public class Sphere extends Geometry {
@@ -16,8 +18,8 @@ public class Sphere extends Geometry {
     public final double r;
 
     /** constructor used to create sphere objects with a Color color, a Point3 c and a double r */
-    public Sphere(Color color, Point3 c, double r) {
-        super(color);
+    public Sphere(Material material, Point3 c, double r) {
+        super(material);
         this.c = c;
         this.r = r;
     }
@@ -30,9 +32,13 @@ public class Sphere extends Geometry {
         double d = b*b - 4*a*c;
         double precision = precisionFor(b, d);
         if (d - precision < 0) return null;
-        if (d == 0) return new Hit(-b/(2*a), r, this);
-        if (-b + precision > d - precision) return new Hit((-b - d)/2*a, r, this);
-        return new Hit((-b+d)/2*a, r, this);
+        if (d == 0) return new Hit(-b/(2*a), r, this, normalToRay(r, -b/(2*a)));    // my butthole is clenching here
+        if (-b + precision > d - precision) return new Hit((-b - d)/2*a, r, this, normalToRay(r, (-b-d)/(2*a)));  // ^ see comment above
+        return new Hit((-b+d)/2*a, r, this, normalToRay(r, (-b+d)/2*a));            // ^ see comment above
+    }
+
+    protected Normal3 normalToRay(Ray r, double t) {
+        return r.at(t).sub(c).asNormal();
     }
 
     @Override

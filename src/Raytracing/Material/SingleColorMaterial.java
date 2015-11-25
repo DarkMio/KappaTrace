@@ -14,6 +14,6 @@ public class SingleColorMaterial extends Material{
 
     @Override
     public Color colorFor(Hit hit, World world) {
-        return null;
+        return this.color;
     }
 }

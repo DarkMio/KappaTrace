@@ -1,7 +1,9 @@
 package Raytracing.Material;
 
+import MathFunc.Vector3;
 import Raytracing.Color;
 import Raytracing.Hit;
+import Raytracing.Light.Light;
 import Raytracing.World;
 
 /**
@@ -16,6 +18,16 @@ public class LambertMaterial extends Material {
 
     @Override
     public Color colorFor(Hit hit, World world) {
-        return null;
+        Color a = world.ambientLight.mul(color);
+        Color b = null;
+        for(Light light: world.lights) {
+            Vector3 l = light.directionFrom(hit.ray.at(hit.t));
+            Color c = color.mul(light.color).mul(Math.max(0, hit.n.dot(l)));
+            if(b == null) b = c;
+            else b.add(b);
+        }
+
+
+        return a.add(b);
     }
 }

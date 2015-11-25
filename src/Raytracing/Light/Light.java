@@ -12,6 +12,6 @@ public abstract class Light {
         this.color = color;
     }
 
-    public abstract boolean illuminate(Point3 p);
+    public abstract boolean illuminates(Point3 p);
     public abstract Vector3 directionFrom(Point3 p);
 }
