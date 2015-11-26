@@ -21,12 +21,17 @@ public class Triangle extends Geometry {
     /** Point3 representing third vertex of a triangle */
     public final Point3 c;
 
+    public final Normal3 an, bn, cn;
+
     /** constructor used to create triangle objects with a Color color, a Point3 a, a Point3 b and a Point3 c */
-    public Triangle(Material material, Point3 a, Point3 b, Point3 c) {
+    public Triangle(Material material, Point3 a, Normal3 an, Point3 b, Normal3 bn, Point3 c, Normal3 cn) {
         super(material);
         this.a = a;
         this.b = b;
         this.c = c;
+        this.an = an;
+        this.bn = bn;
+        this.cn = cn;
     }
 
     @Override
@@ -43,7 +48,11 @@ public class Triangle extends Geometry {
         if (!(gamma - PRECISION >= 0 && gamma - PRECISION <= 1)) return null;
         if (beta + gamma - PRECISION >= 1) return null;
         Mat3x3 matrixT = matrixBase.changeCol3(colChanger);
-        return new Hit(matrixT.determinant / matrixBase.determinant, r, this, new Normal3(beta, gamma, matrixT.determinant / matrixBase.determinant));
+        double t = matrixT.determinant / matrixBase.determinant;
+        if(!(t>=0)) return null;
+        final Normal3 temp = an.mul(1-beta-gamma).add(bn.mul(beta)).add(cn.mul(gamma));
+        System.out.println(1-beta-gamma+beta+gamma);
+        return new Hit(t, r, this, temp);
     }
 
     @Override
