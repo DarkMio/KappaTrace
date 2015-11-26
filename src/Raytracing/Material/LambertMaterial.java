@@ -1,5 +1,6 @@
 package Raytracing.Material;
 
+import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Color;
 import Raytracing.Hit;
@@ -20,11 +21,14 @@ public class LambertMaterial extends Material {
     public Color colorFor(Hit hit, World world) {
         Color a = world.ambientLight.mul(color);
         Color b = null;
+        Point3 pos = hit.ray.o.add(hit.ray.d.mul(hit.t));
         for(Light light: world.lights) {
-            Vector3 l = light.directionFrom(hit.ray.at(hit.t));
-            Color c = color.mul(light.color).mul(Math.max(0, hit.n.dot(l)));
-            if(b == null) b = c;
-            else b.add(b);
+            if (light.illuminates(pos)) {
+                Vector3 l = light.directionFrom(hit.ray.at(hit.t)).normalized();
+                Color c = color.mul(light.color).mul(Math.max(0, hit.n.dot(l)));
+                if (b == null) b = c;
+                else b.add(b);
+            }
         }
 
 

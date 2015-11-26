@@ -4,6 +4,8 @@ import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Color;
 
+import java.util.Vector;
+
 public class SpotLight extends Light {
 
     public final Point3 position;
@@ -20,11 +22,13 @@ public class SpotLight extends Light {
 
     @Override
     public boolean illuminates(Point3 p) {
-        return true;
+        Vector3 v = p.sub(position);
+        double a = v.dot(direction) / (v.magnitude * direction.magnitude);
+        return Math.acos(a) <= halfAngle;
     }
 
     @Override
     public Vector3 directionFrom(Point3 p) {
-        return null;
+        return position.sub(p);
     }
 }
