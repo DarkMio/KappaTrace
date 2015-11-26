@@ -51,7 +51,6 @@ public class Triangle extends Geometry {
         double t = matrixT.determinant / matrixBase.determinant;
         if(!(t>=0)) return null;
         final Normal3 temp = an.mul(1-beta-gamma).add(bn.mul(beta)).add(cn.mul(gamma));
-        System.out.println(1-beta-gamma+beta+gamma);
         return new Hit(t, r, this, temp);
     }
 
