@@ -7,7 +7,6 @@ import MathFunc.Mat3x3;
 import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
-import Raytracing.Color;
 import Raytracing.Hit;
 import Raytracing.Material.Material;
 import Raytracing.Ray;
@@ -20,10 +19,14 @@ public class Triangle extends Geometry {
     public final Point3 b;
     /** Point3 representing third vertex of a triangle */
     public final Point3 c;
+    /** Normal3 representing the Normal3 of Point3 a */
+    public final Normal3 an;
+    /** Normal3 representing the Normal3 of Point3 b */
+    public final Normal3 bn;
+    /** Normal3 representing the Normal3 of Point3 c */
+    public final Normal3 cn;
 
-    public final Normal3 an, bn, cn;
-
-    /** constructor used to create triangle objects with a Color color, a Point3 a, a Point3 b and a Point3 c */
+    /** constructor used to create triangle objects with a Material material, a Point3 a, a Point3 b, a Point3 c, a Normal3 an, a Normal3 bn and a Normal3 cn */
     public Triangle(Material material, Point3 a, Normal3 an, Point3 b, Normal3 bn, Point3 c, Normal3 cn) {
         super(material);
         this.a = a;

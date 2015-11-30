@@ -5,7 +5,6 @@ package Raytracing.Geometry;
  */
 import MathFunc.Normal3;
 import MathFunc.Point3;
-import Raytracing.Color;
 import Raytracing.Hit;
 import Raytracing.Material.Material;
 import Raytracing.Ray;
@@ -17,7 +16,7 @@ public class Sphere extends Geometry {
     /** double representing the radius of a sphere */
     public final double r;
 
-    /** constructor used to create sphere objects with a Color color, a Point3 c and a double r */
+    /** constructor used to create sphere objects with a Material material, a Point3 c and a double r */
     public Sphere(Material material, Point3 c, double r) {
         super(material);
         this.c = c;
@@ -37,6 +36,7 @@ public class Sphere extends Geometry {
         return new Hit((-b+d)/2*a, r, this, normalToRay(r, (-b+d)/2*a));            // ^ see comment above
     }
 
+    /** Returns the Normal3 of a point */
     protected Normal3 normalToRay(Ray r, double t) {
         return r.at(t).sub(c).asNormal();
     }

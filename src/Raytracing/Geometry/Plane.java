@@ -6,7 +6,6 @@ package Raytracing.Geometry;
 import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
-import Raytracing.Color;
 import Raytracing.Hit;
 import Raytracing.Material.Material;
 import Raytracing.Ray;
@@ -18,7 +17,7 @@ public class Plane extends Geometry {
     /** normal used to span plane */
     public final Normal3 n;
 
-    /** constructor for plane objects with a Color color, a Point3 a and a Normal3 n*/
+    /** constructor for plane objects with a Material material, a Point3 a and a Normal3 n*/
     public Plane(Material material, Point3 a, Normal3 n) {
         super(material);
         this.a = a;

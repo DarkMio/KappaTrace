@@ -6,8 +6,10 @@ import Raytracing.Color;
 
 public class PointLight extends Light {
 
+    /** Point3 used to determine the position of PointLight */
     public final Point3 position;
 
+    /** Constructor used to create PointLight with a Point3 position and a Color color */
     public PointLight(Point3 position, Color color) {
         super(color);
         this.position = position;

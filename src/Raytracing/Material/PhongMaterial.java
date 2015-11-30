@@ -8,10 +8,15 @@ import Raytracing.Light.Light;
 import Raytracing.World;
 
 public class PhongMaterial extends Material {
+
+    /** Color representing diffuse reflections of rough surfaces */
     public final Color diffuse;
+    /** Color representing specular reflections of shiny surfaces*/
     public final Color specular;
+    /**int exponent representing the Phong exponent.  */
     public final int exponent;
 
+    /** Constructor used to create PhongMaterial with a Color diffuse, a Color specular and an int exponent */
     public PhongMaterial(Color diffuse, Color specular, int exponent) {
         this.diffuse = diffuse;
         this.specular = specular;

@@ -8,11 +8,15 @@ import java.util.Vector;
 
 public class SpotLight extends Light {
 
+    /** Point3 used to determine the position of SpotLight */
     public final Point3 position;
+    /** Vector3 used to determine the direction of SpotLight */
     public final Vector3 direction;
+    /** Double used to determine the angle of SpotLight  */
     public final double halfAngle;
 
 
+    /** Constructor used to create SpotLight with a Point3 position, a Vector3 direction, a double halfAngle and a Color color */
     public SpotLight(Point3 position, Vector3 direction, double halfAngle, Color color) {
         super(color);
         this.position = position;
