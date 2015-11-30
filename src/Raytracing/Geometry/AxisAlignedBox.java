@@ -6,7 +6,6 @@ package Raytracing.Geometry;
 
 import MathFunc.Normal3;
 import MathFunc.Point3;
-import Raytracing.Color;
 import Raytracing.Hit;
 import Raytracing.Material.Material;
 import Raytracing.Ray;
@@ -42,7 +41,7 @@ public class AxisAlignedBox extends Geometry{
     /** Normal3 is used to span a plane to back */
     protected final static Normal3 toBack = new Normal3(0, 0, -1);
 
-    /** constructor for AAB objects with a Color c, a Point3 lbf and a Point3 run*/
+    /** constructor for AAB objects with a Material m, a Point3 lbf and a Point3 run*/
     public AxisAlignedBox(Material m, Point3 lbf, Point3 run) {
         super(m);
         this.lbf = lbf;
@@ -79,24 +78,25 @@ public class AxisAlignedBox extends Geometry{
 */
     }
 
-
+    /** Shortcut method to check if ray position is within x/y boundaries of the AxisAlignedBox */
     protected boolean grAndSmXY(Point3 hit) {
         if (hit == null) return false;
         return grAndSm(lbf.x, hit.x, run.x) && grAndSm(lbf.y, hit.y, run.y);
     }
 
-
+    /** Shortcut method to check if ray position is within y/z boundaries of the AxisAlignedBox */
     protected boolean grAndSmYZ(Point3 hit) {
         if (hit == null) return false;
         return grAndSm(lbf.y, hit.y, run.y) && grAndSm(lbf.z, hit.z, run.z);
     }
 
-
+    /** Shortcut method to check if ray position is within x/z boundaries of the AxisAlignedBox */
     protected boolean grAndSmXZ(Point3 hit) {
         if (hit == null) return false;
         return grAndSm(lbf.x, hit.x, run.x) && grAndSm(lbf.z, hit.z, run.z);
     }
 
+    /** Shortcut method to check if a value is within the boundaries of a min and max coordinate of the AxisAlignedBox */
     protected static boolean grAndSm(double a, double p, double b) {
         double precision = precisionFor(a, b);
         return (a - precision <= p && p <= b + precision);

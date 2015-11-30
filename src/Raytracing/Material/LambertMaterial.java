@@ -7,12 +7,12 @@ import Raytracing.Hit;
 import Raytracing.Light.Light;
 import Raytracing.World;
 
-/**
- * Created by Mio on 17.11.2015.
- */
 public class LambertMaterial extends Material {
+
+    /** Color used to determine the color of LambertMaterial */
     public final Color color;
 
+    /** constructor used to create LambertMaterial with a Color color */
     public LambertMaterial(Color color) {
         this.color = color;
     }

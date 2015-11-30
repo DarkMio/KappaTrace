@@ -6,8 +6,10 @@ import Raytracing.Color;
 
 public class DirectionalLight extends Light {
 
+    /** Vector3 representing the direction of the DirectionalLight */
     public final Vector3 direction;
 
+    /** Constructor used to create directional light with a Vector3 direction and a Color color */
     public DirectionalLight(Vector3 direction, Color color) {
         super(color);
         this.direction = direction;

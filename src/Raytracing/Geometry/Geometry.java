@@ -3,7 +3,6 @@ package Raytracing.Geometry;
 /**
  * class for geometric functions
  */
-import Raytracing.Color;
 import Raytracing.Hit;
 import Raytracing.Material.Material;
 import Raytracing.Ray;
@@ -12,7 +11,7 @@ public abstract class Geometry {
 
     /** epsilon precision of doubles */
     public final static double PRECISION = 0.0000001;
-    /** Color representing color */
+    /** Material representing material */
     public final Material material;
 
     /** abstract constructor for geometry */
