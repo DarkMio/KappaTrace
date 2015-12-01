@@ -1,5 +1,7 @@
 package Raytracing.Material;
-
+/**
+ * SingleColorMaterial represents class for all SingleColorMaterial objects
+ */
 import Raytracing.Color;
 import Raytracing.Hit;
 import Raytracing.World;
@@ -10,13 +12,15 @@ public class SingleColorMaterial extends Material{
     public final Color color;
 
 
-    /** Constructor used to create a SingleColorMaterial with a Color color */
-    public SingleColorMaterial(Color color) {
+    /** Constructor used to create a SingleColorMaterial object
+     * @param color Color - must not be null */
+    public SingleColorMaterial(final Color color) {
+        if (color == null) throw new IllegalArgumentException("must not be null");
         this.color = color;
     }
 
     @Override
-    public Color colorFor(Hit hit, World world) {
+    public Color colorFor(final Hit hit, final World world) {
         return this.color;
     }
 }

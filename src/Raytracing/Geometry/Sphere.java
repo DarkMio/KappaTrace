@@ -16,15 +16,21 @@ public class Sphere extends Geometry {
     /** double representing the radius of a sphere */
     public final double r;
 
-    /** constructor used to create sphere objects with a Material material, a Point3 c and a double r */
-    public Sphere(Material material, Point3 c, double r) {
+    /**
+     * Construct a Sphere
+     * @param material Material for color
+     * @param c Point3 for Sphere construction - must not be null
+     * @param r double for plane Sphere - must not be null
+     */    public Sphere(final Material material, final Point3 c, final double r) {
         super(material);
+        if (c == null) throw new IllegalArgumentException("must not be null");
+        if (r < 0) throw new IllegalArgumentException("must be greater or equals 0");
         this.c = c;
         this.r = r;
     }
 
     @Override
-    public Hit hit(Ray r) {
+    public Hit hit(final Ray r) {
         double a = r.d.dot(r.d);
         double b = r.o.sub(c).mul(2).dot(r.d);
         double c = r.o.sub(this.c).dot(r.o.sub(this.c)) - this.r*this.r;
@@ -36,8 +42,12 @@ public class Sphere extends Geometry {
         return new Hit((-b+d)/2*a, r, this, normalToRay(r, (-b+d)/2*a));            // ^ see comment above
     }
 
-    /** Returns the Normal3 of a point */
-    protected Normal3 normalToRay(Ray r, double t) {
+    /**@param r Ray
+     * @param t double - must not be null
+     * @return Normal3 of a point
+     * */
+    protected Normal3 normalToRay(final Ray r, final double t) {
+        if (r == null) throw new IllegalArgumentException("must not be null");
         return r.at(t).sub(c).asNormal();
     }
 

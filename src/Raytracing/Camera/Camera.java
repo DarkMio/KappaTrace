@@ -22,8 +22,17 @@ public abstract class Camera {
     /** Vector3 w representing the a local vector w*/
     final public Vector3 w;
 
-    /** abstract constructor for camera objects */
-    public Camera(Point3 e, Vector3 g, Vector3 t) {
+    /**
+     * Abstract Camaera constructor
+     * @param e Point3 for plane construction - must not be null
+     * @param g Vector3 for plane construction - must not be null
+     * @param t Vector3 for plane construction - must not be null
+     *
+     */
+    public Camera(final Point3 e, final Vector3 g, final Vector3 t) {
+        if (e == null) throw new IllegalArgumentException("must not be null");
+        if (g == null) throw new IllegalArgumentException("must not be null");
+        if (t == null) throw new IllegalArgumentException("must not be null");
         this.e = e;
         this.g = g;
         this.t = t;
@@ -33,7 +42,7 @@ public abstract class Camera {
     }
 
     /** abstract constructor for a ray in a specified pixel */
-    public abstract Ray rayFor(int w, int h, int x, int y);
+    public abstract Ray rayFor(final int w, final int h, final int x, final int y);
 
     @Override
     public boolean equals(Object o) {

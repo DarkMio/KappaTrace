@@ -41,9 +41,16 @@ public class AxisAlignedBox extends Geometry{
     /** Normal3 is used to span a plane to back */
     protected final static Normal3 toBack = new Normal3(0, 0, -1);
 
-    /** constructor for AAB objects with a Material m, a Point3 lbf and a Point3 run*/
-    public AxisAlignedBox(Material m, Point3 lbf, Point3 run) {
+    /**
+     * Construct an AxisAlignedBox
+     * @param m Material for color
+     * @param lbf Point3 for plane calculations - must not be null
+     * @param run Point3 for plane calculations - must not be null
+     */
+    public AxisAlignedBox(final Material m, final Point3 lbf, final Point3 run) {
         super(m);
+        if (lbf == null) throw new IllegalArgumentException("must not be null");
+        if (run == null) throw new IllegalArgumentException("must not be null");
         this.lbf = lbf;
         this.run = run;
         top = new Plane(m, run, toTop);
@@ -56,7 +63,7 @@ public class AxisAlignedBox extends Geometry{
 
 
     @Override
-    public Hit hit(Ray r) {
+    public Hit hit(final Ray r) {
         Plane near = r.o.sub(front.a).dot(front.n) >= 0.0 ? front : back;
         Plane side = r.o.sub(left.a).dot(left.n) >= 0.0 ? left : right;
         Plane upper = r.o.sub(top.a).dot(top.n) >= 0.0 ? top : bottom;

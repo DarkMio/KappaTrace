@@ -13,13 +13,13 @@ public class OrthographicCamera extends Camera {
     private final double s;
 
     /** constructor for orthographic camera objects */
-    public OrthographicCamera(Point3 e, Vector3 g, Vector3 t, double s) {
+    public OrthographicCamera(final Point3 e, final Vector3 g, final Vector3 t, final double s) {
         super(e, g, t);
         this.s = s;
     }
 
     @Override
-    public Ray rayFor(int w, int h, int x, int y) {
+    public Ray rayFor(int w, int h, final int x, final int y) {
         w -= 1;
         h -= 1;
         final double wHalf = w/2.0;

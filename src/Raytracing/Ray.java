@@ -11,18 +11,18 @@ public class Ray {
     final public Vector3 d;
 
     /** constructor used for a ray object with Point3 o and Vector3 d*/
-    public Ray(Point3 o, Vector3 d){
+    public Ray(final Point3 o, final Vector3 d){
         this.o = o;
         this.d = d;
     }
 
     /** Subtracts double t from Vector3 d and adds it to Point3, returning the position  */
-    public Point3 at(double t) {
+    public Point3 at(final double t) {
         return o.add(d.mul(t));
     }
 
     /** Returns ray at position p*/
-    public double tOf(Point3 p) {
+    public double tOf(final Point3 p) {
         return (p.x - o.x) / d.x;
     }
 
