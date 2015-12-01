@@ -29,7 +29,7 @@ final public class Normal3 {
      * @param n Multiplier
      * @return New Normal with new x, y, z values
      */
-    public Normal3 mul(double n) {
+    public Normal3 mul(final double n) {
         return new Normal3(x*n, y*n, z*n);
     }
 
@@ -38,7 +38,7 @@ final public class Normal3 {
      * @param n Normal3 to add to - must not be null
      * @return New Normal3 that has been added
      */
-    public Normal3 add(Normal3 n) {
+    public Normal3 add(final Normal3 n) {
         if (n == null) throw new IllegalArgumentException("Must not be null");
         return new Normal3(x+n.x, y+n.y, z+n.z);
     }
@@ -48,7 +48,7 @@ final public class Normal3 {
      * @param v Vector3 to subtract - must not be null
      * @return new Vector3 that has been subtracted
      */
-    public Vector3 sub(Vector3 v) {
+    public Vector3 sub(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("Must not be null");
         final double x, y, z;
         x = this.x - v.x;
@@ -62,7 +62,7 @@ final public class Normal3 {
      * @param v Vector3 - must not be null
      * @return Scalar value from Normal3 and Vector3
      */
-    public double dot(Vector3 v) {
+    public double dot(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("Must not be null");
         return x*v.x + y*v.y + z*v.z;
     }

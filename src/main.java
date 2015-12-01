@@ -26,7 +26,7 @@ public class main {
         Color ambientLight = new Color(0.25, 0.25, 0.25);
         Material red = new PhongMaterial(new Color(220/255.0, 34/255.0, 25/255.0), new Color(1, 1, 1), 6412314);
         Material blue = new PhongMaterial(new Color(20/255.0, 120/255.0, 204/255.0), new Color(1, 1, 1), 3);
-        Material green = new PhongMaterial(new Color(19/255.0, 178/255.0, 76/255.0), new Color(1, 1, 1), 10);
+        Material green = new PhongMaterial(new Color(19/255.0, 178/255.0, 76/255.0), new Color(1, 1, 1), 30);
         Material pink = new PhongMaterial(new Color(220/255.0, 34/255.0, 204/255.0), new Color(1, 1, 1), 1234675);
 /*  Übung 1:
         PerspectiveCamera pCam = new PerspectiveCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), Math.PI/4);

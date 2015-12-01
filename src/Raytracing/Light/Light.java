@@ -1,5 +1,7 @@
 package Raytracing.Light;
-
+/**
+ * Light represents abstract class for all light objects
+ */
 import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Color;
@@ -9,8 +11,10 @@ public abstract class Light {
     /** Color representing the color of light*/
     final public Color color;
 
-    /** Constructor used to create Light with a Color color */
-    public Light(Color color) {
+    /** Constructor used to create Light
+     * @param color Color for light - must not be null */
+    public Light(final Color color) {
+        if (color == null) throw new IllegalArgumentException("must not be null");
         this.color = color;
     }
 

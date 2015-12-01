@@ -26,9 +26,26 @@ public class Triangle extends Geometry {
     /** Normal3 representing the Normal3 of Point3 c */
     public final Normal3 cn;
 
-    /** constructor used to create triangle objects with a Material material, a Point3 a, a Point3 b, a Point3 c, a Normal3 an, a Normal3 bn and a Normal3 cn */
-    public Triangle(Material material, Point3 a, Normal3 an, Point3 b, Normal3 bn, Point3 c, Normal3 cn) {
+    /**
+     * Construct a Triangle
+     * @param material Material for color
+     * @param a Point3 for plane construction - must not be null
+     * @param an Normal3 for plane construction - must not be null
+     * @param b Point3 for plane construction - must not be null
+     * @param bn Normal3 for plane construction - must not be null
+     * @param c Point3 for plane construction - must not be null
+     * @param cn Normal3 for plane construction - must not be null
+     *
+     */
+    public Triangle(final Material material, final Point3 a, final Normal3 an, final Point3 b,
+                    final Normal3 bn, final Point3 c, final Normal3 cn) {
         super(material);
+        if (a == null) throw new IllegalArgumentException("must not be null");
+        if (an == null) throw new IllegalArgumentException("must not be null");
+        if (b == null) throw new IllegalArgumentException("must not be null");
+        if (bn == null) throw new IllegalArgumentException("must not be null");
+        if (c == null) throw new IllegalArgumentException("must not be null");
+        if (cn == null) throw new IllegalArgumentException("must not be null");
         this.a = a;
         this.b = b;
         this.c = c;
@@ -38,7 +55,7 @@ public class Triangle extends Geometry {
     }
 
     @Override
-    public Hit hit(Ray r) {
+    public Hit hit(final Ray r) {
         Mat3x3 matrixBase = new Mat3x3(a.x - b.x, a.x - c.x, r.d.x,
                                        a.y - b.y, a.y - c.y, r.d.y,
                                        a.z - b.z, a.z - b.z, r.d.z);

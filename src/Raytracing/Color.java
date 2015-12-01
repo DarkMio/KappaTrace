@@ -27,7 +27,7 @@ public class Color {
      * @param c Color to add
      * @return resulting new Color
      */
-    public Color add(Color c) {
+    public Color add(final Color c) {
         return new Color(r + c.r, g + c.g, b + c.b);
     }
 
@@ -36,7 +36,7 @@ public class Color {
      * @param c Color to substract
      * @return resulting new Color
      */
-    public Color sub(Color c) {
+    public Color sub(final Color c) {
         return new Color(r - c.r, g - c.g, b - c.b);
     }
 
@@ -45,7 +45,7 @@ public class Color {
      * @param c Color to multiply
      * @return resulting new Color
      */
-    public Color mul(Color c) {
+    public Color mul(final Color c) {
        return new Color(r * c.r, g * c.g, b * c.b);
     }
 
@@ -54,7 +54,7 @@ public class Color {
      * @param v double to multiply
      * @return resulting new Color
      */
-    public Color mul(double v) {
+    public Color mul(final double v) {
         return new Color(r * v, g * v, b * v);
     }
 

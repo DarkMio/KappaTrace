@@ -52,7 +52,7 @@ final public class Mat3x3 {
      * @param m Mat3x3 to multiply - must not be null
      * @return resulting new Mat3x3
      */
-    public Mat3x3 mul(Mat3x3 m) {
+    public Mat3x3 mul(final Mat3x3 m) {
         if (m == null) throw new IllegalArgumentException("Cannot be null");
         final double mx11, mx12, mx13, mx21, mx22, mx23, mx31, mx32, mx33;
         mx11 = m11 * m.m11 + m12 * m.m21 + m13 * m.m31;
@@ -72,7 +72,7 @@ final public class Mat3x3 {
      * @param v Vector3 to be multiplied on Mat3x3 - must not be null
      * @return resulting new Vector3
      */
-    public Vector3 mul(Vector3 v) {
+    public Vector3 mul(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("must not be null");
         final double v1, v2, v3, mg;
         v1 = m11*v.x + m12*v.y + m13*v.z;
@@ -87,7 +87,7 @@ final public class Mat3x3 {
      * @param p Point3 to be multiplied on Mat3x3 - must not be null
      * @return resulting new Point3
      */
-    public Point3 mul(Point3 p) {
+    public Point3 mul(final Point3 p) {
         if (p == null) throw new IllegalArgumentException("Must not be null");
         final double p1, p2, p3;
         p1 = m11*p.x + m12*p.y + m13*p.z;
@@ -101,7 +101,7 @@ final public class Mat3x3 {
      * @param v Vector3 containing new Data for the column - must not be null
      * @return resulting new Mat3x3
      */
-    public Mat3x3 changeCol1(Vector3 v) {
+    public Mat3x3 changeCol1(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("Must not be null");
         return new Mat3x3(v.x, m12, m13,
                           v.y, m22, m23,
@@ -113,7 +113,7 @@ final public class Mat3x3 {
      * @param v Vector3 containing new Data for the column - must not be null
      * @return resulting new Mat3x3
      */
-    public Mat3x3 changeCol2(Vector3 v) {
+    public Mat3x3 changeCol2(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("Must not be null");
         return new Mat3x3(m11, v.x, m13,
                           m21, v.y, m23,
@@ -125,7 +125,7 @@ final public class Mat3x3 {
      * @param v Vector3 containing new Data for the column - must not be null
      * @return resulting new Mat3x3
      */
-    public Mat3x3 changeCol3(Vector3 v) {
+    public Mat3x3 changeCol3(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("Must not be null");
         return new Mat3x3(m11, m12, v.x,
                           m21, m22, v.y,
