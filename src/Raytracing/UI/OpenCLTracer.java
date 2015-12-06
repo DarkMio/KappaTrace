@@ -41,8 +41,8 @@ public class OpenCLTracer {
             CLCommandQueue queue = device.createCommandQueue();
             logger.info("created queue: " + queue);
 
-            int elementCount = 1444477;
-            int localWorkSize = Math.min(device.getMaxWorkGroupSize(), 256);
+            int elementCount = 10;
+            int localWorkSize = Math.min(device.getMaxWorkGroupSize(), 10);
             int globalWorkSize = roundUp(localWorkSize, elementCount);
 
             // load onto the bitch and command it
@@ -58,6 +58,9 @@ public class OpenCLTracer {
             logger.info("using memory: " + (clBufferA.getCLSize() + clBufferB.getCLSize() + clBufferC.getCLSize())/(1024.0*1024) + "MB");
 
             // generates predictable output
+            // float[] stuff = {1.0f, 1.5f, 2.5f, 3.0f, 4.5f, 6f, 7f, 8f, 9f, 10f};
+            // clBufferA.getBuffer().put(stuff);
+            // clBufferB.getBuffer().put(stuff);
             fillBuffer(clBufferA.getBuffer(), 12345);
             fillBuffer(clBufferB.getBuffer(), 67890);
 
@@ -86,8 +89,8 @@ public class OpenCLTracer {
     }
 
     protected static void fillBuffer(FloatBuffer buffer, int seed) {
-        Random rnd = new Random(seed);
-        while(buffer.remaining() != 0) buffer.put(rnd.nextFloat()*100);
+        float f = 0.5f;
+        while(buffer.remaining() != 0) buffer.put(f++);
         buffer.rewind();
     }
 

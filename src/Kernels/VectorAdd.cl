@@ -7,7 +7,6 @@
         if (iGID >= numElements)  {
             return;
         }
-
         // add the vector elements
         c[iGID] = a[iGID] + b[iGID];
     }
