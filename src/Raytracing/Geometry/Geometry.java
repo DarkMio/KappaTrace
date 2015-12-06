@@ -3,7 +3,6 @@ package Raytracing.Geometry;
 /**
  * class for geometric functions
  */
-import Raytracing.Color;
 import Raytracing.Hit;
 import Raytracing.Material.Material;
 import Raytracing.Ray;
@@ -12,29 +11,33 @@ public abstract class Geometry {
 
     /** epsilon precision of doubles */
     public final static double PRECISION = 0.0000001;
-    /** Color representing color */
+    /** Material representing material */
     public final Material material;
 
-    /** abstract constructor for geometry */
-    public Geometry(Material material) {
+    /**
+     * Construct an AxisAlignedBox
+     * @param material Material for color - must not be null
+     */
+        public Geometry(final Material material) {
+        if (material == null) throw new IllegalArgumentException("must not be null");
         this.material = material;
     }
 
     /** abstract constructor for a ray hit */
-    public abstract Hit hit(Ray r);
+    public abstract Hit hit(final Ray r);
 
     /** function calculation precision for 1 double */
-    public static double precisionFor(double a) {
+    public static double precisionFor(final double a) {
         return PRECISION * Math.abs(a);
     }
 
     /** function calculation precision for 2 doubles */
-    public static double precisionFor(double a, double b) {
+    public static double precisionFor(final double a, final double b) {
         return PRECISION * Math.max(Math.abs(a), Math.abs(b));
     }
 
     /** function calculation precision for an array of doubles */
-    public static double precisionFor(double... values) {
+    public static double precisionFor(final double... values) {
         double max = 0;
         for(double value: values) {
             double abs = Math.abs(value);

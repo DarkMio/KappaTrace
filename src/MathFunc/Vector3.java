@@ -43,7 +43,7 @@ final public class Vector3 {
      * @param v Vector3 to be added - must not be null
      * @return resulting new Vector3
      */
-    public Vector3 add(Vector3 v) {
+    public Vector3 add(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("v must not be null.");
         return new Vector3(x + v.x, y + v.y, z + v.z);
     }
@@ -53,7 +53,7 @@ final public class Vector3 {
      * @param n Normal3 that should be added
      * @return resulting new Vector3
      */
-    public Vector3 add(Normal3 n) {
+    public Vector3 add(final Normal3 n) {
         if (n == null) throw new IllegalArgumentException("n must not be null.");
         return new Vector3(x + n.x, y + n.y, z + n.z);
     }
@@ -63,7 +63,7 @@ final public class Vector3 {
      * @param n Normal3 to be subtracted - must not be null
      * @return resulting new Vector3
      */
-    public Vector3 sub(Normal3 n) {
+    public Vector3 sub(final Normal3 n) {
         if (n == null) throw new IllegalArgumentException("n must not be null.");
         return new Vector3(x - n.x, y - n.y, z - n.z);
     }
@@ -73,7 +73,7 @@ final public class Vector3 {
      * @param c Constant to be multiplied
      * @return resulting new Vector
      */
-    public Vector3 mul(double c) {
+    public Vector3 mul(final double c) {
         return new Vector3(x*c, y*c, z*c);
     }
 
@@ -82,7 +82,7 @@ final public class Vector3 {
      * @param v Vector3 - must not be null
      * @return resulting scalar prodict
      */
-    public double dot(Vector3 v) {
+    public double dot(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("v must not be null.");
         return x*v.x + y*v.y + z*v.z;
     }
@@ -92,7 +92,7 @@ final public class Vector3 {
      * @param n Normal3 - must not be null
      * @return resulting scalar product
      */
-    public double dot(Normal3 n) {
+    public double dot(final Normal3 n) {
         if (n == null) throw new IllegalArgumentException("n must not be null.");
         return x*n.x + y*n.y + z*n.z;
     }
@@ -119,10 +119,10 @@ final public class Vector3 {
      * @param n Normal to be reflected on - must not be null
      * @return Reflected Vector on Normal
      */
-    public Vector3 reflectedOn(Normal3 n) {
+    public Vector3 reflectedOn(final Normal3 n) {
         if (n == null) throw new IllegalArgumentException("n must not be null.");
-        double x = 2 * n.dot(this);
-        Normal3 temp = n.mul(x);
+        final double x = 2 * n.dot(this);
+        final Normal3 temp = n.mul(x);
         return temp.sub(this);
     }
 
@@ -131,7 +131,7 @@ final public class Vector3 {
      * @param v Vector3 - must not be null
      * @return determinant of x and v
      */
-    public Vector3 x(Vector3 v) {
+    public Vector3 x(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("v must not be null.");
         return new Vector3(y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x);
     }

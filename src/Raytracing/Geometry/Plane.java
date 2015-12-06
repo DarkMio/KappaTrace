@@ -6,7 +6,6 @@ package Raytracing.Geometry;
 import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
-import Raytracing.Color;
 import Raytracing.Hit;
 import Raytracing.Material.Material;
 import Raytracing.Ray;
@@ -18,15 +17,22 @@ public class Plane extends Geometry {
     /** normal used to span plane */
     public final Normal3 n;
 
-    /** constructor for plane objects with a Color color, a Point3 a and a Normal3 n*/
-    public Plane(Material material, Point3 a, Normal3 n) {
+    /**
+     * Construct a Plane
+     * @param material Material for color
+     * @param a Point3 for plane construction - must not be null
+     * @param n Normal3 for plane construction - must not be null
+     */
+    public Plane(final Material material, final Point3 a, final Normal3 n) {
         super(material);
+        if (a == null) throw new IllegalArgumentException("must not be null");
+        if (n == null) throw new IllegalArgumentException("must not be null");
         this.a = a;
         this.n = n;
     }
 
     @Override
-    public Hit hit(Ray r) {
+    public Hit hit(final Ray r) {
         double lower = r.d.dot(n); // was unter dem Bruch steht
         double upper = n.dot(new Vector3(a.x - r.o.x, a.y - r.o.y, a.z - r.o.z)); // Was �ber dem Bruch steht
         if (lower == 0) return null; // You cannot divide through zero, thanks.

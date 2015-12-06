@@ -1,7 +1,7 @@
 package Raytracing.Camera;
 
 /**
- * PerspectivcCamera represents class for perspective camera objects
+ * PerspectiveCamera represents class for perspective camera objects
  */
 import Raytracing.Ray;
 import MathFunc.Point3;
@@ -13,16 +13,16 @@ public class PerspectiveCamera extends Camera {
     private final double angle;
 
     /** constructor for perspective camera objects */
-    public PerspectiveCamera(Point3 e, Vector3 g, Vector3 t, double angle) {
+    public PerspectiveCamera(final Point3 e, final Vector3 g, final Vector3 t, final double angle) {
         super(e, g, t);
         this.angle = angle;
     }
 
     @Override
-    public Ray rayFor(int w, int h, int x, int y) {
-        Vector3 tempX = u.mul(x - (w-1)/2);
-        Vector3 tempY = v.mul(y - (h-1)/2);
-        Vector3 tempZ = this.w.mul(-1).mul((h/2) / Math.tan(angle));
+    public Ray rayFor(final int w, final int h, final int x, final int y) {
+        Vector3 tempX = u.mul(x - (w-1.0)/2.0);
+        Vector3 tempY = v.mul(y - (h-1.0)/2.0);
+        Vector3 tempZ = this.w.mul(-1.0).mul((h/2.0) / Math.tan(angle));
         Vector3 d = (tempZ.add(tempY).add(tempX)).normalized();
         return new Ray(e, d);
     }

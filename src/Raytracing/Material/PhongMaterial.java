@@ -1,5 +1,7 @@
 package Raytracing.Material;
-
+/**
+ * PhongMaterial represents class for all Phong objects
+ */
 import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Color;
@@ -8,11 +10,19 @@ import Raytracing.Light.Light;
 import Raytracing.World;
 
 public class PhongMaterial extends Material {
+
+    /** Color representing diffuse reflections of rough surfaces */
     public final Color diffuse;
+    /** Color representing specular reflections of shiny surfaces*/
     public final Color specular;
+    /**int exponent representing the Phong exponent.  */
     public final int exponent;
 
-    public PhongMaterial(Color diffuse, Color specular, int exponent) {
+    /** Constructor used to create PhongMaterial with a Color diffuse, a Color specular and an int exponent */
+    public PhongMaterial(final Color diffuse, final Color specular, final int exponent) {
+        if (diffuse == null) throw new IllegalArgumentException("must not be null");
+        if (specular == null) throw new IllegalArgumentException("must not be null");
+        if (exponent < 0) throw new IllegalArgumentException("must be greater or equals 0");
         this.diffuse = diffuse;
         this.specular = specular;
         this.exponent = exponent;
@@ -44,7 +54,7 @@ public class PhongMaterial extends Material {
 */
 
     @Override
-    public Color colorFor(Hit hit, World world) {
+    public Color colorFor(final Hit hit, final World world) {
         Color a = world.ambientLight.mul(diffuse);
         Color b = null;
         Point3 pos = hit.ray.o.add(hit.ray.d.mul(hit.t));

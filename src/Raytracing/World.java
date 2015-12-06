@@ -21,7 +21,7 @@ public class World {
     public final ArrayList<Light> lights;
 
     /** constructor used to create a world with a background color and a scene */
-    public World(Color backgroundColor, ArrayList<Geometry> geometry, Color ambientLight, ArrayList<Light> lights) {
+    public World(final Color backgroundColor, final ArrayList<Geometry> geometry, final Color ambientLight, final ArrayList<Light> lights) {
         this.lights = lights;
         this.backgroundColor = backgroundColor;
         this.geometry = geometry;
@@ -30,7 +30,7 @@ public class World {
 
     /** function used to calculate the nearest ray hit */
     public Hit hit(final Ray r) {
-       double t = Double.MAX_VALUE;
+        double t = Double.MAX_VALUE;
         Hit h = null;
         for(Geometry g: geometry) {
             final Hit hit = g.hit(r);

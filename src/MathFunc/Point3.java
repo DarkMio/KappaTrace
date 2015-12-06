@@ -18,7 +18,7 @@ final public class Point3 {
      * @param y y-coordinate
      * @param z z-coordinate
      */
-    public Point3 (double x, double y, double z) {
+    public Point3 (final double x, final double y, final double z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -29,7 +29,7 @@ final public class Point3 {
      * @param p Point3 that should be subtracted - must not be null
      * @return resulting new Vector3
      */
-    public Vector3 sub(Point3 p) {
+    public Vector3 sub(final Point3 p) {
         if (p == null) throw new IllegalArgumentException("Must not be null");
         final double x, y, z;
         x = this.x - p.x;
@@ -41,12 +41,12 @@ final public class Point3 {
     /**
      * http://geomalgorithms.com/points_and_vectors.html#Vector-Addition
      * "The resulting point Q is considered to be the displacement,
-     * or “translation”, of the point P in the direction of and by
+     * or ï¿½translationï¿½, of the point P in the direction of and by
      * the magnitude of the vector"
      * @param v A vector to translate - must not be null
      * @return A Point3 translated from v
      */
-    public Point3 sub(Vector3 v) {
+    public Point3 sub(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("Must not be null");
         final double x, y, z;
         x = this.x - v.x;

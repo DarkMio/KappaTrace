@@ -26,7 +26,7 @@ public class Raytracer {
     private ImageIcon frame;
 
     /** constructor for a Raytracer with int width, int height, World world and Camera camera */
-    public Raytracer(final int width, final int height, World world, Camera camera) {
+    public Raytracer(final int width, final int height, final World world, final Camera camera) {
         this.width = width;
         this.height = height;
         jf = new JFrame();
