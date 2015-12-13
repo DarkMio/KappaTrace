@@ -15,7 +15,7 @@ public class PerspectiveCamera extends Camera {
     /** constructor for perspective camera objects */
     public PerspectiveCamera(final Point3 e, final Vector3 g, final Vector3 t, final double angle) {
         super(e, g, t);
-        this.angle = angle;
+        this.angle = angle/2;
     }
 
     @Override

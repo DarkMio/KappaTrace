@@ -7,6 +7,7 @@ import MathFunc.Vector3;
 import Raytracing.Color;
 import Raytracing.Hit;
 import Raytracing.Light.Light;
+import Raytracing.Tracer;
 import Raytracing.World;
 
 public class PhongMaterial extends Material {
@@ -54,12 +55,12 @@ public class PhongMaterial extends Material {
 */
 
     @Override
-    public Color colorFor(final Hit hit, final World world) {
+    public Color colorFor(final Hit hit, final World world, final Tracer tracer) {
         Color a = world.ambientLight.mul(diffuse);
         Color b = null;
         Point3 pos = hit.ray.o.add(hit.ray.d.mul(hit.t));
         for(Light light: world.lights) {
-            if (light.illuminates(pos)) {
+            if (light.illuminates(pos, world)) {
                 Vector3 l = light.directionFrom(pos).normalized();
                 Color c1 = diffuse.mul(light.color).mul(Math.max(0, hit.n.dot(l)));
                 Vector3 tempVec = l.reflectedOn(hit.n);

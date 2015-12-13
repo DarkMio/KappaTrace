@@ -2,11 +2,13 @@ package Raytracing.Light;
 /**
  * SpotLight represents class for creating SpotLight objects in a Raytracer
  */
+
 import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Color;
-
-import java.util.Vector;
+import Raytracing.Hit;
+import Raytracing.Ray;
+import Raytracing.World;
 
 public class SpotLight extends Light {
 
@@ -24,8 +26,8 @@ public class SpotLight extends Light {
      * @param halfAngle double for the angle of the spotlight - must not be zero
      * @param color Color
      * */
-    public SpotLight(final Point3 position, final Vector3 direction, final double halfAngle, final Color color) {
-        super(color);
+    public SpotLight(final Point3 position, final Vector3 direction, final double halfAngle, final Color color, final boolean castShadows) {
+        super(color, castShadows);
         if (position == null) throw new IllegalArgumentException("must not be null");
         if (direction == null) throw new IllegalArgumentException("must not be null");
         if (halfAngle == 0) throw new IllegalArgumentException("must not be 0");
@@ -35,10 +37,18 @@ public class SpotLight extends Light {
     }
 
     @Override
-    public boolean illuminates(final Point3 p) {
+    public boolean illuminates(final Point3 p, final World w) {
         Vector3 v = p.sub(position);
         double a = v.dot(direction) / (v.magnitude * direction.magnitude);
-        return Math.acos(a) <= halfAngle;
+        if(Math.acos(a) <= halfAngle){
+            return true;
+        }
+        final Ray l = new Ray(p, directionFrom(p));
+        Hit hit = w.hit(l);
+        if(hit==null)return true;
+        double tl = l.tOf(position);
+        return hit.t >= tl;
+
     }
 
     @Override

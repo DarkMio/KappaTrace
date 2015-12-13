@@ -4,6 +4,7 @@ package Raytracing.Material;
  */
 import Raytracing.Color;
 import Raytracing.Hit;
+import Raytracing.Tracer;
 import Raytracing.World;
 
 public class SingleColorMaterial extends Material{
@@ -20,7 +21,7 @@ public class SingleColorMaterial extends Material{
     }
 
     @Override
-    public Color colorFor(final Hit hit, final World world) {
+    public Color colorFor(final Hit hit, final World world, final Tracer tracer) {
         return this.color;
     }
 }

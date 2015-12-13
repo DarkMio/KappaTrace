@@ -17,6 +17,9 @@ public class Color {
         if(r < 0) throw new IllegalArgumentException("0 =< r =< 1"); // Throw exceptions? Or recalc with modulo?
         if(g < 0) throw new IllegalArgumentException("0 =< g =< 1");
         if(b < 0) throw new IllegalArgumentException("0 =< g =< 1");
+        if(r>1)r=1;
+        if(g>1)g=1;
+        if(b>1)b=1;
         this.r = r;
         this.g = g;
         this.b = b;

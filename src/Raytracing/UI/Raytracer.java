@@ -51,7 +51,7 @@ public class Raytracer {
             for(int y = 0; y < height; y++) {
                 final Hit h = world.hit(cam.rayFor(width, height, x, y));
                 if(h == null) img.setRGB(x, height-y-1, world.backgroundColor.toIntRGB());
-                else {img.setRGB(x, height-y-1, h.geo.material.colorFor(h, world).toIntRGB());}
+                else {img.setRGB(x, height-y-1, h.geo.material.colorFor(h, world, new Tracer(8,world)).toIntRGB());}
             }
 
         }
