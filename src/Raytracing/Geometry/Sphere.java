@@ -6,6 +6,7 @@ package Raytracing.Geometry;
 
 import MathFunc.Normal3;
 import MathFunc.Point3;
+import MathFunc.Vector3;
 import Raytracing.Hit;
 import Raytracing.Epsilon;
 import Raytracing.Material.Material;
@@ -34,14 +35,22 @@ public class Sphere extends Geometry {
     @Override
     public Hit hit(final Ray r) {
         double a = r.d.dot(r.d);
-        double b = r.o.sub(c).mul(2).dot(r.d);
+        double b = r.d.dot(r.o.sub(c).mul(2));
         double c = r.o.sub(this.c).dot(r.o.sub(this.c)) - this.r*this.r;
         double d = b*b - 4*a*c;
-        double precision = Epsilon.precisionFor(b, d);
-        if (d - precision < 0) return null;
-        if (d == 0) return new Hit(-b/(2*a), r, this, normalToRay(r, -b/(2*a)));    // my butthole is clenching here
-        if (-b + precision > d - precision) return new Hit((-b - d)/2*a, r, this, normalToRay(r, (-b-d)/(2*a)));  // ^ see comment above
-        return new Hit((-b+d)/2*a, r, this, normalToRay(r, (-b+d)/2*a));            // ^ see comment above
+        double precision = Epsilon.precisionFor(b, c, a, d);
+        if (d == 0) {
+            double t = -b / 2 * a;
+            return new Hit(t, r, this, normalToRay(r, t));
+        }
+        if (d + precision > 0) {
+            double sqrt = Math.sqrt(d);
+            double t = Math.min((-b + sqrt) / (2 * a), (-b - sqrt) / (2 * a));
+            if(t < 0)
+                return null;
+            return new Hit(t, r, this, normalToRay(r, t));
+        }
+        return null;
     }
 
     /**@param r Ray

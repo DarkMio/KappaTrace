@@ -6,6 +6,7 @@ package Raytracing.Geometry;
 import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
+import Raytracing.Epsilon;
 import Raytracing.Hit;
 import Raytracing.Material.Material;
 import Raytracing.Ray;
@@ -37,7 +38,7 @@ public class Plane extends Geometry {
         double upper = n.dot(new Vector3(a.x - r.o.x, a.y - r.o.y, a.z - r.o.z)); // Was �ber dem Bruch steht
         if (lower == 0) return null; // You cannot divide through zero, thanks.
         double t = upper/lower;
-        if(t>= 0) return new Hit(t, r, this, n);
+        if(t > Epsilon.PRECISION) return new Hit(t, r, this, n);
         return null;
     }
 

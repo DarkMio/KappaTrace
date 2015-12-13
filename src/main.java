@@ -3,14 +3,12 @@ import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Camera.PerspectiveCamera;
 import Raytracing.Color;
-import Raytracing.Geometry.AxisAlignedBox;
-import Raytracing.Geometry.Geometry;
-import Raytracing.Geometry.Plane;
-import Raytracing.Geometry.Sphere;
+import Raytracing.Geometry.*;
 import Raytracing.Light.Light;
 import Raytracing.Light.PointLight;
 import Raytracing.Material.LambertMaterial;
 import Raytracing.Material.Material;
+import Raytracing.Material.PhongMaterial;
 import Raytracing.Material.ReflectiveMaterial;
 import Raytracing.UI.Raytracer;
 import Raytracing.World;
@@ -21,12 +19,12 @@ import java.util.Arrays;
 public class main {
 
     public static void main(String[] args) {
-        Color background = new Color(0.1, 0.1, 0.1);
+        Color background = new Color(0.0, 0.0, 0.0);
         Color ambientLight = new Color(0.25, 0.25, 0.25);
-//        Material red = new PhongMaterial(new Color(220/255.0, 34/255.0, 25/255.0), new Color(1, 1, 1), 6412314);
-//        Material blue = new PhongMaterial(new Color(20/255.0, 120/255.0, 204/255.0), new Color(1, 1, 1), 3);
-//        Material green = new PhongMaterial(new Color(19/255.0, 178/255.0, 76/255.0), new Color(1, 1, 1), 30);
-//        Material pink = new PhongMaterial(new Color(220/255.0, 34/255.0, 204/255.0), new Color(1, 1, 1), 1234675);
+        Material red = new PhongMaterial(new Color(220/255.0, 34/255.0, 25/255.0), new Color(1, 1, 1), 6412314);
+        Material blue = new PhongMaterial(new Color(20/255.0, 120/255.0, 204/255.0), new Color(1, 1, 1), 3);
+        Material green = new PhongMaterial(new Color(19/255.0, 178/255.0, 76/255.0), new Color(1, 1, 1), 30);
+        Material pink = new PhongMaterial(new Color(220/255.0, 34/255.0, 204/255.0), new Color(1, 1, 1), 1234675);
 /*  Übung 1:
         PerspectiveCamera pCam = new PerspectiveCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), Math.PI/4);
         OrthographicCamera oCam = new OrthographicCamera(new Point3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), 3);
@@ -68,7 +66,8 @@ public class main {
         Material redReflect = new ReflectiveMaterial(new Color(1,0.0,0.0),new Color(1.0,1.0,1.0),64,new Color(0.5,0.5,0.5));
         Material greenReflect = new ReflectiveMaterial(new Color(0.0,1,0.0),new Color(1.0,1.0,1.0),64,new Color(0.5,0.5,0.5));
         Material blueReflect = new ReflectiveMaterial(new Color(0.0,0.0,1),new Color(1.0,1.0,1.0),64,new Color(0.5,0.5,0.5));
-
+        ArrayList<Light> lights2 = new ArrayList<>();
+        lights2.add(new PointLight(new Point3(8.0,8.0,0.0), new Color(1.0,1.0,1.0),true));
 
         ArrayList<Geometry> scene = new ArrayList<>(Arrays.asList(
                 new Plane(blackReflect, new Point3(0, 0, 0), new Normal3(0, 1, 0)),
@@ -79,9 +78,8 @@ public class main {
         ArrayList<Light> lights = new ArrayList<>();
         lights.add(new PointLight(new Point3(8.0,8.0,8.0), new Color(1.0,1.0,1.0),true));
         PerspectiveCamera ppc = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
-        new Raytracer(640, 480, new World(background, scene, ambientLight, lights), ppc);
-
-
+        new Raytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc);
+/*
         Material black = new LambertMaterial(new Color(0.8,0.8,0.8));
         Material red1 = new LambertMaterial(new Color(1.0,0.0,0.0));
 
@@ -93,6 +91,6 @@ public class main {
         lights2.add(new PointLight(new Point3(8.0,8.0,0.0), new Color(1.0,1.0,1.0),true));
         PerspectiveCamera ppc2 = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
         // new Raytracer(640, 480, new World(background, scene2, ambientLight, lights2), ppc2);
-
+*/
     }
 }

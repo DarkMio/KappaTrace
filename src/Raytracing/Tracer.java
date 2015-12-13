@@ -1,18 +1,18 @@
 package Raytracing;
 
 public class Tracer {
-    private int recusion;
+    private int recursion;
     final World world;
 
-    public Tracer(final int recusion, final World world){
+    public Tracer(final int recursion, final World world){
         if(world == null) throw new IllegalArgumentException("wolrd must not be null!");
         this.world=world;
-        this.recusion=recusion;
+        this.recursion = recursion;
     }
 
     public Color traceColor(final Ray ray){
-        if(recusion < 0)return new Color(1, 1, 1);
-        if(world.hit(ray)==null)return world.backgroundColor;
-        return world.hit(ray).geo.material.colorFor(world.hit(ray), world, new Tracer(recusion-1 ,world));
+        if(recursion <= 0)return world.backgroundColor;
+        if(world.hit(ray) != null) return world.hit(ray).geo.material.colorFor(world.hit(ray), world, new Tracer(recursion -1 ,world));
+        return world.backgroundColor;
     }
 }

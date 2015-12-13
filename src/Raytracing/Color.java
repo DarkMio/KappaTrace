@@ -91,4 +91,13 @@ public class Color {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
+/*
+    Custom Hackery to target very specific pixels.
+    @Override
+    public String toString() {
+        if (r*255 > 120 ||  g * 255 > 120 || b * 255 > 120)
+            return "Color( " + (int) (r * 255)  + " " + (int) (g*255) + " " + (int) (b*255) + " ) :: ( " + r + " " + g + " " + b + ")\n" ;
+        return "";
+    }
+*/
 }
