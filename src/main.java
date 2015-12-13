@@ -86,13 +86,13 @@ public class main {
         Material red1 = new LambertMaterial(new Color(1.0,0.0,0.0));
 
         ArrayList<Geometry> scene2 = new ArrayList<>(Arrays.asList(
-                new Plane(black, new Point3(0, 0, 0), new Normal3(0, 1, 0)),
+                new Plane(new LambertMaterial(new Color(0.8, 0.8, 0.8)), new Point3(0, 0, 0), new Normal3(0, 1, 0)),
                 new AxisAlignedBox(red1,new Point3(-0.5,0,-0.5),new Point3(0.5,1,0.5))
         ));
         ArrayList<Light> lights2 = new ArrayList<>();
         lights2.add(new PointLight(new Point3(8.0,8.0,0.0), new Color(1.0,1.0,1.0),true));
         PerspectiveCamera ppc2 = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
-        new Raytracer(640, 480, new World(background, scene2, ambientLight, lights2), ppc2);
+        // new Raytracer(640, 480, new World(background, scene2, ambientLight, lights2), ppc2);
 
     }
 }

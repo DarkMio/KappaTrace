@@ -1,6 +1,5 @@
 package Raytracing;
 
-
 public class Tracer {
     private int recusion;
     final World world;
@@ -12,7 +11,7 @@ public class Tracer {
     }
 
     public Color traceColor(final Ray ray){
-        if(recusion<1)return world.backgroundColor;
+        if(recusion < 0)return new Color(1, 1, 1);
         if(world.hit(ray)==null)return world.backgroundColor;
         return world.hit(ray).geo.material.colorFor(world.hit(ray), world, new Tracer(recusion-1 ,world));
     }

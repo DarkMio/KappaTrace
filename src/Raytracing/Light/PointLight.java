@@ -26,11 +26,12 @@ public class PointLight extends Light {
         if(!this.castShadows){
             return true;
         }
-        final Ray l = new Ray(p, directionFrom(p));
-        Hit hit = w.hit(l);
-        if(hit==null)return true;
-        double tl = l.tOf(p);
-        return hit.t > tl || hit.t < Epsilon.PRECISION;
+        final Ray r = new Ray(p, directionFrom(p));
+        Hit hit = w.hit(r);
+        if(hit == null)return true;
+        double tl = position.sub(p).magnitude/1;
+        double e = Epsilon.precisionFor(tl, hit.t);
+        return (hit.t > tl && hit.t < e);
     }
 
     @Override
