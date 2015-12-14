@@ -14,9 +14,9 @@ public class PhongMaterial extends Material {
 
     /** Color representing diffuse reflections of rough surfaces */
     public final Color diffuse;
-    /** Color representing specular reflections of shiny surfaces*/
+    /** Color representing specular reflections*/
     public final Color specular;
-    /**int exponent representing the Phong exponent.  */
+    /** representing the Phong exponent for the intensity of Phong reflections */
     public final int exponent;
 
     /** Constructor used to create PhongMaterial with a Color diffuse, a Color specular and an int exponent */
@@ -56,16 +56,16 @@ public class PhongMaterial extends Material {
 
     @Override
     public Color colorFor(final Hit hit, final World world, final Tracer tracer) {
-        Color a = world.ambientLight.mul(diffuse);
+        final Color a = world.ambientLight.mul(diffuse);
         Color b = null;
-        Point3 pos = hit.ray.o.add(hit.ray.d.mul(hit.t));
+        final Point3 pos = hit.ray.o.add(hit.ray.d.mul(hit.t));
         for(Light light: world.lights) {
             if (light.illuminates(pos, world)) {
-                Vector3 l = light.directionFrom(pos).normalized();
-                Color c1 = diffuse.mul(light.color).mul(Math.max(0, hit.n.dot(l)));
-                Vector3 tempVec = l.reflectedOn(hit.n);
+                final Vector3 l = light.directionFrom(pos).normalized();
+                final Color c1 = diffuse.mul(light.color).mul(Math.max(0, hit.n.dot(l)));
+                final Vector3 tempVec = l.reflectedOn(hit.n);
                 double temp = Math.max(0, hit.ray.d.mul(-1).normalized().dot(tempVec));
-                Color c2 = specular.mul(light.color).mul(Math.pow(temp, exponent));
+                final Color c2 = specular.mul(light.color).mul(Math.pow(temp, exponent));
                 if (b == null) b = c1.add(c2);
                 else b.add(b);
             }

@@ -1,8 +1,7 @@
 package Raytracing;
 
-/**
- * Created by Christoph on 13.12.2015.
- */
+/** Epsilon represents the class for precision calculations*/
+
 public class Epsilon {
 
     /** epsilon precision of doubles */

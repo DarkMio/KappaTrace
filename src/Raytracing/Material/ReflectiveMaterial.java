@@ -1,5 +1,7 @@
 package Raytracing.Material;
-
+/**
+ * ReflectiveMaterial represents class for all Reflect objects
+ */
 
 import MathFunc.Point3;
 import MathFunc.Vector3;
@@ -7,11 +9,22 @@ import Raytracing.*;
 import Raytracing.Light.Light;
 
 public class ReflectiveMaterial extends Material{
+
+    /** Color representing diffuse reflections of rough surfaces */
     final Color diffuse;
+    /** Color representing specular reflections*/
     final Color specular;
+    /** representing the Phong exponent for the intensity of Phong reflections */
     final int exponent;
+    /** Color representing reflections on a plane and objects*/
     final Color reflection;
 
+    /** constructor used to create ReflectiveMaterial
+     * @param diffuse Color determining the reflection of rough surfaces - must not be null
+     * @param specular Color determining reflections - must not be null
+     * @param exponent int determining the Phong exponent
+     * @param reflection Color determining the reflection on the plane and on objects - must not be null
+     */
     public ReflectiveMaterial(final Color diffuse, final Color specular, final int exponent, final Color reflection) {
         if(diffuse==null)throw new IllegalArgumentException("diffuse must not be null!");
         if(specular==null)throw new IllegalArgumentException("specular must not be null!");
@@ -24,6 +37,7 @@ public class ReflectiveMaterial extends Material{
 
 
     //c = cd*ca + summe(i=1 bis imax)(cd*cl*imax(0, Vn * Vl)+ cs * cl * imax(0, Ve * Vn)^p + cr*fr(t * Vpr, Vrd))
+    @Override
     public Color colorFor(final Hit hit, final World world, final Tracer tracer) {
         if (hit == null) {
             throw new IllegalArgumentException("The Hit cannot be null!");
@@ -52,7 +66,7 @@ public class ReflectiveMaterial extends Material{
                 color = color.add(currentLight.color.mul(this.diffuse).mul(maxNL)).add(currentLight.color.mul(this.specular).mul(maxER));
             }
         }
-        Color reflectedColor = tracer.traceColor(new Ray(point, hit.ray.d.add(hit.n.mul(cosinusPhi))));
+        final Color reflectedColor = tracer.traceColor(new Ray(point, hit.ray.d.add(hit.n.mul(cosinusPhi))));
         return color.add(reflection.mul((reflectedColor)));
     }
 

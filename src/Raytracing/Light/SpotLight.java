@@ -24,7 +24,8 @@ public class SpotLight extends Light {
      * @param position Point3 for the position of spotlight objects - must not be null
      * @param direction Vector3 for the direction of spotlight - must not be null
      * @param halfAngle double for the angle of the spotlight - must not be zero
-     * @param color Color
+     * @param color Color for color of light
+     * @param castShadows boolean for shadows
      * */
     public SpotLight(final Point3 position, final Vector3 direction, final double halfAngle, final Color color, final boolean castShadows) {
         super(color, castShadows);

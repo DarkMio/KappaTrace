@@ -9,6 +9,6 @@ import Raytracing.World;
 
 public abstract class Material {
 
-    /** Abstract constructor used to determine the position of Color with a Hit hit and a World world */
+    /** Abstract constructor used to determine the position of Color with a Hit hit, a World world and a Tracer tracer */
     public abstract Color colorFor(final Hit hit, final World world, final Tracer tracer);
 }

@@ -19,11 +19,11 @@ public class Raytracer {
     /** BufferedImage for raytracer */
     final private BufferedImage img;
     /** Camera for raytracer */
-    private Camera cam;
+    final private Camera cam;
     /** World for raytracer */
     final private World world;
     /** ImageIcon for raytracer */
-    private ImageIcon frame;
+    final private ImageIcon frame;
 
     /** constructor for a Raytracer with int width, int height, World world and Camera camera */
     public Raytracer(final int width, final int height, final World world, final Camera camera) {

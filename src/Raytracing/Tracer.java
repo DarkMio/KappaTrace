@@ -1,9 +1,18 @@
 package Raytracing;
 
+/** Tracer represents class for color tracing*/
+
 public class Tracer {
-    private int recursion;
+
+    /**int representing */
+    final private int recursion;
+    /**World representing a world object */
     final World world;
 
+    /** constructor used to create Tracer objects
+     * @param recursion int
+     * @param world World - must not be null
+     */
     public Tracer(final int recursion, final World world){
         if(world == null) throw new IllegalArgumentException("wolrd must not be null!");
         this.world=world;
