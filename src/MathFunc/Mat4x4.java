@@ -53,20 +53,18 @@ public class Mat4x4 {
 
     }
 
-    public Mat4x4 mul(Vector3 o) { // o = other
+    public Vector3 mul(Vector3 o) { // o = other
         if (o == null) throw new IllegalArgumentException("Parameter must not be null");
-        return new Mat4x4(m11 * o.x, m12 * o.y, m13 * o.z, 0,
-                          m21 * o.x, m22 * o.y, m23 * o.z, 0,
-                          m31 * o.x, m32 * o.y, m33 * o.z, 0,
-                          m41 * o.x, m42 * o.y, m43 * o.z, 0);
+        return new Vector3(m11 * o.x + m12 * o.y + m13 * o.z,
+                           m21 * o.x + m22 * o.y + m23 * o.z,
+                           m31 * o.x + m32 * o.y + m33 * o.z);
     }
 
-    public Mat4x4 mul(Point3 o) { // o = other
+    public Point3 mul(Point3 o) { // o = other
         if (o == null) throw new IllegalArgumentException("Parameter must not be null");
-        return new Mat4x4(m11 * o.x, m12 * o.y, m13 * o.z, m14,
-                          m21 * o.x, m22 * o.y, m23 * o.z, m24,
-                          m31 * o.x, m32 * o.y, m33 * o.z, m34,
-                          m41 * o.x, m42 * o.y, m43 * o.z, m44);
+        return new Point3(m11 * o.x + m12 * o.y + m13 * o.z + m14,
+                          m21 * o.x + m22 * o.y + m23 * o.z + m24,
+                          m31 * o.x + m32 * o.y + m33 * o.z + m34);
     }
 
     public Mat4x4 mul(Mat4x4 o) { // o = other, n = new

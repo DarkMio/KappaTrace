@@ -10,6 +10,7 @@ import Raytracing.Material.LambertMaterial;
 import Raytracing.Material.Material;
 import Raytracing.Material.PhongMaterial;
 import Raytracing.Material.ReflectiveMaterial;
+import Raytracing.Transform;
 import Raytracing.UI.Raytracer;
 import Raytracing.World;
 
@@ -70,7 +71,8 @@ public class main {
         ArrayList<Geometry> scene = new ArrayList<>(Arrays.asList(
                 new Plane(blackReflect, new Point3(0, 0, 0), new Normal3(0, 1, 0)),
                 new Sphere(redReflect, new Point3(-3,1,0), 1),
-                new Sphere(greenReflect, new Point3(0,1,0), 1),
+                new AxisAlignedBox(greenReflect, new Point3(0, 0, 0), new Point3(1, 1, 1)),
+                //new Sphere(greenReflect, new Point3(0,1,0), 1),
                 new Sphere(blueReflect, new Point3(3,1,0), 1)
         ));
         ArrayList<Light> lights = new ArrayList<>();
@@ -90,5 +92,8 @@ public class main {
         PerspectiveCamera ppc2 = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
         new Raytracer(640, 480, new World(background, scene2, ambientLight, lights2), ppc2);
 
+        Transform x = new Transform().scale(new Vector3(3, 1, 1.5));
+        ArrayList<Geometry> scene3 = new ArrayList<>(Arrays.asList(new Node(redReflect, x,scene)));
+        new Raytracer(640, 480, new World(background, scene3, ambientLight, lights2), ppc2);
     }
 }
