@@ -15,12 +15,12 @@ public class World {
     public final Color backgroundColor;
     /** an ArrayList consisting of Geometry objects */
     public final ArrayList<Geometry> geometry;
-    /** an directional light for basic global lightning */
+    /** a directional light for basic global lightning */
     public final Color ambientLight;
-
+    /** an ArrayList of Light objects */
     public final ArrayList<Light> lights;
 
-    /** constructor used to create a world with a background color and a scene */
+    /** constructor used to create a world with a Color backgroundColor, an ArrayList<Geometry> geometry, a Color ambientLight and an ArrayList<Light> lights  */
     public World(final Color backgroundColor, final ArrayList<Geometry> geometry, final Color ambientLight, final ArrayList<Light> lights) {
         this.lights = lights;
         this.backgroundColor = backgroundColor;

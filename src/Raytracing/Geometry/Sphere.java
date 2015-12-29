@@ -6,9 +6,8 @@ package Raytracing.Geometry;
 
 import MathFunc.Normal3;
 import MathFunc.Point3;
-import MathFunc.Vector3;
-import Raytracing.Hit;
 import Raytracing.Epsilon;
+import Raytracing.Hit;
 import Raytracing.Material.Material;
 import Raytracing.Ray;
 

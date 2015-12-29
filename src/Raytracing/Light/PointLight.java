@@ -14,6 +14,8 @@ public class PointLight extends Light {
 
     /** Constructor used to create PointLight with a Point3 position and a Color color
      * @param position Point3 for light position - must not be null
+     * @param color Color for light color
+     * @param castShadows boolean for shadows
      * */
     public PointLight(final Point3 position, final Color color, final boolean castShadows) {
         super(color, castShadows);

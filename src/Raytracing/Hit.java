@@ -15,9 +15,10 @@ public class Hit {
     /** Geometry representing a geometry object */
     public final Geometry geo;
 
+    /** Normal3 represnting a Normal */
     public final Normal3 n;
 
-    /** constructor used for a ray hit with the parameters double t, Ray ray and Geometry geo*/
+    /** constructor used for a ray hit with the parameters double t, Ray ray, Geometry geo and a Normal3 n*/
     public Hit(final double t, final Ray ray, final Geometry geo, final Normal3 n) {
         this.n = n;
         this.t = t;

@@ -66,8 +66,6 @@ public class main {
         Material redReflect = new ReflectiveMaterial(new Color(1,0.0,0.0),new Color(1.0,1.0,1.0),64,new Color(0.5,0.5,0.5));
         Material greenReflect = new ReflectiveMaterial(new Color(0.0,1,0.0),new Color(1.0,1.0,1.0),64,new Color(0.5,0.5,0.5));
         Material blueReflect = new ReflectiveMaterial(new Color(0.0,0.0,1),new Color(1.0,1.0,1.0),64,new Color(0.5,0.5,0.5));
-        ArrayList<Light> lights2 = new ArrayList<>();
-        lights2.add(new PointLight(new Point3(8.0,8.0,0.0), new Color(1.0,1.0,1.0),true));
 
         ArrayList<Geometry> scene = new ArrayList<>(Arrays.asList(
                 new Plane(blackReflect, new Point3(0, 0, 0), new Normal3(0, 1, 0)),
@@ -78,8 +76,8 @@ public class main {
         ArrayList<Light> lights = new ArrayList<>();
         lights.add(new PointLight(new Point3(8.0,8.0,8.0), new Color(1.0,1.0,1.0),true));
         PerspectiveCamera ppc = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
-        new Raytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc);
-/*
+        new Raytracer(640, 480, new World(background, scene, ambientLight, lights), ppc);
+
         Material black = new LambertMaterial(new Color(0.8,0.8,0.8));
         Material red1 = new LambertMaterial(new Color(1.0,0.0,0.0));
 
@@ -90,7 +88,7 @@ public class main {
         ArrayList<Light> lights2 = new ArrayList<>();
         lights2.add(new PointLight(new Point3(8.0,8.0,0.0), new Color(1.0,1.0,1.0),true));
         PerspectiveCamera ppc2 = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
-        // new Raytracer(640, 480, new World(background, scene2, ambientLight, lights2), ppc2);
-*/
+        new Raytracer(640, 480, new World(background, scene2, ambientLight, lights2), ppc2);
+
     }
 }
