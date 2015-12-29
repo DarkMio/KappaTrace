@@ -3,10 +3,7 @@ package Raytracing;
 import MathFunc.Mat4x4;
 import MathFunc.Vector3;
 
-import java.util.Random;
-
 public class Transform {
-
     public final Mat4x4 m;
     public final Mat4x4 i;
 
@@ -63,10 +60,10 @@ public class Transform {
         final double iMatX = i.m21 * in.x + i.m22 * in.y + i.m23 * in.z + i.m24;
         final double iMatY = i.m31 * in.x + i.m32 * in.y + i.m33 * in.z + i.m34;
         final double iMatZ = i.m41 * in.x + i.m42 * in.y + i.m43 * in.z + i.m44;
-        final Mat4x4 iMat = new Mat4x4(m.m11, m.m12, m.m13, iMatW,
-                                       m.m21, m.m22, m.m23, iMatX,
-                                       m.m31, m.m32, m.m33, iMatY,
-                                       m.m41, m.m42, m.m43, iMatZ);
+        final Mat4x4 iMat = new Mat4x4(i.m11, i.m12, i.m13, iMatW,
+                                       i.m21, i.m22, i.m23, iMatX,
+                                       i.m31, i.m32, i.m33, iMatY,
+                                       i.m41, i.m42, i.m43, iMatZ);
         return new Transform(tMat, iMat);
     }
 
@@ -109,14 +106,14 @@ public class Transform {
     public Transform rotateX(double angle) {
         final double sin = Math.sin(angle);
         final double cos = Math.cos(angle);
-        final Mat4x4 tMat = new Mat4x4(m.m11, m.m11 * cos + m.m12 * sin, m.m11 * -sin + m.m12 * cos, m.m14,
-                                       m.m21, m.m21 * cos + m.m22 * sin, m.m21 * -sin + m.m22 * cos, m.m24,
-                                       m.m31, m.m31 * cos + m.m32 * sin, m.m31 * -sin + m.m32 * cos, m.m34,
-                                       m.m41, m.m41 * cos + m.m32 * sin, m.m41 * -sin + m.m42 * cos, m.m44);
-        final Mat4x4 iMat = new Mat4x4(i.m11, i.m11 * cos + i.m12 * -sin, i.m11 * sin + i.m12 * cos, i.m14,
-                                       i.m21, i.m21 * cos + i.m22 * -sin, i.m21 * sin + i.m22 * cos, i.m24,
-                                       i.m31, i.m31 * cos + i.m32 * -sin, i.m31 * sin + i.m32 * cos, i.m34,
-                                       i.m41, i.m41 * cos + i.m32 * -sin, i.m41 * sin + i.m42 * cos, i.m44);
+        final Mat4x4 tMat = new Mat4x4(m.m11, m.m12 * cos + m.m13 * sin, m.m12 * -sin + m.m13 * cos, m.m14,
+                                       m.m21, m.m22 * cos + m.m23 * sin, m.m22 * -sin + m.m23 * cos, m.m24,
+                                       m.m31, m.m32 * cos + m.m33 * sin, m.m32 * -sin + m.m33 * cos, m.m34,
+                                       m.m41, m.m42 * cos + m.m43 * sin, m.m42 * -sin + m.m43 * cos, m.m44);
+        final Mat4x4 iMat = new Mat4x4(i.m11, i.m12 * cos + i.m13 * -sin, i.m12 * sin + i.m13 * cos, i.m14,
+                                       i.m21, i.m22 * cos + i.m23 * -sin, i.m22 * sin + i.m23 * cos, i.m24,
+                                       i.m31, i.m32 * cos + i.m33 * -sin, i.m32 * sin + i.m33 * cos, i.m34,
+                                       i.m41, i.m42 * cos + i.m43 * -sin, i.m42 * sin + i.m43 * cos, i.m44);
         return new Transform(tMat, iMat);
     }
 
@@ -137,10 +134,10 @@ public class Transform {
                                        m.m21 * cos + m.m23 * -sin, m.m22, m.m21 * sin + m.m23 * cos, m.m24,
                                        m.m31 * cos + m.m33 * -sin, m.m32, m.m31 * sin + m.m33 * cos, m.m34,
                                        m.m41 * cos + m.m43 * -sin, m.m42, m.m41 * sin + m.m43 * cos, m.m44);
-        final Mat4x4 iMat = new Mat4x4(m.m11 * cos + m.m13 * sin, m.m12, m.m11 * -sin + m.m13 * cos, m.m14,
-                                       m.m21 * cos + m.m23 * sin, m.m22, m.m21 * -sin + m.m23 * cos, m.m24,
-                                       m.m31 * cos + m.m33 * sin, m.m32, m.m31 * -sin + m.m33 * cos, m.m34,
-                                       m.m41 * cos + m.m43 * sin, m.m42, m.m41 * -sin + m.m43 * cos, m.m44);
+        final Mat4x4 iMat = new Mat4x4(i.m11 * cos + i.m13 * sin, i.m12, i.m11 * -sin + i.m13 * cos, i.m14,
+                                       i.m21 * cos + i.m23 * sin, i.m22, i.m21 * -sin + i.m23 * cos, i.m24,
+                                       i.m31 * cos + i.m33 * sin, i.m32, i.m31 * -sin + i.m33 * cos, i.m34,
+                                       i.m41 * cos + i.m43 * sin, i.m42, i.m41 * -sin + i.m43 * cos, i.m44);
         return new Transform(tMat, iMat);
     }
 
@@ -158,18 +155,16 @@ public class Transform {
         final double sin = Math.sin(angle);
         final double cos = Math.cos(angle);
         final Mat4x4 tMat = new Mat4x4(m.m11 * cos + m.m12 * sin, m.m11 * -sin + m.m12 * cos, m.m13, m.m14,
-                                       m.m21 * cos + m.m22 * sin, m.m21 * -sin + m.m22 * cos, m.m13, m.m14,
-                                       m.m31 * cos + m.m32 * sin, m.m31 * -sin + m.m32 * cos, m.m33, m.m44,
-                                       m.m41 * cos + m.m42 * sin, m.m41 * -sin + m.m42 * cos, m.m33, m.m44);
+                                       m.m21 * cos + m.m22 * sin, m.m21 * -sin + m.m22 * cos, m.m23, m.m24,
+                                       m.m31 * cos + m.m32 * sin, m.m31 * -sin + m.m32 * cos, m.m33, m.m34,
+                                       m.m41 * cos + m.m42 * sin, m.m41 * -sin + m.m42 * cos, m.m43, m.m44);
+
         final Mat4x4 iMat = new Mat4x4(i.m11 * cos + i.m12 * -sin, i.m11 * sin + i.m12 * cos, i.m13, i.m14,
-                                       i.m21 * cos + i.m22 * -sin, i.m21 * sin + i.m22 * cos, i.m13, i.m14,
-                                       i.m31 * cos + i.m32 * -sin, i.m31 * sin + i.m32 * cos, i.m33, i.m44,
-                                       i.m41 * cos + i.m42 * -sin, i.m41 * sin + i.m42 * cos, i.m33, i.m44);
+                                       i.m21 * cos + i.m22 * -sin, i.m21 * sin + i.m22 * cos, i.m23, i.m24,
+                                       i.m31 * cos + i.m32 * -sin, i.m31 * sin + i.m32 * cos, i.m33, i.m34,
+                                       i.m41 * cos + i.m42 * -sin, i.m41 * sin + i.m42 * cos, i.m43, i.m44);
         return new Transform(tMat, iMat);
     }
-
-
-
 
     @Override
     public boolean equals(Object o) {
