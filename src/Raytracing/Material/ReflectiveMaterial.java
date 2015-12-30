@@ -37,6 +37,7 @@ public class ReflectiveMaterial extends Material{
 
 
     //c = cd*ca + summe(i=1 bis imax)(cd*cl*imax(0, Vn * Vl)+ cs * cl * imax(0, Ve * Vn)^p + cr*fr(t * Vpr, Vrd))
+    // ^ nice comment, m8, reel funny FUCK YOJ - in Love, Mio.
     @Override
     public Color colorFor(final Hit hit, final World world, final Tracer tracer) {
         if (hit == null) {
