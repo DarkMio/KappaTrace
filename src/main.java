@@ -1,6 +1,7 @@
 import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
+import MultiThreading.MultiRaytracer;
 import Raytracing.Camera.FishEyeCamera;
 import Raytracing.Camera.PerspectiveCamera;
 import Raytracing.Color;
@@ -10,7 +11,6 @@ import Raytracing.Light.Light;
 import Raytracing.Light.PointLight;
 import Raytracing.Material.LambertMaterial;
 import Raytracing.Transform;
-import Raytracing.UI.Raytracer;
 import Raytracing.World;
 
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class main {
         PerspectiveCamera ppc = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
         FishEyeCamera fec = new FishEyeCamera(new Point3(0,0,6), new Vector3(-0.3, -0.1, -0.3), new Vector3(0.10, 1, 0), 2, 100);
 
-        new Raytracer(320, 240, new World(background, scene_reflective, ambientLight, lights), fec);
+//      new Raytracer(320, 240, new World(background, scene_reflective, ambientLight, lights), fec);
 //      new Raytracer(640, 480, new World(background, scene_lambert, ambientLight, lights), ppc);
 //      new Raytracer(640, 480, new World(background, scene_phong, ambientLight, lights), ppc);
 
@@ -68,7 +68,7 @@ public class main {
         ArrayList<Light> lights2 = new ArrayList<>();
         lights2.add(new PointLight(new Point3(8.0,8.0,0.0), new Color(1.0,1.0,1.0),true));
         PerspectiveCamera ppc2 = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
-//      new Raytracer(640, 480, new World(background, scene2, ambientLight, lights2), ppc2);
+        new MultiRaytracer(640, 480, new World(background, scene2, ambientLight, lights2), ppc2,8);
 
         Transform x = new Transform().scale(new Vector3(3, 1, 1.5));
         ArrayList<Geometry> scene3 = new ArrayList<>(Arrays.asList(new Node(Materials.RED_REFLECTIVE, x,scene_reflective)));
