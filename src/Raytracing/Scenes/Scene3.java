@@ -3,6 +3,7 @@ package Raytracing.Scenes;
 import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
+import MultiThreading.MultiRaytracer;
 import Raytracing.Camera.PerspectiveCamera;
 import Raytracing.Color;
 import Raytracing.Constants.Colors;
@@ -21,12 +22,13 @@ import java.util.Arrays;
 
 public class Scene3 {
     public static void Scene3Factory() {
-        firstSceneFactory();
-        secondSceneFactory();
+       /* firstSceneFactory();
+      /  secondSceneFactory();
         thirdSceneFactory();
         fourthSceneFactory();
         fifthSceneFactory();
         sixthSceneFactory();
+        */
         OBJSceneFactory();
     }
 
@@ -129,10 +131,10 @@ public class Scene3 {
         Color ambientLight = new Color(1, 1, 1);
         Normal3 up = new Normal3(0, 1, 0);
         ArrayList<Geometry> scene = new ArrayList<>(Arrays.asList(
-                new ShapeFromFile("./src/Objects/box.obj", Materials.GREEN_LAMBERT)
+                new ShapeFromFile("./src/Objects/lamp.obj", Materials.ORANGE_REFLECTIVE)
         ));
-        PerspectiveCamera ppc = new PerspectiveCamera(new Point3(4, 4, 4), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
+        PerspectiveCamera ppc = new PerspectiveCamera(new Point3(10, 10, 10), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
         ArrayList<Light> lights2 = new ArrayList<>();
-        new Raytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc);
+        new MultiRaytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc,32);
     }
 }

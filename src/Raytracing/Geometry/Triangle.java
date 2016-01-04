@@ -67,8 +67,8 @@ public class Triangle extends Geometry {
     public Hit hit(final Ray r) {
         Mat3x3 matrixBase = new Mat3x3(a.x - b.x, a.x - c.x, r.d.x,
                                        a.y - b.y, a.y - c.y, r.d.y,
-                                       a.z - b.z, a.z - b.z, r.d.z);
-        Vector3 colChanger = new Vector3(a.x - r.o.x, b.y - r.o.y, a.z - r.o.z);
+                                       a.z - b.z, a.z - c.z, r.d.z);
+        Vector3 colChanger = new Vector3(a.x - r.o.x, a.y - r.o.y, a.z - r.o.z);
         Mat3x3 matrixBeta = matrixBase.changeCol1(colChanger);
         double beta = matrixBeta.determinant / matrixBase.determinant;
         if (!(beta + Epsilon.PRECISION >= 0 && beta - Epsilon.PRECISION <= 1)) return null;
