@@ -31,11 +31,11 @@ public class main {
     public static void main(String[] args) {
         long time = System.currentTimeMillis();
         Scene3.Scene3Factory();
-        time = timeTaken(time, "Scene3");
+      //time = timeTaken(time, "Scene3");
 /*        Scene4.Scene4Factory();
         time = timeTaken(time, "Scene4");
         Scene5.Scene5Factory();
-        time = timeTaken(time, "Scene5");
+        time = timeTaken(time, "Scene5")
         SceneMultithread.Scene5Factory();
         time = timeTaken(time, "SceneMultithread");
         /*
