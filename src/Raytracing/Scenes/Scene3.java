@@ -27,6 +27,7 @@ public class Scene3 {
         fourthSceneFactory();
         fifthSceneFactory();
         sixthSceneFactory();
+        OBJSceneFactory();
     }
 
     private static void firstSceneFactory() {
@@ -121,6 +122,17 @@ public class Scene3 {
         PerspectiveCamera ppc = new PerspectiveCamera(new Point3(4, 4, 4), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
         ArrayList<Light> lights2 = new ArrayList<>();
         lights2.add(new SpotLight(new Point3(4, 4, 4), new Vector3(-1, -1, -1), Math.PI/15, Colors.WHITE, false));
+        new Raytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc);
+    }
+    private static void OBJSceneFactory() {
+        Color background = new Color(0.0, 0.0, 0.0);
+        Color ambientLight = new Color(1, 1, 1);
+        Normal3 up = new Normal3(0, 1, 0);
+        ArrayList<Geometry> scene = new ArrayList<>(Arrays.asList(
+                new ShapeFromFile("./src/Objects/box.obj", Materials.GREEN_LAMBERT)
+        ));
+        PerspectiveCamera ppc = new PerspectiveCamera(new Point3(4, 4, 4), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
+        ArrayList<Light> lights2 = new ArrayList<>();
         new Raytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc);
     }
 }
