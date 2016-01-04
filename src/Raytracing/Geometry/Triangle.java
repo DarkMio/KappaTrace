@@ -54,6 +54,14 @@ public class Triangle extends Geometry {
         this.bn = bn;
         this.cn = cn;
     }
+    public Triangle (final Material material, final Point3 a, final Point3 b, final Point3 c){
+        this(material,  a, b.sub(a).x(c.sub(a)).asNormal(),
+                        b, b.sub(a).x(c.sub(a)).asNormal(),
+                        c, b.sub(a).x(c.sub(a)).asNormal()
+        );
+    }
+
+
 
     @Override
     public Hit hit(final Ray r) {
