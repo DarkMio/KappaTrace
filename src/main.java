@@ -10,6 +10,10 @@ import Raytracing.Geometry.*;
 import Raytracing.Light.Light;
 import Raytracing.Light.PointLight;
 import Raytracing.Material.LambertMaterial;
+import Raytracing.Scenes.Scene3;
+import Raytracing.Scenes.Scene4;
+import Raytracing.Scenes.Scene5;
+import Raytracing.Scenes.SceneMultithread;
 import Raytracing.Transform;
 import Raytracing.World;
 
@@ -18,7 +22,23 @@ import java.util.Arrays;
 
 public class main {
 
+    private static long timeTaken(long initTime, String sceneName) {
+        long newTime = System.currentTimeMillis();
+        System.out.println("Time taken for " + sceneName + ": " + (newTime - initTime) + "ms");
+        return newTime;
+    }
+
     public static void main(String[] args) {
+        long time = System.currentTimeMillis();
+        Scene3.Scene3Factory();
+        time = timeTaken(time, "Scene3");
+/*        Scene4.Scene4Factory();
+        time = timeTaken(time, "Scene4");
+        Scene5.Scene5Factory();
+        time = timeTaken(time, "Scene5");
+        SceneMultithread.Scene5Factory();
+        time = timeTaken(time, "SceneMultithread");
+        /*
         Color background = new Color(0.0, 0.0, 0.0);
         Color ambientLight = new Color(0.25, 0.25, 0.25);
 
@@ -73,5 +93,6 @@ public class main {
         Transform x = new Transform().scale(new Vector3(3, 1, 1.5));
         ArrayList<Geometry> scene3 = new ArrayList<>(Arrays.asList(new Node(Materials.RED_REFLECTIVE, x,scene_reflective)));
 //      new Raytracer(640, 480, new World(background, scene3, ambientLight, lights2), ppc2);
+*/
     }
 }
