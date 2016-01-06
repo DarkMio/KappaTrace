@@ -43,7 +43,7 @@ public class MultiRaytracer {
      */
     private ImageIcon frame;
     private JLabel jl;
-    public final ArrayList<MyRunnable> runnables;
+    public final ArrayList<RayRunnable> runnables;
 
     private int rowCount = 0;
     private long startTime;
@@ -77,17 +77,6 @@ public class MultiRaytracer {
         }
         this.width = width;
         this.height = height;
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
         jf = new JFrame();
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         jf.setTitle("MultiRaytracing | Java");
@@ -107,7 +96,7 @@ public class MultiRaytracer {
         runnables = new ArrayList<>();
         for (int x = 0; x < xThread; x++) {
             for (int y = 0; y < yThread; y++) {
-                runnables.add(new MyRunnable(this, width * x / xThread, width * (x + 1) / xThread, height * y / yThread,
+                runnables.add(new RayRunnable(this, width * x / xThread, width * (x + 1) / xThread, height * y / yThread,
                         height * (y + 1) / yThread));
             }
         }

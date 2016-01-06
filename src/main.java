@@ -1,5 +1,7 @@
 import Raytracing.Scenes.*;
 
+import javax.swing.*;
+
 public class main {
 
     private static long timeTaken(long initTime, String sceneName) {
@@ -9,14 +11,16 @@ public class main {
     }
 
     public static void main(String[] args) {
+        bootstrap();
         long time = System.currentTimeMillis();
        /* SceneMultithread.Scene5Factory();
         time = timeTaken(time, "SceneMultithread");
         Scene4.Scene4Factory();
         time = timeTaken(time, "Scene4");
-        Scene5.Scene5Factory();
-        time = timeTaken(time, "Scene5");*/
-        SceneOBJ.SceneOBJFactory();
+        */
+        Scene4.Scene4Factory();
+        time = timeTaken(time, "Scene5");
+        //SceneOBJ.SceneOBJFactory();
 /*        Scene4.Scene4Factory();
         time = timeTaken(time, "Scene4");
         Scene5.Scene5Factory();
@@ -24,5 +28,19 @@ public class main {
         SceneMultithread.Scene5Factory();
         time = timeTaken(time, "SceneMultithread");
  */
+    }
+
+    private static void bootstrap() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
     }
 }

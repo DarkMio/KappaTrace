@@ -3,6 +3,7 @@ package Raytracing.Camera;
 import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Ray;
+import Raytracing.Sampling.SamplingPattern;
 
 /**
  * Created by Mio on 30/12/2015.
@@ -12,15 +13,17 @@ public class FishEyeCamera extends Camera {
     public final double s;
     public final double maxPsi;
 
-    public FishEyeCamera(final Point3 e, final Vector3 g, final Vector3 t, final double s, final double maxPsi) {
-        super(e, g, t);
+    public FishEyeCamera(final Point3 e, final Vector3 g, final Vector3 t, final double s, final double maxPsi, final SamplingPattern pattern) {
+        super(e, g, t, pattern);
         this.s = s;
         this.maxPsi = maxPsi;
     }
 
 
     @Override
-    public Ray rayFor(int w, int h, int x, int y) {
+    public Ray[] rayFor(int w, int h, int x, int y) {
+        return new Ray[0];
+        /*
         Vector3 d;
         double x_t = 2.0 / (s * h) * x;
         double y_t = 2.0 / (s * w) * y;
@@ -42,6 +45,6 @@ public class FishEyeCamera extends Camera {
         }
         return new Ray(e, d);
         // return rd;
-
+*/
     }
 }

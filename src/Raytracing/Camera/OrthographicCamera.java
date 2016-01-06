@@ -6,6 +6,7 @@ package Raytracing.Camera;
 import Raytracing.Ray;
 import MathFunc.Point3;
 import MathFunc.Vector3;
+import Raytracing.Sampling.SamplingPattern;
 
 public class OrthographicCamera extends Camera {
 
@@ -13,13 +14,15 @@ public class OrthographicCamera extends Camera {
     private final double s;
 
     /** constructor for orthographic camera objects */
-    public OrthographicCamera(final Point3 e, final Vector3 g, final Vector3 t, final double s) {
-        super(e, g, t);
+    public OrthographicCamera(final Point3 e, final Vector3 g, final Vector3 t, final double s, final SamplingPattern pattern) {
+        super(e, g, t, pattern);
         this.s = s;
     }
 
     @Override
-    public Ray rayFor(int w, int h, final int x, final int y) {
+    public Ray[] rayFor(int w, int h, final int x, final int y) {
+        return new Ray[0];
+        /*
         w -= 1;
         h -= 1;
         final double wHalf = w/2.0;
@@ -30,21 +33,11 @@ public class OrthographicCamera extends Camera {
         Vector3 posX = u.mul(a*s*tempX);
         Vector3 posY = v.mul(s*tempY);
         return new Ray(e.add(posX).add(posY), g);
+
+        */
     }
 
-    /*
-        @Override
-    public Ray rayFor(int w, int h, int x, int y) {
-        final double a = w/h;
-        final double tempU = a * s * ((x-(h-1)/2)/(h-1));
-        final Vector3 tempUV = u.mul(tempU);
-        final double tempV = s*((y-(w-1)/2)/(w-1));
-        final Vector3 tempVV = v.mul(tempV);
-        final Point3 o = e.add(tempUV).add(tempVV);
 
-        return new Ray(o, this.w.mul(-1));
-    }
-     */
 
     @Override
     public boolean equals(Object o) {
