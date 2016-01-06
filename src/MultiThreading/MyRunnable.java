@@ -30,6 +30,8 @@ public class MyRunnable implements Runnable {
                             h.geo.material.colorFor(h, multiTracer.world, new Tracer(8,multiTracer.world)).toIntRGB());
                 }
             }
+            multiTracer.update();
         }
+        multiTracer.complete();
     }
 }
