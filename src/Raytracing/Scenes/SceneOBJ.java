@@ -9,15 +9,11 @@ import Raytracing.Color;
 import Raytracing.Constants.Colors;
 import Raytracing.Constants.Materials;
 import Raytracing.Geometry.*;
-import Raytracing.Light.DirectionalLight;
 import Raytracing.Light.Light;
 import Raytracing.Light.PointLight;
-import Raytracing.Light.SpotLight;
-import Raytracing.UI.Raytracer;
+import Raytracing.Sampling.EvenlyDistributedPattern;
 import Raytracing.World;
-import javafx.scene.Scene;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -61,7 +57,7 @@ public class SceneOBJ {
         ArrayList<Geometry> scene = new ArrayList<>(Arrays.asList(
                 new ShapeFromFile(file, Materials.ORANGE_REFLECTIVE)
         ));
-        PerspectiveCamera ppc = new PerspectiveCamera(camera, new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
+        PerspectiveCamera ppc = new PerspectiveCamera(camera, new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(3));
         ArrayList<Light> lights2 = new ArrayList<>();
         lights2.add(new PointLight(new Point3(4,4,4), Colors.WHITE, true));
         new MultiRaytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc, 8);

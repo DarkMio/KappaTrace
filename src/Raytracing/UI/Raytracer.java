@@ -49,11 +49,17 @@ public class Raytracer {
     private void render() {
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {
-                final Hit h = world.hit(cam.rayFor(width, height, x, y));
-                if(h == null) img.setRGB(x, height-y-1, world.backgroundColor.toIntRGB());
-                else {img.setRGB(x, height-y-1, h.geo.material.colorFor(h, world, new Tracer(8,world)).toIntRGB());}
+                final Ray[] rays = cam.rayFor(width, height, x, y);
+                Color finalColor = new Color(0, 0, 0);
+                for (Ray ray : rays) {
+                    final Hit h = world.hit(ray);
+                    if (h == null) finalColor = finalColor.add(world.backgroundColor);
+                    else finalColor = finalColor.add(h.geo.material.colorFor(h, world,
+                            new Tracer(8, world)));
+                }
+                finalColor = finalColor.mul(1 / (double) rays.length);
+                img.setRGB(x, height-y-1, finalColor.toIntRGB());
             }
-
         }
         reload();
     }

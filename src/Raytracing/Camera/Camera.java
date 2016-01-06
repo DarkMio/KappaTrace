@@ -1,11 +1,12 @@
 package Raytracing.Camera;
-
+// @TODO: PLEASE, FishEyeCamera and OrthographicCamera are utterly broken right now.
 /**
  * Camera represents abstract class for camera objects
  */
 import Raytracing.Ray;
 import MathFunc.Point3;
 import MathFunc.Vector3;
+import Raytracing.Sampling.SamplingPattern;
 
 public abstract class Camera {
 
@@ -22,6 +23,8 @@ public abstract class Camera {
     /** Vector3 w representing the a local vector w*/
     final public Vector3 w;
 
+    final public SamplingPattern pattern;
+
     /**
      * Abstract Camaera constructor
      * @param e Point3 for plane construction - must not be null
@@ -29,20 +32,21 @@ public abstract class Camera {
      * @param t Vector3 for plane construction - must not be null
      *
      */
-    public Camera(final Point3 e, final Vector3 g, final Vector3 t) {
+    public Camera(final Point3 e, final Vector3 g, final Vector3 t, final SamplingPattern pattern) {
         if (e == null) throw new IllegalArgumentException("must not be null");
         if (g == null) throw new IllegalArgumentException("must not be null");
         if (t == null) throw new IllegalArgumentException("must not be null");
         this.e = e;
         this.g = g;
         this.t = t;
+        this.pattern = pattern;
         w = g.normalized().mul(-1);
         u = t.x(w).normalized();
         v = w.x(u);
     }
 
     /** abstract constructor for a ray in a specified pixel */
-    public abstract Ray rayFor(final int w, final int h, final int x, final int y);
+    public abstract Ray[] rayFor(final int w, final int h, final int x, final int y);
 
     @Override
     public boolean equals(Object o) {
