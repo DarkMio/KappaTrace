@@ -8,6 +8,7 @@ import Raytracing.Camera.Camera;
 import Raytracing.World;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -49,6 +50,8 @@ public class MultiRaytracer {
     private int xThread;
     private int yThread;
     private int threadsCompleted = 0;
+    private JProgressBar progress = new JProgressBar(0, 1000);
+    private JLabel status = new JLabel("Estimating rendering time.");
 
     /**
      * renders a single image
@@ -78,11 +81,15 @@ public class MultiRaytracer {
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         jf.setTitle("MultiRaytracing | Java");
         jf.setResizable(false);
+        jf.setLayout(new BorderLayout());
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         frame = new ImageIcon(img);
         jl = new JLabel();
         jl.setIcon(frame);
-        jf.add(jl);
+        jf.add(jl, BorderLayout.NORTH);
+        progress.setStringPainted(true);
+        jf.add(progress, BorderLayout.CENTER);
+        jf.add(status, BorderLayout.SOUTH);
         this.world = world;
         cam = camera;
         runnables = new ArrayList<>();
@@ -105,8 +112,10 @@ public class MultiRaytracer {
         long offset = System.currentTimeMillis() - startTime;
         long perLine = offset / rowCount;
         long inter = perLine * rowSet;
-        int i = (int) (inter / 1000);
-        // System.out.println("Remaining time: " + i / (60 * 60) + "h " + i / (60) % 60 + "m " + i % 60 + "s");
+        long i = inter - startTime;
+        i = inter / 1000;
+        progress.setValue(rowCount*1000/rowSet);
+        status.setText("Rendering... | Remaining time: " + i / (60 * 60) + "h " + i / (60) % 60 + "m " + i % 60 + "s");
     }
 
     public void complete() {
@@ -114,7 +123,7 @@ public class MultiRaytracer {
         if (threadsCompleted == runnables.size()) {
             int endTime = (int) (System.currentTimeMillis() - startTime);
             endTime = endTime / 1000;
-            System.out.println("Time taken: " + endTime / (60 * 60) + "h " + endTime / (60) % 60 + "m " + endTime % 60 + "s");
+            status.setText("Rendering finished | Time taken: " + endTime / (60 * 60) + "h " + endTime / (60) % 60 + "m " + endTime % 60 + "s");
         }
     }
 
