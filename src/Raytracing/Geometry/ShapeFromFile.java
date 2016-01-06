@@ -80,6 +80,7 @@ public class ShapeFromFile extends Geometry {
             }
 
             if (str.startsWith("f")) {
+                System.out.println(astra[1].length());
                 if (astra.length == 4) {
                     if (astra[1].split("/").length == 2){
                         int[] intArray = new int[6];
