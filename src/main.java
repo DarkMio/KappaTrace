@@ -1,7 +1,4 @@
-import Raytracing.Scenes.Scene3;
-import Raytracing.Scenes.Scene4;
-import Raytracing.Scenes.Scene5;
-import Raytracing.Scenes.SceneMultithread;
+import Raytracing.Scenes.*;
 
 public class main {
 
@@ -13,12 +10,13 @@ public class main {
 
     public static void main(String[] args) {
         long time = System.currentTimeMillis();
-        SceneMultithread.Scene5Factory();
+       /* SceneMultithread.Scene5Factory();
         time = timeTaken(time, "SceneMultithread");
         Scene4.Scene4Factory();
         time = timeTaken(time, "Scene4");
         Scene5.Scene5Factory();
-        time = timeTaken(time, "Scene4");
+        time = timeTaken(time, "Scene5");*/
+        SceneOBJ.SceneOBJFactory();
 /*        Scene4.Scene4Factory();
         time = timeTaken(time, "Scene4");
         Scene5.Scene5Factory();
