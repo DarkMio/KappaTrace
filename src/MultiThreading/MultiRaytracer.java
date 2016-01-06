@@ -82,6 +82,7 @@ public class MultiRaytracer {
         jf.setTitle("MultiRaytracing | Java");
         jf.setResizable(false);
         jf.setLayout(new BorderLayout());
+        jf.setIconImage(new ImageIcon("./src/Resources/Kappa.png").getImage());
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         frame = new ImageIcon(img);
         jl = new JLabel();
