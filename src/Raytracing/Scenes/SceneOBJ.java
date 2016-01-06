@@ -27,6 +27,7 @@ public class SceneOBJ {
         secondOBJSceneFactory();
         thirdOBJSceneFactory();
         fourthOBJSceneFactory();
+        fifthOBJSceneFactory();
     }
 
     private static void firstOBJSceneFactory() {
@@ -43,6 +44,10 @@ public class SceneOBJ {
 
     private static void fourthOBJSceneFactory() {
         SceneGenerator("./src/OBJFiles/teddy.obj");
+    }
+
+    private static void fifthOBJSceneFactory() {
+        SceneGenerator("./src/OBJFiles/cube-v-vt-vn.obj");
     }
 
     private static void SceneGenerator(String file) {
