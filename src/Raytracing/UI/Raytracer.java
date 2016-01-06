@@ -48,6 +48,7 @@ public class Raytracer {
     /** renders a single image */
     private void render() {
         for(int x = 0; x < width; x++) {
+            System.out.println(x);
             for(int y = 0; y < height; y++) {
                 final Hit h = world.hit(cam.rayFor(width, height, x, y));
                 if(h == null) img.setRGB(x, height-y-1, world.backgroundColor.toIntRGB());
