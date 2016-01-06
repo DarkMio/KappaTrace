@@ -26,7 +26,7 @@ public class Scene4 {
 
     public static void Scene4Factory() {
         firstSceneFactory();
-        secondSceneFactory();
+        // secondSceneFactory();
     }
 
     private static void firstSceneFactory() {
@@ -42,7 +42,7 @@ public class Scene4 {
         lights.add(new PointLight(new Point3(8.0,8.0,8.0), new Color(1.0,1.0,1.0),true));
 
         PerspectiveCamera ppc = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
-        new Raytracer(640, 480, new World(background, scene_reflective, ambientLight, lights), ppc);
+        new Raytracer(1280, 960, new World(background, scene_reflective, ambientLight, lights), ppc);
     }
 
     private static void secondSceneFactory() {
@@ -55,6 +55,6 @@ public class Scene4 {
         PerspectiveCamera ppc = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4);
         ArrayList<Light> lights = new ArrayList<>();
         lights.add(new PointLight(new Point3(8.0,8.0,0.0), new Color(1.0,1.0,1.0),true));
-        new Raytracer(640, 480, new World(background, scene, ambientLight, lights), ppc);
+        new Raytracer(1280, 960, new World(background, scene, ambientLight, lights), ppc);
     }
 }
