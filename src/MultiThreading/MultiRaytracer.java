@@ -13,32 +13,63 @@ import java.util.ArrayList;
 
 public class MultiRaytracer {
 
-    /** int determining the width of a raytracer */
+    /**
+     * int determining the width of a raytracer
+     */
     final public int width;
-    /** int determining the height of a raytracer */
+    /**
+     * int determining the height of a raytracer
+     */
     final public int height;
-    /** JFrame for raytracer */
-    final private JFrame jf;
-    /** BufferedImage for raytracer */
+    /**
+     * JFrame for raytracer
+     */
+    public JFrame jf;
+    /**
+     * BufferedImage for raytracer
+     */
     final public BufferedImage img;
-    /** Camera for raytracer */
+    /**
+     * Camera for raytracer
+     */
     public Camera cam;
-    /** World for raytracer */
+    /**
+     * World for raytracer
+     */
     public final World world;
-    /** ImageIcon for raytracer */
+    /**
+     * ImageIcon for raytracer
+     */
     private ImageIcon frame;
+    private JLabel jl;
     public final ArrayList<MyRunnable> runnables;
 
+    private int rowCount = 0;
+    private long startTime;
+    private int xThread;
+    private int yThread;
+    private int threadsCompleted = 0;
 
-    /** constructor for a MultiRaytracer with int width, int height, World world and Camera camera */
+    /**
+     * renders a single image
+     */
+    private void render() {
+        for (Runnable t : runnables) {
+            Thread thread = new Thread(t);
+            thread.start();
+            //thread.join();
+        }
+    }
+
+    /**
+     * constructor for a MultiRaytracer with int width, int height, World world and Camera camera
+     */
     public MultiRaytracer(final int width, final int height, final World world, final Camera camera, final int threads) {
-        int xThread = 0;
-        int yThread = 0;
-        if(threads%2==1){
-            xThread = (threads-1)/2;
+        if (threads % 2 == 1) {
+            xThread = (threads - 1) / 2;
             yThread = 2;
-        }else {
-            xThread = threads/2;
+        } else {
+            xThread = threads / 2;
             yThread = 2;
         }
         this.width = width;
@@ -49,33 +80,42 @@ public class MultiRaytracer {
         jf.setResizable(false);
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         frame = new ImageIcon(img);
-        JLabel jl = new JLabel();
+        jl = new JLabel();
         jl.setIcon(frame);
         jf.add(jl);
         this.world = world;
         cam = camera;
-        runnables=new ArrayList<>();
-        for(int x = 0; x < xThread; x++){
-            for(int y = 0; y < yThread; y++) {
+        runnables = new ArrayList<>();
+        for (int x = 0; x < xThread; x++) {
+            for (int y = 0; y < yThread; y++) {
                 runnables.add(new MyRunnable(this, width * x / xThread, width * (x + 1) / xThread, height * y / yThread,
                         height * (y + 1) / yThread));
             }
         }
-        render();
-        jf.pack();
         jf.setVisible(true);
+        jf.pack();
+        startTime = System.currentTimeMillis();
+        render();
     }
 
-    /** renders a single image */
-    private void render() {
-        try{
-            for(Runnable t : runnables){
-                Thread thread = new Thread(t);
-                thread.start();
-                thread.join();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public void update() {
+        jl.setIcon(new ImageIcon(img));
+        rowCount++;
+        int rowSet = width * yThread;
+        long offset = System.currentTimeMillis() - startTime;
+        long perLine = offset / rowCount;
+        long inter = perLine * rowSet;
+        int i = (int) (inter / 1000);
+        // System.out.println("Remaining time: " + i / (60 * 60) + "h " + i / (60) % 60 + "m " + i % 60 + "s");
+    }
+
+    public void complete() {
+        threadsCompleted++;
+        if (threadsCompleted == runnables.size()) {
+            int endTime = (int) (System.currentTimeMillis() - startTime);
+            endTime = endTime / 1000;
+            System.out.println("Time taken: " + endTime / (60 * 60) + "h " + endTime / (60) % 60 + "m " + endTime % 60 + "s");
         }
     }
+
 }
