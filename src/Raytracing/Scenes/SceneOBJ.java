@@ -19,11 +19,11 @@ import java.util.Arrays;
 
 public class SceneOBJ {
     public static void SceneOBJFactory() {
-        firstOBJSceneFactory();
-        secondOBJSceneFactory();
-        thirdOBJSceneFactory();
-        fourthOBJSceneFactory();
-        fifthOBJSceneFactory();
+        // firstOBJSceneFactory();
+        // secondOBJSceneFactory();
+        // thirdOBJSceneFactory();
+        // fourthOBJSceneFactory();
+        // fifthOBJSceneFactory();
         sixthOBJSceneFactory();
     }
 
@@ -50,16 +50,20 @@ public class SceneOBJ {
         SceneGenerator("./src/OBJFiles/bunny.obj", new Point3(40, 40, 40));
     }
 
-        private static void SceneGenerator(String file, Point3 camera) {
+    private static void SceneGenerator(String file, Point3 camera) {
         Color background = new Color(0.0, 0.0, 0.0);
         Color ambientLight = new Color(1, 1, 1);
         Normal3 up = new Normal3(0, 1, 0);
         ArrayList<Geometry> scene = new ArrayList<>(Arrays.asList(
                 new ShapeFromFile(file, Materials.ORANGE_REFLECTIVE)
         ));
+        ArrayList<Geometry> boundingScene = new ArrayList<>(Arrays.asList(
+                new BoundingBox(((ShapeFromFile) scene.get(0)).objects)
+        ));
         PerspectiveCamera ppc = new PerspectiveCamera(camera, new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(3));
         ArrayList<Light> lights2 = new ArrayList<>();
         lights2.add(new PointLight(new Point3(4,4,4), Colors.WHITE, true));
-        new MultiRaytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc, 8);
+        new MultiRaytracer(640, 480, new World(background, boundingScene, ambientLight, lights2), ppc, 2);
+
     }
 }

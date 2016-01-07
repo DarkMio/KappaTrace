@@ -43,7 +43,7 @@ public class MultiRaytracer {
      */
     private ImageIcon frame;
     private JLabel jl;
-    public final ArrayList<RayRunnable> runnables;
+    public final ArrayList<RayPerLine> runnables;
 
     private int rowCount = 0;
     private long startTime;
@@ -94,12 +94,16 @@ public class MultiRaytracer {
         this.world = world;
         cam = camera;
         runnables = new ArrayList<>();
+        for(int i = 0; i < threads; i++) {
+            runnables.add(new RayPerLine(this, i, threads));
+        }
+        /*
         for (int x = 0; x < xThread; x++) {
             for (int y = 0; y < yThread; y++) {
                 runnables.add(new RayRunnable(this, width * x / xThread, width * (x + 1) / xThread, height * y / yThread,
                         height * (y + 1) / yThread));
             }
-        }
+        }*/
         jf.setVisible(true);
         jf.pack();
         startTime = System.currentTimeMillis();
@@ -109,7 +113,7 @@ public class MultiRaytracer {
     public void update() {
         jl.setIcon(new ImageIcon(img));
         rowCount++;
-        int rowSet = width * yThread;
+        int rowSet = width;
         long offset = System.currentTimeMillis() - startTime;
         long perLine = offset / rowCount;
         long inter = perLine * rowSet;
