@@ -19,11 +19,11 @@ import java.util.Arrays;
 
 public class SceneOBJ {
     public static void SceneOBJFactory() {
-        // firstOBJSceneFactory();
-        // secondOBJSceneFactory();
-        // thirdOBJSceneFactory();
-        fourthOBJSceneFactory();
-        // fifthOBJSceneFactory();
+        //firstOBJSceneFactory();
+        //secondOBJSceneFactory();
+        //thirdOBJSceneFactory();
+        // fourthOBJSceneFactory();
+        fifthOBJSceneFactory();
         // sixthOBJSceneFactory();
     }
 
@@ -63,10 +63,11 @@ public class SceneOBJ {
         for(Geometry g: boundingScene) {
             System.out.println("Something");
         }
-        PerspectiveCamera ppc = new PerspectiveCamera(camera, new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(1));
+        PerspectiveCamera ppc = new PerspectiveCamera(camera, new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(3));
         ArrayList<Light> lights2 = new ArrayList<>();
         lights2.add(new PointLight(new Point3(0,0,6), Colors.WHITE, true));
-        new MultiRaytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc, 16);
+        new MultiRaytracer(1280, 960, new World(background, boundingScene, ambientLight, lights2), ppc, 16);
+        new MultiRaytracer(1280, 960, new World(background, scene, ambientLight, lights2), ppc, 16);
 
     }
 }
