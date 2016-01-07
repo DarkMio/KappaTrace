@@ -40,6 +40,16 @@ public class Hit {
     }
 
     @Override
+    public String toString() {
+        return "Hit{" +
+                "t=" + t +
+                ", ray=" + ray +
+                ", geo=" + geo +
+                ", n=" + n +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         int result;
         long temp;

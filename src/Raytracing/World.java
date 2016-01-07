@@ -39,6 +39,9 @@ public class World {
                 h = hit;
             }
         }
+        if(h != null) {
+            h.geo.hit(r);
+        }
         return h;
     }
 

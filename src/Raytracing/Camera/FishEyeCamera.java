@@ -1,5 +1,6 @@
 package Raytracing.Camera;
 
+import MathFunc.Mat3x3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Ray;
@@ -10,41 +11,51 @@ import Raytracing.Sampling.SamplingPattern;
  */
 public class FishEyeCamera extends Camera {
 
-    public final double s;
-    public final double maxPsi;
+    public final double angle;
 
-    public FishEyeCamera(final Point3 e, final Vector3 g, final Vector3 t, final double s, final double maxPsi, final SamplingPattern pattern) {
+    public FishEyeCamera(Point3 e, Vector3 g, Vector3 t, double angle, SamplingPattern pattern) {
         super(e, g, t, pattern);
-        this.s = s;
-        this.maxPsi = maxPsi;
+        this.angle = angle;
     }
-
 
     @Override
     public Ray[] rayFor(int w, int h, int x, int y) {
-        return new Ray[0];
-        /*
-        Vector3 d;
-        double x_t = 2.0 / (s * h) * x;
-        double y_t = 2.0 / (s * w) * y;
-        double rSquared = x_t * x_t + y_t * y_t;
-        if (rSquared <= 1) {
-            double r = Math.sqrt(rSquared);
-            double psi = r * maxPsi * Math.PI/180;
-            double sinPsi = Math.sin(psi);
-            double cosPsi = Math.cos(psi);
-            double sinAlpha = y_t / r;
-            double cosAlpha = x_t / r;
-//            rd.direction = uvw.u.mult(sinPsi * cosAlpha).plus(uvw.v.mult(sinPsi * sinAlpha)).minus(uvw.w.mult(cosPsi));
-            d = u.mul(sinPsi * cosAlpha).add(v.mul(sinPsi * sinAlpha)).add(this.w.mul(-1).mul(cosPsi));
+        final int a = Integer.min(w, h);
+        if (x >= (w - a) / 2 && x <= (w - (w - a - 1) / 2) && y >= (h - a) / 2 && y <= (h - (h - a - 1) / 2)) {
+            final double denominatorU = ((double) (a - 1));
+            final double numeratorU = (double) (x - ((w - a) / 2)) - denominatorU / 2.0;
+            final double newX = numeratorU / denominatorU;
 
-//          rd.direction = uvw.pm(sinPsi * cosAlpha, sinPsi * sinAlpha, cosPsi);
-//          rd.rSquared = rSquared;
+            final double denominatorV = ((double) (a - 1));
+            final double numeratorV = (double) (y - ((h - a) / 2)) - denominatorV / 2.0;
+            final double newY = numeratorV / denominatorV;
+
+            //final double newX = ((double)(2 * x)) / ((double)(w - 1));
+            //final double newY = ((double)(2 * y)) / ((double)(h - 1));
+            final double rad = Math.sqrt(newX * newX + newY * newY);
+            if (rad >= 0.0 && rad <= 0.5) {
+
+                final double phi;
+                if (rad == 0.0) {
+                    phi = 0.0;
+                } else if (newX < 0.0) {
+                    phi = Math.PI - Math.asin(newY / rad);
+                } else {
+                    phi = Math.asin(newY / rad);
+                }
+                final double theta = rad * angle / 2.0;
+
+                final Vector3 vecX = super.u.mul(Math.sin(theta) * Math.cos(phi));
+                final Vector3 vecY = super.v.mul(Math.sin(theta) * Math.sin(phi));
+                final Vector3 vecZ = super.w.mul(-1).mul(Math.cos(theta));
+                //final Vector3 r = new Vector3(Math.sin(theta) * Math.cos(phi), Math.sin(theta) * Math.sin(phi), Math.cos(theta));
+                final Vector3 r = vecX.add(vecY).add(vecZ);
+                return new Ray[]{new Ray(this.e, r.normalized())};
+            } else {
+                return new Ray[0];
+            }
         } else {
-            d = new Vector3(0, 0, 0);
+            return new Ray[0];
         }
-        return new Ray(e, d);
-        // return rd;
-*/
     }
 }
