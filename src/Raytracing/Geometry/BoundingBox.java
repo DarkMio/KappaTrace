@@ -16,32 +16,41 @@ import java.util.List;
 public class BoundingBox extends Geometry {
 
     public final List<Geometry> geometries;
+    public final AxisAlignedBox boundingBox;
 
     public BoundingBox(List<Geometry> geometries) {
         super(Materials.BLUE_LAMBERT);
         this.geometries = geometries;
-        Point3[] boundingPoints = findBoundings();
-        AxisAlignedBox aab = new AxisAlignedBox(Materials.BLUE_LAMBERT,
-                                                boundingPoints[0],
-                                                boundingPoints[1]);
+        Point3[] boundingPoints = findBoundaries();
+        boundingBox = new AxisAlignedBox(Materials.BLUE_LAMBERT,
+                boundingPoints[0],
+                boundingPoints[1]);
     }
 
     private Point3[] findBoundaries() {
+        double[] boundaries;
         double minX = 0, minY = 0, minZ = 0;
         double maxX = 0, maxY = 0, maxZ = 0;
-        double[] boundaries;
-        for(Geometry g: geometries) {
+        for (Geometry g : geometries) {
             if (g.getClass().equals(AxisAlignedBox.class)) {
                 boundaries = getBoundariesAAB((AxisAlignedBox) g);
-            } else if(g.getClass().equals(Sphere.class)) {
+            } else if (g.getClass().equals(Sphere.class)) {
                 boundaries = getBoundariesSphere((Sphere) g);
-            } else if(g.getClass().equals(Triangle.class)) {
+            } else if (g.getClass().equals(Triangle.class)) {
                 boundaries = getBoundariesTriangle((Triangle) g);
             } else {
                 System.err.println("Boundaries cannot be resolved with " + g.getClass().getSimpleName());
                 continue;
             }
+            minX = Math.min(minX, boundaries[0]);
+            minY = Math.min(minY, boundaries[1]);
+            minZ = Math.min(minZ, boundaries[2]);
+            maxX = Math.max(maxX, boundaries[3]);
+            maxY = Math.max(maxY, boundaries[4]);
+            maxZ = Math.max(maxZ, boundaries[5]);
         }
+        System.err.println("Generated Bounding Box at: min(x=" + minX + " y=" + minY + " z=" + minZ + ") max(x=" + maxX + " y=" + maxY + " z=" + maxZ);
+        return new Point3[]{new Point3(minX, minY, minZ), new Point3(maxX, maxY, maxZ)};
     }
 
     private double[] getBoundariesAAB(AxisAlignedBox b) {
@@ -74,10 +83,23 @@ public class BoundingBox extends Geometry {
         double maxX = Math.max(Math.max(t.a.x, t.b.x), t.c.x);
         double maxY = Math.max(Math.max(t.a.y, t.b.y), t.c.y);
         double maxZ = Math.max(Math.min(t.a.z, t.b.z), t.c.z);
+        return new double[]{minX, minY, minZ, maxX, maxY, maxZ};
     }
 
     @Override
     public Hit hit(Ray r) {
-        return null;
+        Hit boundingHit = boundingBox.hit(r);
+        double t = Double.MAX_VALUE;
+        Hit h = null;
+        if (boundingHit != null) {
+            for (Geometry g : geometries) {
+                final Hit hit = g.hit(r);
+                if (hit != null && hit.t < t) {
+                    t = hit.t;
+                    h = hit;
+                }
+            }
+        }
+        return h;
     }
 }
