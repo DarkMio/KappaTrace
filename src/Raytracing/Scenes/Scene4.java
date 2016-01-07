@@ -26,8 +26,8 @@ import java.util.Arrays;
 public class Scene4 {
 
     public static void Scene4Factory() {
-        // firstSceneFactory();
-        secondSceneFactory();
+        firstSceneFactory();
+        // secondSceneFactory();
     }
 
     private static void firstSceneFactory() {
@@ -42,7 +42,7 @@ public class Scene4 {
         ArrayList<Light> lights = new ArrayList<>();
         lights.add(new PointLight(new Point3(8.0,8.0,8.0), new Color(1.0,1.0,1.0),true));
 
-        PerspectiveCamera ppc = new PerspectiveCamera(new Point3(3,3,3), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(25));
+        PerspectiveCamera ppc = new PerspectiveCamera(new Point3(3,3,3), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(3));
         new MultiRaytracer(1920, 1000, new World(background, scene_reflective, ambientLight, lights), ppc, 8);
     }
 

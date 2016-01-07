@@ -4,7 +4,6 @@ import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
 import MultiThreading.MultiRaytracer;
-import Raytracing.Camera.FishEyeCamera;
 import Raytracing.Camera.PerspectiveCamera;
 import Raytracing.Color;
 import Raytracing.Constants.Materials;
@@ -33,12 +32,15 @@ public class Scene5 {
                 new Sphere(Materials.PURPLE_REFLECTIVE, new Point3(-3, 4, 0), 1),
                 new Sphere(Materials.ORANGE_REFLECTIVE, new Point3(0, 4, 0), 1)
         ));
+        ArrayList<Geometry> boundingScene = new ArrayList<>(Arrays.asList(
+                new BoundingBox(scene_reflective)
+        ));
         ArrayList<Light> lights2 = new ArrayList<>();
         lights2.add(new PointLight(new Point3(8.0,8.0,0.0), new Color(1.0,1.0,1.0),true));
 
         Transform x = new Transform().scale(new Vector3(3, 1, 1.5));
         ArrayList<Geometry> scene3 = new ArrayList<>(Arrays.asList(new Node(Materials.RED_REFLECTIVE, x,scene_reflective)));
-        FishEyeCamera ppc2 = new FishEyeCamera(new Point3(8,8,8), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), 5, new EvenlyDistributedPattern(3));
-        new MultiRaytracer(1280, 920, new World(background, scene3, ambientLight, lights2), ppc2, 8);
+        PerspectiveCamera ppc2 = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(3));
+        new MultiRaytracer(640, 480, new World(background, boundingScene, ambientLight, lights2), ppc2, 8);
     }
 }

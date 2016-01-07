@@ -5,6 +5,7 @@ import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Color;
 import Raytracing.Constants.Materials;
+import Raytracing.Epsilon;
 import Raytracing.Hit;
 import Raytracing.Material.LambertMaterial;
 import Raytracing.Material.Material;
@@ -20,30 +21,31 @@ import java.util.List;
 public class BoundingBox extends Geometry {
 
     public final List<Geometry> geometries;
-    public final AxisAlignedBox boundingBox;
+    public final AxisAlignedBoundingBox boundingBox;
 
     public BoundingBox(List<Geometry> geometries) {
         super(new SingleColorMaterial(new Color(1, 1, 1)));
         this.geometries = geometries;
-        Point3[] boundingPoints = findBoundaries();
-        boundingBox = new AxisAlignedBox(new LambertMaterial(new Color(0.8, 0.5, 0.8)),
-                boundingPoints[0],
-                boundingPoints[1]){
-            private final static boolean invert = false;
-        };
+        Point3[] boundingPoints = findBoundaries(geometries);
+        boundingBox = new AxisAlignedBoundingBox(boundingPoints[0], boundingPoints[1]);
     }
 
-    private Point3[] findBoundaries() {
+    private Point3[] findBoundaries(List<Geometry> geos) {
         double[] boundaries;
         double minX = 0, minY = 0, minZ = 0;
         double maxX = 0, maxY = 0, maxZ = 0;
-        for (Geometry g : geometries) {
+        for (Geometry g : geos) {
             if (g.getClass().equals(AxisAlignedBox.class)) {
                 boundaries = getBoundariesAAB((AxisAlignedBox) g);
             } else if (g.getClass().equals(Sphere.class)) {
                 boundaries = getBoundariesSphere((Sphere) g);
             } else if (g.getClass().equals(Triangle.class)) {
                 boundaries = getBoundariesTriangle((Triangle) g);
+            } else if (g.getClass().equals(ShapeFromFile.class)) {
+                ShapeFromFile geo = (ShapeFromFile) g;
+                List<Geometry> things = geo.objects;
+                Point3[] stuff = findBoundaries(things);
+                boundaries = new double[]{stuff[0].x, stuff[0].y, stuff[0].z, stuff[1].x, stuff[1].y, stuff[1].z};
             } else {
                 System.err.println("Boundaries cannot be resolved with " + g.getClass().getSimpleName());
                 continue;
@@ -88,24 +90,62 @@ public class BoundingBox extends Geometry {
         double minZ = Math.min(Math.min(t.a.z, t.b.z), t.c.z);
         double maxX = Math.max(Math.max(t.a.x, t.b.x), t.c.x);
         double maxY = Math.max(Math.max(t.a.y, t.b.y), t.c.y);
-        double maxZ = Math.max(Math.min(t.a.z, t.b.z), t.c.z);
+        double maxZ = Math.max(Math.max(t.a.z, t.b.z), t.c.z);
         return new double[]{minX, minY, minZ, maxX, maxY, maxZ};
     }
 
     @Override
     public Hit hit(Ray r) {
-        Hit boundingHit = boundingBox.hit(r);
-        double t = Double.MAX_VALUE;
+        final double t = Double.MAX_VALUE;
+        double c = t;
         Hit h = null;
-        if (boundingHit != null) {
+        if (boundingBox.isInBox(r)) {
             for (Geometry g : geometries) {
                 final Hit hit = g.hit(r);
-                if (hit != null && hit.t < t) {
-                    t = hit.t;
+                if (hit != null && hit.t < c && hit.t > Epsilon.PRECISION) {
+                    c = hit.t;
                     h = hit;
                 }
             }
         }
-        return h;
+        if (h != null)
+            return new Hit(c, h.ray, h.geo, h.n);
+        else return null;
+    }
+
+    class AxisAlignedBoundingBox extends AxisAlignedBox {
+
+        public AxisAlignedBoundingBox(final Point3 lbf, final Point3 run) {
+            super(Materials.BLACK_LAMBERT, lbf, run);
+        }
+
+        public boolean isInBox(Ray r) {
+            Hit[] hits = new Hit[6];
+
+            hits[0] = hitCalc(top,    r,  true, false,  true);
+            hits[1] = hitCalc(bottom, r,  true, false,  true);
+            hits[2] = hitCalc(left,   r, false,  true,  true);
+            hits[3] = hitCalc(right,  r, false,  true,  true);
+            hits[4] = hitCalc(front,   r,  true,  true, false);
+            hits[5] = hitCalc(back,    r,  true,  true, false);
+
+            Hit hit = null;
+            for(Hit h : hits){
+                if(h == null) {
+                    continue;
+                }
+                if(hit == null){
+                    hit = h;
+                }else if (h.t < hit.t){
+                    hit = h;
+                }
+            }
+            return (hit != null);
+        }
+
+        @Override
+        public Hit hit(Ray r) {
+            return null;
+        }
     }
 }

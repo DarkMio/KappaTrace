@@ -40,7 +40,7 @@ public class SceneOBJ {
     }
 
     private static void fourthOBJSceneFactory() {
-        SceneGenerator("./src/OBJFiles/teddy.obj", new Point3(4, 4, 4));
+        SceneGenerator("./src/OBJFiles/teddy.obj", new Point3(2, 2, 2));
     }
 
     private static void fifthOBJSceneFactory() {
@@ -52,13 +52,13 @@ public class SceneOBJ {
 
     private static void SceneGenerator(String file, Point3 camera) {
         Color background = new Color(0, 0, 0);
-        Color ambientLight = new Color(0.5, 0.5, 0.5);
+        Color ambientLight = new Color(1, 1, 1);
         Normal3 up = new Normal3(0, 1, 0);
         ArrayList<Geometry> scene = new ArrayList<>(Arrays.asList(
                 new ShapeFromFile(file, Materials.ORANGE_REFLECTIVE)
         ));
         ArrayList<Geometry> boundingScene = new ArrayList<>(Arrays.asList(
-                new BoundingBox(((ShapeFromFile) scene.get(0)).objects)
+                new BoundingBox(scene)
         ));
         for(Geometry g: boundingScene) {
             System.out.println("Something");
@@ -66,7 +66,7 @@ public class SceneOBJ {
         PerspectiveCamera ppc = new PerspectiveCamera(camera, new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(1));
         ArrayList<Light> lights2 = new ArrayList<>();
         lights2.add(new PointLight(new Point3(0,0,6), Colors.WHITE, true));
-        new MultiRaytracer(640, 480, new World(background, boundingScene, ambientLight, lights2), ppc, 16);
+        new MultiRaytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc, 16);
 
     }
 }
