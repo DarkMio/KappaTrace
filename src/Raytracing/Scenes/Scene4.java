@@ -26,7 +26,7 @@ import java.util.Arrays;
 public class Scene4 {
 
     public static void Scene4Factory() {
-        firstSceneFactory();
+        // firstSceneFactory();
         secondSceneFactory();
     }
 

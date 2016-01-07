@@ -59,7 +59,6 @@ public class ReflectiveMaterial extends Material{
 
             if (currentLight.illuminates(point, world)) {
                 final Vector3 lightlVector = currentLight.directionFrom(point);
-
                 final Vector3 reflectedVector = lightlVector.reflectedOn(hit.n);
 
                 final double maxNL = Math.max(0.0, hit.n.dot(lightlVector));

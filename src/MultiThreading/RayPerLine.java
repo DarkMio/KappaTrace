@@ -34,7 +34,6 @@ public class RayPerLine implements Runnable {
             multiTracer.update();
         }
         multiTracer.complete();
-        System.err.println("Done: " + width + " " + height);
     }
 
     private Color renderPixel(int x, int y) {

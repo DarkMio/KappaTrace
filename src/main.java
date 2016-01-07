@@ -20,7 +20,9 @@ public class main {
         */
       /*  Scene4.Scene4Factory();
         time = timeTaken(time, "Scene5"); */
-        SceneOBJ.SceneOBJFactory();
+        Scene5.Scene5Factory();
+        time = timeTaken(time, "OBJ");
+        // Scene4.Scene4Factory();
 /*        Scene4.Scene4Factory();
         time = timeTaken(time, "Scene4");
         Scene5.Scene5Factory();
