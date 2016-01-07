@@ -108,7 +108,7 @@ public class BoundingBox extends Geometry {
             if (hit != null ) {
                 final Point3 pos = r.at(hit.t);
                 if(inRange(lbf, pos, run)) {
-                    if (hit.t < c && hit.t > Epsilon.PRECISION) {
+                    if (hit.t < c && hit.t >= Epsilon.PRECISION) {
                         c = hit.t;
                         h = hit;
                     }
@@ -117,7 +117,7 @@ public class BoundingBox extends Geometry {
         }
         if (h != null)
             return new Hit(c, h.ray, h.geo, h.n);
-        else return init;
+        else return null;
     }
 
     private static boolean inRange(Point3 lbf, Point3 value, Point3 run) {
@@ -125,6 +125,7 @@ public class BoundingBox extends Geometry {
     }
 
     private static boolean inRange(double lower, double value, double upper) {
-        return lower <= value && value <= upper;
+        double precision = Epsilon.precisionFor(lower, value, upper);
+        return lower - precision <= value && value - precision <= upper;
     }
 }
