@@ -1,10 +1,14 @@
 package Raytracing.Geometry;
 
+import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
+import Raytracing.Color;
 import Raytracing.Constants.Materials;
 import Raytracing.Hit;
+import Raytracing.Material.LambertMaterial;
 import Raytracing.Material.Material;
+import Raytracing.Material.SingleColorMaterial;
 import Raytracing.Ray;
 import com.sun.org.apache.xerces.internal.impl.xpath.XPath;
 
@@ -19,12 +23,14 @@ public class BoundingBox extends Geometry {
     public final AxisAlignedBox boundingBox;
 
     public BoundingBox(List<Geometry> geometries) {
-        super(Materials.BLUE_LAMBERT);
+        super(new SingleColorMaterial(new Color(1, 1, 1)));
         this.geometries = geometries;
         Point3[] boundingPoints = findBoundaries();
-        boundingBox = new AxisAlignedBox(Materials.BLUE_LAMBERT,
+        boundingBox = new AxisAlignedBox(new LambertMaterial(new Color(0.8, 0.5, 0.8)),
                 boundingPoints[0],
-                boundingPoints[1]);
+                boundingPoints[1]){
+            private final static boolean invert = false;
+        };
     }
 
     private Point3[] findBoundaries() {
