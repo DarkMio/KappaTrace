@@ -21,13 +21,16 @@ import java.util.List;
 public class BoundingBox extends Geometry {
 
     public final List<Geometry> geometries;
-    public final AxisAlignedBoundingBox boundingBox;
+    public final Point3 lbf, run;
+    public final AxisAlignedBox box;
 
     public BoundingBox(List<Geometry> geometries) {
         super(new SingleColorMaterial(new Color(1, 1, 1)));
         this.geometries = geometries;
         Point3[] boundingPoints = findBoundaries(geometries);
-        boundingBox = new AxisAlignedBoundingBox(boundingPoints[0], boundingPoints[1]);
+        lbf = boundingPoints[0];
+        run = boundingPoints[1];
+        box = new AxisAlignedBox(Materials.WHITE_LAMBERT, lbf, run);
     }
 
     private Point3[] findBoundaries(List<Geometry> geos) {
@@ -96,56 +99,32 @@ public class BoundingBox extends Geometry {
 
     @Override
     public Hit hit(Ray r) {
+        Hit init = box.hit(r);
         final double t = Double.MAX_VALUE;
         double c = t;
         Hit h = null;
-        if (boundingBox.isInBox(r)) {
-            for (Geometry g : geometries) {
-                final Hit hit = g.hit(r);
-                if (hit != null && hit.t < c && hit.t > Epsilon.PRECISION) {
-                    c = hit.t;
-                    h = hit;
+        for (Geometry g : geometries) {
+            final Hit hit = g.hit(r);
+            if (hit != null ) {
+                final Point3 pos = r.at(hit.t);
+                if(inRange(lbf, pos, run)) {
+                    if (hit.t < c && hit.t > Epsilon.PRECISION) {
+                        c = hit.t;
+                        h = hit;
+                    }
                 }
             }
         }
         if (h != null)
             return new Hit(c, h.ray, h.geo, h.n);
-        else return null;
+        else return init;
     }
 
-    class AxisAlignedBoundingBox extends AxisAlignedBox {
+    private static boolean inRange(Point3 lbf, Point3 value, Point3 run) {
+        return inRange(lbf.x, value.x, run.x) && inRange(lbf.y, value.y, run.y) && inRange(lbf.z, value.z, run.z);
+    }
 
-        public AxisAlignedBoundingBox(final Point3 lbf, final Point3 run) {
-            super(Materials.BLACK_LAMBERT, lbf, run);
-        }
-
-        public boolean isInBox(Ray r) {
-            Hit[] hits = new Hit[6];
-
-            hits[0] = hitCalc(top,    r,  true, false,  true);
-            hits[1] = hitCalc(bottom, r,  true, false,  true);
-            hits[2] = hitCalc(left,   r, false,  true,  true);
-            hits[3] = hitCalc(right,  r, false,  true,  true);
-            hits[4] = hitCalc(front,   r,  true,  true, false);
-            hits[5] = hitCalc(back,    r,  true,  true, false);
-
-            Hit hit = null;
-            for(Hit h : hits){
-                if(h == null) {
-                    continue;
-                }
-                if(hit == null){
-                    hit = h;
-                }else if (h.t < hit.t){
-                    hit = h;
-                }
-            }
-            return (hit != null);
-        }
-
-        @Override
-        public Hit hit(Ray r) {
-            return null;
-        }
+    private static boolean inRange(double lower, double value, double upper) {
+        return lower <= value && value <= upper;
     }
 }
