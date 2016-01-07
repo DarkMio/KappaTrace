@@ -22,7 +22,7 @@ public class BoundingBox extends Geometry {
 
     public final List<Geometry> geometries;
     public final Point3 lbf, run;
-    public final NewBox box;
+    public final AxisAlignedBox box;
 
     public BoundingBox(List<Geometry> geometries) {
         super(new SingleColorMaterial(new Color(1, 1, 1)));
@@ -30,7 +30,7 @@ public class BoundingBox extends Geometry {
         Point3[] boundingPoints = findBoundaries(geometries);
         lbf = boundingPoints[0].add(new Vector3(-0.1, -0.1, -0.1));
         run = boundingPoints[1].add(new Vector3(0.1, 0.1, 0.1));
-        box = new NewBox(lbf, run);
+        box = new AxisAlignedBox(Materials.WHITE_LAMBERT, lbf, run);
     }
 
     private Point3[] findBoundaries(List<Geometry> geos) {
@@ -99,7 +99,7 @@ public class BoundingBox extends Geometry {
 
     @Override
     public Hit hit(Ray r) {
-        Hit init = box.xHit(r);
+        Hit init = box.hit(r);
         Point3 initPos = null;
         if (init != null) {
             initPos = r.at(init.t);
@@ -113,13 +113,11 @@ public class BoundingBox extends Geometry {
                 if (hit != null) {
                     final Point3 pos = r.at(hit.t);
                     if (inRange(lbf, pos, run)) {
-                        if (hit.t < c && hit.t > Epsilon.PRECISION) {
+                        if (hit.t < c && hit.t >= Epsilon.PRECISION) {
                             c = hit.t;
                             h = hit;
                         }
                     }
-                } else {
-                   //  h = init;
                 }
             }
         }
@@ -134,70 +132,5 @@ public class BoundingBox extends Geometry {
     private static boolean inRange(double lower, double value, double upper) {
         double precision = Epsilon.precisionFor(lower, value, upper);
         return lower - precision <= value && value - precision <= upper;
-    }
-
-    class NewBox extends AxisAlignedBox {
-
-        public NewBox(Point3 lbf, Point3 run) {
-            super(Materials.WHITE_LAMBERT, lbf, run);
-        }
-
-        @Override
-        public Hit hit(Ray r) {
-            return null;
-        }
-
-        public Hit xHit(Ray r) {
-
-            Hit topHit = top.hit(r);
-            Hit bottomHit = bottom.hit(r);
-            Hit leftHit = left.hit(r);
-            Hit rightHit = right.hit(r);
-            Hit frontHit = front.hit(r);
-            Hit backHit = back.hit(r);
-    /*
-    if (near == back) {
-        System.out.println("BACK");
-    } else {
-        System.out.println("FRONT");
-    }
-    if (side == right) {
-        System.out.println("RIGHT");
-    } else {
-        System.out.println("LEFT");
-    }
-    if (upper == bottom) {
-        System.out.println("BOTTOM");
-    } else {
-        System.out.println("TOP");
-    } */
-            Point3 topPoint = null, leftPoint = null, frontPoint = null;
-            Point3 bottomPoint = null, rightPoint = null, backPoint = null;
-            if (topHit != null) topPoint = r.at(topHit.t);
-            if (bottomHit != null) bottomPoint = r.at(bottomHit.t);
-
-            if (leftHit != null) leftPoint = r.at(leftHit.t);
-            if (rightHit != null) rightPoint = r.at(rightHit.t);
-
-            if (frontHit != null) frontPoint = r.at(frontHit.t);
-            if (backHit != null) backPoint = r.at(backHit.t);
-
-            if (!grAndSmXY(frontPoint)) frontHit = null;
-            if (!grAndSmXY(backPoint)) backHit = null;
-
-            if (!grAndSmYZ(leftPoint)) leftHit = null;
-            if (!grAndSmYZ(rightPoint)) rightHit = null;
-
-            if (!grAndSmXZ(topPoint)) topHit = null;
-            if (!grAndSmXZ(bottomPoint)) bottomHit = null;
-
-            return nearer(nearer(nearer(nearer(nearer(frontHit, backHit), leftHit), rightHit), topHit), bottomHit);
-/*
-    Plane near = front.hit(r).t > back.hit(r).t ? front : back;
-    Plane side = left.hit(r).t > right.hit(r).t ? left : right;
-    Plane upper = top.hit(r).t > bottom.hit(r).t ? top : bottom;
-*/
-
-        }
     }
 }

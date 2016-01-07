@@ -22,9 +22,9 @@ public class SceneOBJ {
         // firstOBJSceneFactory();
         //secondOBJSceneFactory();
         //thirdOBJSceneFactory();
-        fourthOBJSceneFactory();
+        // fourthOBJSceneFactory();
         // fifthOBJSceneFactory();
-        // sixthOBJSceneFactory();
+        sixthOBJSceneFactory();
     }
 
     private static void firstOBJSceneFactory() {
@@ -47,14 +47,14 @@ public class SceneOBJ {
         SceneGenerator("./src/OBJFiles/cube-v-vt-vn.obj", new Point3(4, 4, 4));
     }
     private static void sixthOBJSceneFactory() {
-        SceneGenerator("./src/OBJFiles/bunny.obj", new Point3(40, 40, 40));
+        SceneGenerator("./src/OBJFiles/bunny.obj", new Point3(20, 20, 20));
     }
 
     private static void SceneGenerator(String file, Point3 camera) {
         Color background = new Color(0, 0, 0);
         Color ambientLight = new Color(0.5, 0.5, 0.5);
         Normal3 up = new Normal3(0, 1, 0);
-        ShapeFromFile sff = new ShapeFromFile(file, Materials.WHITE_PHONG);
+        ShapeFromFile sff = new ShapeFromFile(file, Materials.RED_REFLECTIVE);
         ArrayList<Geometry> scene = new ArrayList<>(Arrays.asList(
                 sff,
                 new Plane(Materials.BLACK_REFLECTIVE, new Point3(0, -1, 0), new Normal3(0, 1, 0))
@@ -66,11 +66,11 @@ public class SceneOBJ {
         for(Geometry g: boundingScene) {
             System.out.println("Something");
         }
-        PerspectiveCamera ppc = new PerspectiveCamera(camera, new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(1));
+        PerspectiveCamera ppc = new PerspectiveCamera(camera, new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(2));
         ArrayList<Light> lights2 = new ArrayList<>();
-        lights2.add(new PointLight(new Point3(0.1,4,0), Colors.WHITE, true));
-        // new MultiRaytracer(640, 480, new World(background, boundingScene, ambientLight, lights2), ppc, 7);
-        new MultiRaytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc, 7);
+        lights2.add(new PointLight(new Point3(10,40,0), Colors.WHITE, true));
+        new MultiRaytracer(640, 480, new World(background, boundingScene, ambientLight, lights2), ppc, 7);
+        // new MultiRaytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc, 7);
 
     }
 }
