@@ -33,7 +33,7 @@ public class PointLight extends Light {
         if(hit == null)return true;
         double tl = position.sub(p).magnitude/1;
         double e = Epsilon.precisionFor(tl, hit.t);
-        return (hit.t > tl && hit.t < e);
+        return (hit.t > tl && hit.t <= e);
     }
 
     @Override
