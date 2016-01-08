@@ -3,12 +3,13 @@ package Raytracing.Geometry;
 /**
  * class for Triangle objects
  */
+
 import MathFunc.Mat3x3;
 import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
-import Raytracing.Hit;
 import Raytracing.Epsilon;
+import Raytracing.Hit;
 import Raytracing.Material.Material;
 import Raytracing.Ray;
 

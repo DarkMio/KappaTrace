@@ -12,7 +12,7 @@ public class EvenlyDistributedPattern extends SamplingPattern {
 
     public EvenlyDistributedPattern(int sampleResolution) {
         super(sampleResolution);
-        pattern = new Point2[sampleResolution*sampleResolution];
+        pattern = new Point2[sampleResolution*sampleResolution]; // inited here, because of compiler checks.
         fillArrayWithPattern();
     }
 
@@ -41,13 +41,12 @@ public class EvenlyDistributedPattern extends SamplingPattern {
      * (Just pretend it's a square)
      * Also it moves the coordinates to fit from y,x ^= -0.5 ... 0.5
      */
-    private Point2[] fillArrayWithPattern() {
+    private void fillArrayWithPattern() {
         double patternSize = 2.0 * sampleResolution + 1;
         for(int i = 0; i < sampleResolution; i++) {
             for(int j = 0; j < sampleResolution; j++) {
                 pattern[i * sampleResolution + j] = new Point2((i+1)*2/patternSize - 0.5, (j+1)*2/patternSize - 0.5);
             }
         }
-        return pattern;
     }
 }

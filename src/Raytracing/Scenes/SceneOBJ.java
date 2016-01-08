@@ -3,12 +3,15 @@ package Raytracing.Scenes;
 import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
-import MultiThreading.MultiRaytracer;
+import Raytracing.MultiThreading.MultiRaytracer;
 import Raytracing.Camera.PerspectiveCamera;
 import Raytracing.Color;
 import Raytracing.Constants.Colors;
 import Raytracing.Constants.Materials;
-import Raytracing.Geometry.*;
+import Raytracing.Geometry.BoundingBox;
+import Raytracing.Geometry.Geometry;
+import Raytracing.Geometry.Plane;
+import Raytracing.Geometry.ShapeFromFile;
 import Raytracing.Light.Light;
 import Raytracing.Light.PointLight;
 import Raytracing.Sampling.EvenlyDistributedPattern;
@@ -18,13 +21,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SceneOBJ {
-    public static void SceneOBJFactory() {
+    public static void SceneFactory() {
         // firstOBJSceneFactory();
         //secondOBJSceneFactory();
         //thirdOBJSceneFactory();
-        // fourthOBJSceneFactory();
+        fourthOBJSceneFactory();
         // fifthOBJSceneFactory();
-        sixthOBJSceneFactory();
+        // sixthOBJSceneFactory();
     }
 
     private static void firstOBJSceneFactory() {
@@ -66,10 +69,10 @@ public class SceneOBJ {
         for(Geometry g: boundingScene) {
             System.out.println("Something");
         }
-        PerspectiveCamera ppc = new PerspectiveCamera(camera, new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(2));
+        PerspectiveCamera ppc = new PerspectiveCamera(camera, new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(1));
         ArrayList<Light> lights2 = new ArrayList<>();
         lights2.add(new PointLight(new Point3(10,40,0), Colors.WHITE, true));
-        new MultiRaytracer(640, 480, new World(background, boundingScene, ambientLight, lights2), ppc, 7);
+        new MultiRaytracer(640, 480, new World(background, boundingScene, ambientLight, lights2), ppc, 12);
         // new MultiRaytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc, 7);
 
     }

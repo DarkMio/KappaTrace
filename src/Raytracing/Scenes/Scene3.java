@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Scene3 {
-    public static void Scene3Factory() {
+    public static void SceneFactory() {
         firstSceneFactory();
         secondSceneFactory();
         thirdSceneFactory();

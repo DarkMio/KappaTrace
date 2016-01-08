@@ -3,7 +3,7 @@ package Raytracing.Scenes;
 import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
-import MultiThreading.MultiRaytracer;
+import Raytracing.MultiThreading.MultiRaytracer;
 import Raytracing.Camera.PerspectiveCamera;
 import Raytracing.Color;
 import Raytracing.Constants.Materials;
@@ -14,18 +14,14 @@ import Raytracing.Geometry.Sphere;
 import Raytracing.Light.Light;
 import Raytracing.Light.PointLight;
 import Raytracing.Sampling.EvenlyDistributedPattern;
-import Raytracing.UI.Raytracer;
 import Raytracing.World;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Created by Mio on 04.01.2016.
- */
 public class Scene4 {
 
-    public static void Scene4Factory() {
+    public static void SceneFactory() {
         firstSceneFactory();
         // secondSceneFactory();
     }

@@ -21,7 +21,7 @@ public class ImageFrame extends JFrame implements ActionListener {
     /**
      * Reference to ImagePanel
      */
-    protected ImagePanel ip;
+    protected final ImagePanel ip;
 
     @Override
     public void actionPerformed(ActionEvent e) {

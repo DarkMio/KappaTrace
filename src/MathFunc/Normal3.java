@@ -50,10 +50,9 @@ final public class Normal3 {
      */
     public Vector3 sub(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("Must not be null");
-        final double x, y, z;
-        x = this.x - v.x;
-        y = this.y - v.y;
-        z = this.z - v.z;
+        final double x = this.x - v.x;
+        final double y = this.y - v.y;
+        final double z = this.z - v.z;
         return new Vector3(x, y, z);
     }
 

@@ -7,6 +7,7 @@ import Raytracing.Hit;
 import Raytracing.Material.Material;
 import Raytracing.Ray;
 
+@SuppressWarnings("ConstantConditions")
 public abstract class Geometry {
 
     /** Material representing material */

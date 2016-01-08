@@ -3,8 +3,10 @@ package Raytracing.UI;
 /**
  * Raytracer represents class of the raytracer
  */
-import Raytracing.*;
+
 import Raytracing.Camera.Camera;
+import Raytracing.*;
+
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 

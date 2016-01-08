@@ -3,10 +3,11 @@ package Raytracing.Camera;
 /**
  * PerspectiveCamera represents class for perspective camera objects
  */
+
 import MathFunc.Point2;
-import Raytracing.Ray;
 import MathFunc.Point3;
 import MathFunc.Vector3;
+import Raytracing.Ray;
 import Raytracing.Sampling.SamplingPattern;
 
 public class PerspectiveCamera extends Camera {

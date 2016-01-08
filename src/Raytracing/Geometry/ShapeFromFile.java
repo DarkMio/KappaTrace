@@ -3,18 +3,16 @@ package Raytracing.Geometry;
 
 import MathFunc.Normal3;
 import MathFunc.Point3;
-import Raytracing.*;
+import Raytracing.Epsilon;
+import Raytracing.Hit;
 import Raytracing.Material.Material;
+import Raytracing.Ray;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Created by Fabby on 03.01.2016.
- */
 public class ShapeFromFile extends Geometry {
 
     public final ArrayList<Geometry> objects;
