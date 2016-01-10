@@ -11,16 +11,26 @@ import java.util.ArrayList;
 
 public class World {
 
-    /** Color determining the background color of world */
+    /**
+     * Color determining the background color of world
+     */
     public final Color backgroundColor;
-    /** an ArrayList consisting of Geometry objects */
+    /**
+     * an ArrayList consisting of Geometry objects
+     */
     public final ArrayList<Geometry> geometry;
-    /** a directional light for basic global lightning */
+    /**
+     * a directional light for basic global lightning
+     */
     public final Color ambientLight;
-    /** an ArrayList of Light objects */
+    /**
+     * an ArrayList of Light objects
+     */
     public final ArrayList<Light> lights;
 
-    /** constructor used to create a world with a Color backgroundColor, an ArrayList<Geometry> geometry, a Color ambientLight and an ArrayList<Light> lights  */
+    /**
+     * constructor used to create a world with a Color backgroundColor, an ArrayList<Geometry> geometry, a Color ambientLight and an ArrayList<Light> lights
+     */
     public World(final Color backgroundColor, final ArrayList<Geometry> geometry, final Color ambientLight, final ArrayList<Light> lights) {
         this.lights = lights;
         this.backgroundColor = backgroundColor;
@@ -28,18 +38,20 @@ public class World {
         this.ambientLight = ambientLight;
     }
 
-    /** function used to calculate the nearest ray hit */
+    /**
+     * function used to calculate the nearest ray hit
+     */
     public Hit hit(final Ray r) {
         double t = Double.MAX_VALUE;
         Hit h = null;
-        for(Geometry g: geometry) {
+        for (Geometry g : geometry) {
             final Hit hit = g.hit(r);
-            if(hit != null && hit.t < t) {
+            if (hit != null && hit.t < t) {
                 t = hit.t;
                 h = hit;
             }
         }
-        if(h != null) {
+        if (h != null) {
             h.geo.hit(r);
         }
         return h;

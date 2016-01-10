@@ -28,7 +28,7 @@ public class ImagePanel extends JPanel implements ComponentListener {
         final int width = img.getWidth();
         final int max = height > width ? width : height; // select the smaller one of both
 
-        for(int i = 0; i < max; i++) {
+        for (int i = 0; i < max; i++) {
             img.setRGB(i, i, red.getRGB());
         }
         g.drawImage(img, 0, 0, null);

@@ -5,30 +5,40 @@ package MathFunc;
  */
 final public class Vector3 {
 
-    /** x describing the x coordinate of Vector3*/
+    /**
+     * x describing the x coordinate of Vector3
+     */
     public final double x;
-    /** y describing the y coordinate of Vector3*/
+    /**
+     * y describing the y coordinate of Vector3
+     */
     public final double y;
-    /** z describing the z coordinate of Vector3*/
+    /**
+     * z describing the z coordinate of Vector3
+     */
     public final double z;
-    /** magnitude describing the magnitude of Vector3*/
+    /**
+     * magnitude describing the magnitude of Vector3
+     */
     public final double magnitude;
 
     /**
      * Constructor of Vector3 which calculates the magnitude
+     *
      * @param x x-coordinate
      * @param y y-coordinate
      * @param z z-coordinate
      */
     public Vector3(final double x, final double y, final double z) {
-        this(x, y, z, Math.sqrt(x*x + y*y + z*z));
+        this(x, y, z, Math.sqrt(x * x + y * y + z * z));
     }
 
     /**
      * Standard Constructor of Vector3
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     *
+     * @param x         x-coordinate
+     * @param y         y-coordinate
+     * @param z         z-coordinate
      * @param magnitude magnitude of Vector3
      */
     public Vector3(final double x, final double y, final double z, final double magnitude) {
@@ -40,6 +50,7 @@ final public class Vector3 {
 
     /**
      * Add a Vector3 to this Vector3
+     *
      * @param v Vector3 to be added - must not be null
      * @return resulting new Vector3
      */
@@ -50,6 +61,7 @@ final public class Vector3 {
 
     /**
      * Add a Normal3 to this Vector3
+     *
      * @param n Normal3 that should be added
      * @return resulting new Vector3
      */
@@ -60,6 +72,7 @@ final public class Vector3 {
 
     /**
      * Subtracting a Normal3 from this Vector3
+     *
      * @param n Normal3 to be subtracted - must not be null
      * @return resulting new Vector3
      */
@@ -70,43 +83,48 @@ final public class Vector3 {
 
     /**
      * Multiply with a constant
+     *
      * @param c Constant to be multiplied
      * @return resulting new Vector
      */
     public Vector3 mul(final double c) {
-        return new Vector3(x*c, y*c, z*c);
+        return new Vector3(x * c, y * c, z * c);
     }
 
     /**
      * Scalar product of this Vector3 with a Vector3
+     *
      * @param v Vector3 - must not be null
      * @return resulting scalar prodict
      */
     public double dot(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("v must not be null.");
-        return x*v.x + y*v.y + z*v.z;
+        return x * v.x + y * v.y + z * v.z;
     }
 
     /**
      * Scalar product of this Vector3 with a Normal3
+     *
      * @param n Normal3 - must not be null
      * @return resulting scalar product
      */
     public double dot(final Normal3 n) {
         if (n == null) throw new IllegalArgumentException("n must not be null.");
-        return x*n.x + y*n.y + z*n.z;
+        return x * n.x + y * n.y + z * n.z;
     }
 
     /**
      * Normalizes this vector to have a magnitude of 1
+     *
      * @return resulting new Vector3
      */
     public Vector3 normalized() {
-        return mul(1/magnitude);
+        return mul(1 / magnitude);
     }
 
     /**
      * This Vector3 as Normal3
+     *
      * @return resulting new Normal3
      */
     public Normal3 asNormal() {
@@ -114,7 +132,8 @@ final public class Vector3 {
         return new Normal3(temp.x, temp.y, temp.z);
     }
 
-    /** https://asalga.wordpress.com/2012/09/23/understanding-vector-reflection-visually/
+    /**
+     * https://asalga.wordpress.com/2012/09/23/understanding-vector-reflection-visually/
      *
      * @param n Normal to be reflected on - must not be null
      * @return Reflected Vector on Normal
@@ -128,12 +147,13 @@ final public class Vector3 {
 
     /**
      * Calculates determinant of two vectors
+     *
      * @param v Vector3 - must not be null
      * @return determinant of x and v
      */
     public Vector3 x(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("v must not be null.");
-        return new Vector3(y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x);
+        return new Vector3(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
     }
 
     @Override

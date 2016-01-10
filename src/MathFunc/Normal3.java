@@ -5,20 +5,27 @@ package MathFunc;
  */
 final public class Normal3 {
 
-    /** x - describing the normals x coordinate */
+    /**
+     * x - describing the normals x coordinate
+     */
     public final double x;
-    /** z - describing the normals z coordinate */
+    /**
+     * z - describing the normals z coordinate
+     */
     public final double y;
-    /** z - describing the normals z coordinate */
+    /**
+     * z - describing the normals z coordinate
+     */
     public final double z;
 
     /**
      * Standard Constructor of a Normal3
+     *
      * @param x X-Coordinate
      * @param y Y-Coordinate
      * @param z Z-Coordinate
      */
-    public Normal3 (final double x, final double y, final double z) {
+    public Normal3(final double x, final double y, final double z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -26,25 +33,28 @@ final public class Normal3 {
 
     /**
      * Multiply a normal with n
+     *
      * @param n Multiplier
      * @return New Normal with new x, y, z values
      */
     public Normal3 mul(final double n) {
-        return new Normal3(x*n, y*n, z*n);
+        return new Normal3(x * n, y * n, z * n);
     }
 
     /**
      * Add a second Normal3 to the original Normal3
+     *
      * @param n Normal3 to add to - must not be null
      * @return New Normal3 that has been added
      */
     public Normal3 add(final Normal3 n) {
         if (n == null) throw new IllegalArgumentException("Must not be null");
-        return new Normal3(x+n.x, y+n.y, z+n.z);
+        return new Normal3(x + n.x, y + n.y, z + n.z);
     }
 
     /**
      * Substract Vector3 from this Normal3
+     *
      * @param v Vector3 to subtract - must not be null
      * @return new Vector3 that has been subtracted
      */
@@ -58,12 +68,13 @@ final public class Normal3 {
 
     /**
      * Scalar product of this Normal3 with a Vector3
+     *
      * @param v Vector3 - must not be null
      * @return Scalar value from Normal3 and Vector3
      */
     public double dot(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("Must not be null");
-        return x*v.x + y*v.y + z*v.z;
+        return x * v.x + y * v.y + z * v.z;
     }
 
     @Override

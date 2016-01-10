@@ -5,18 +5,26 @@ package Raytracing;
  */
 public class Color {
 
-    /** double determining the r color space */
+    /**
+     * double determining the r color space
+     */
     public final double r;
-    /** double determining the g color space */
+    /**
+     * double determining the g color space
+     */
     public final double g;
-    /** double determining the b color space */
+    /**
+     * double determining the b color space
+     */
     public final double b;
 
-    /** constructor used to determine the color space of an object */
+    /**
+     * constructor used to determine the color space of an object
+     */
     public Color(double r, double g, double b) {
-        if(r < 0) throw new IllegalArgumentException("0 =< r =< 1"); // Throw exceptions? Or recalc with modulo?
-        if(g < 0) throw new IllegalArgumentException("0 =< g =< 1");
-        if(b < 0) throw new IllegalArgumentException("0 =< g =< 1");
+        if (r < 0) throw new IllegalArgumentException("0 =< r =< 1"); // Throw exceptions? Or recalc with modulo?
+        if (g < 0) throw new IllegalArgumentException("0 =< g =< 1");
+        if (b < 0) throw new IllegalArgumentException("0 =< g =< 1");
         this.r = r;
         this.g = g;
         this.b = b;
@@ -24,6 +32,7 @@ public class Color {
 
     /**
      * Add this Color with another Color
+     *
      * @param c Color to add
      * @return resulting new Color
      */
@@ -33,6 +42,7 @@ public class Color {
 
     /**
      * Substract this Color from another Color
+     *
      * @param c Color to substract
      * @return resulting new Color
      */
@@ -42,15 +52,17 @@ public class Color {
 
     /**
      * Multiply this Color with another Color
+     *
      * @param c Color to multiply
      * @return resulting new Color
      */
     public Color mul(final Color c) {
-       return new Color(r * c.r, g * c.g, b * c.b);
+        return new Color(r * c.r, g * c.g, b * c.b);
     }
 
     /**
      * Multiply this Color with a double
+     *
      * @param v double to multiply
      * @return resulting new Color
      */
@@ -58,11 +70,13 @@ public class Color {
         return new Color(r * v, g * v, b * v);
     }
 
-    /** calculates from double color to single color int */
+    /**
+     * calculates from double color to single color int
+     */
     public int toIntRGB() {
         int color = Math.min((int) (r * 255), 255) << 16;
-        color += Math.min((int) (g*255), 255) << 8;
-        color += Math.min((int) (b*255), 255);
+        color += Math.min((int) (g * 255), 255) << 8;
+        color += Math.min((int) (b * 255), 255);
         return color;
     }
 

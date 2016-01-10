@@ -2,7 +2,6 @@ package Raytracing.Scenes;
 
 import MathFunc.Point3;
 import MathFunc.Vector3;
-import Raytracing.MultiThreading.MultiRaytracer;
 import Raytracing.Camera.PerspectiveCamera;
 import Raytracing.Color;
 import Raytracing.Constants.Materials;
@@ -12,6 +11,7 @@ import Raytracing.Geometry.Node;
 import Raytracing.Geometry.Triangle;
 import Raytracing.Light.Light;
 import Raytracing.Light.PointLight;
+import Raytracing.MultiThreading.MultiRaytracer;
 import Raytracing.Sampling.EvenlyDistributedPattern;
 import Raytracing.Transform;
 import Raytracing.World;
@@ -53,11 +53,11 @@ public class SceneBounding {
                 new BoundingBox(scene_reflective)
         ));
         ArrayList<Light> lights2 = new ArrayList<>();
-        lights2.add(new PointLight(new Point3(8.0,8.0,0.0), new Color(1.0,1.0,1.0),true));
+        lights2.add(new PointLight(new Point3(8.0, 8.0, 0.0), new Color(1.0, 1.0, 1.0), true));
 
         Transform x = new Transform().scale(new Vector3(3, 1, 1.5));
         ArrayList<Geometry> scene3 = new ArrayList<>(Collections.singletonList(new Node(Materials.RED_REFLECTIVE, x, scene_reflective)));
-        PerspectiveCamera ppc2 = new PerspectiveCamera(new Point3(2,2,2), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(3));
+        PerspectiveCamera ppc2 = new PerspectiveCamera(new Point3(2, 2, 2), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI / 4, new EvenlyDistributedPattern(3));
         new MultiRaytracer(640, 480, new World(background, boundingScene, ambientLight, lights2), ppc2, 8);
         new MultiRaytracer(640, 480, new World(background, scene_reflective, ambientLight, lights2), ppc2, 8);
     }

@@ -1,10 +1,7 @@
 package Raytracing.MultiThreading.Strategies;
 
 import Raytracing.Color;
-import Raytracing.Hit;
 import Raytracing.MultiThreading.MultiRaytracer;
-import Raytracing.Ray;
-import Raytracing.Tracer;
 
 /**
  * Created by Mio on 07/01/2016.
@@ -22,10 +19,10 @@ public class RayPerLine extends RayStrategy {
     @Override
     public void run() {
         Color pixelColor;
-        for(int x = offset; x < width; x += threads) {
-            for(int y = 1; y < height; y++) {
+        for (int x = offset; x < width; x += threads) {
+            for (int y = 1; y < height; y++) {
                 pixelColor = renderPixel(x, y);
-                multiTracer.img.setRGB(x, height-y, pixelColor.toIntRGB());
+                multiTracer.img.setRGB(x, height - y, pixelColor.toIntRGB());
             }
             multiTracer.update();
         }

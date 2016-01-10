@@ -11,27 +11,39 @@ import Raytracing.Sampling.SamplingPattern;
 
 public abstract class Camera {
 
-    /** Point3 e representing the origin*/
+    /**
+     * Point3 e representing the origin
+     */
     final public Point3 e;
-    /** Vector3 g representing the gaze*/
+    /**
+     * Vector3 g representing the gaze
+     */
     final public Vector3 g;
-    /** Vector3 t representing the up vector*/
+    /**
+     * Vector3 t representing the up vector
+     */
     final public Vector3 t;
-    /** Vector3 u representing the the local vector u*/
+    /**
+     * Vector3 u representing the the local vector u
+     */
     final public Vector3 u;
-    /** Vector3 v representing the the local vector v*/
+    /**
+     * Vector3 v representing the the local vector v
+     */
     final public Vector3 v;
-    /** Vector3 w representing the a local vector w*/
+    /**
+     * Vector3 w representing the a local vector w
+     */
     final public Vector3 w;
 
     final public SamplingPattern pattern;
 
     /**
      * Abstract Camaera constructor
+     *
      * @param e Point3 for plane construction - must not be null
      * @param g Vector3 for plane construction - must not be null
      * @param t Vector3 for plane construction - must not be null
-     *
      */
     public Camera(final Point3 e, final Vector3 g, final Vector3 t, final SamplingPattern pattern) {
         if (e == null) throw new IllegalArgumentException("must not be null");
@@ -46,7 +58,9 @@ public abstract class Camera {
         v = w.x(u);
     }
 
-    /** abstract constructor for a ray in a specified pixel */
+    /**
+     * abstract constructor for a ray in a specified pixel
+     */
     public abstract Ray[] rayFor(final int w, final int h, final int x, final int y);
 
     @Override

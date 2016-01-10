@@ -5,7 +5,6 @@ package Raytracing.MultiThreading;
  */
 
 import Raytracing.Camera.Camera;
-import Raytracing.MultiThreading.Strategies.RayFields;
 import Raytracing.MultiThreading.Strategies.RayPerLine;
 import Raytracing.MultiThreading.Strategies.RayStrategy;
 import Raytracing.World;
@@ -97,8 +96,8 @@ public class MultiRaytracer {
         this.world = world;
         cam = camera;
         runnables = new ArrayList<>();
-        for(int i = 0; i < threads; i++) {
-            runnables.add(new RayFields(this, i, threads));
+        for (int i = 0; i < threads; i++) {
+            runnables.add(new RayPerLine(this, i, threads));
         }
         /*
         for (int x = 0; x < xThread; x++) {
@@ -122,7 +121,7 @@ public class MultiRaytracer {
         long inter = perLine * rowSet;
         long i = inter - startTime;
         i = inter / 1000;
-        progress.setValue(rowCount*1000/rowSet);
+        progress.setValue(rowCount * 1000 / rowSet);
         status.setText("Rendering... | Remaining time: " + i / (60 * 60) + "h " + i / (60) % 60 + "m " + i % 60 + "s");
     }
 

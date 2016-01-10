@@ -8,27 +8,37 @@ import MathFunc.Vector3;
 import Raytracing.*;
 import Raytracing.Light.Light;
 
-public class ReflectiveMaterial extends Material{
+public class ReflectiveMaterial extends Material {
 
-    /** Color representing diffuse reflections of rough surfaces */
+    /**
+     * Color representing diffuse reflections of rough surfaces
+     */
     final Color diffuse;
-    /** Color representing specular reflections*/
+    /**
+     * Color representing specular reflections
+     */
     final Color specular;
-    /** representing the Phong exponent for the intensity of Phong reflections */
+    /**
+     * representing the Phong exponent for the intensity of Phong reflections
+     */
     final int exponent;
-    /** Color representing reflections on a plane and objects*/
+    /**
+     * Color representing reflections on a plane and objects
+     */
     final Color reflection;
 
-    /** constructor used to create ReflectiveMaterial
-     * @param diffuse Color determining the reflection of rough surfaces - must not be null
-     * @param specular Color determining reflections - must not be null
-     * @param exponent int determining the Phong exponent
+    /**
+     * constructor used to create ReflectiveMaterial
+     *
+     * @param diffuse    Color determining the reflection of rough surfaces - must not be null
+     * @param specular   Color determining reflections - must not be null
+     * @param exponent   int determining the Phong exponent
      * @param reflection Color determining the reflection on the plane and on objects - must not be null
      */
     public ReflectiveMaterial(final Color diffuse, final Color specular, final int exponent, final Color reflection) {
-        if(diffuse==null)throw new IllegalArgumentException("diffuse must not be null!");
-        if(specular==null)throw new IllegalArgumentException("specular must not be null!");
-        if(reflection==null)throw new IllegalArgumentException("reflection must not be null!");
+        if (diffuse == null) throw new IllegalArgumentException("diffuse must not be null!");
+        if (specular == null) throw new IllegalArgumentException("specular must not be null!");
+        if (reflection == null) throw new IllegalArgumentException("reflection must not be null!");
         this.diffuse = diffuse;
         this.specular = specular;
         this.exponent = exponent;

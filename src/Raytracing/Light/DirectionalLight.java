@@ -11,18 +11,21 @@ import Raytracing.World;
 
 public class DirectionalLight extends Light {
 
-    /** Vector3 representing the direction of the DirectionalLight */
+    /**
+     * Vector3 representing the direction of the DirectionalLight
+     */
     public final Vector3 direction;
 
     /**
      * Construct a Triangle
-     * @param direction Vector3 for direction of light - must not be null
-     * @param color Color for color of light
+     *
+     * @param direction   Vector3 for direction of light - must not be null
+     * @param color       Color for color of light
      * @param castShadows boolean for shadows
      */
-        public DirectionalLight(final Vector3 direction, final Color color, final boolean castShadows) {
+    public DirectionalLight(final Vector3 direction, final Color color, final boolean castShadows) {
         super(color, castShadows);
-        if(direction == null) throw new IllegalArgumentException("must not be null");
+        if (direction == null) throw new IllegalArgumentException("must not be null");
         this.direction = direction;
     }
 

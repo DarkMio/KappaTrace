@@ -13,17 +13,23 @@ import Raytracing.Ray;
 
 public class Sphere extends Geometry {
 
-    /** Point3 determining the center of a sphere */
+    /**
+     * Point3 determining the center of a sphere
+     */
     public final Point3 c;
-    /** double representing the radius of a sphere */
+    /**
+     * double representing the radius of a sphere
+     */
     public final double r;
 
     /**
      * Construct a Sphere
+     *
      * @param material Material for color
-     * @param c Point3 for Sphere construction - must not be null
-     * @param r double for plane Sphere - must not be null
-     */    public Sphere(final Material material, final Point3 c, final double r) {
+     * @param c        Point3 for Sphere construction - must not be null
+     * @param r        double for plane Sphere - must not be null
+     */
+    public Sphere(final Material material, final Point3 c, final double r) {
         super(material);
         if (c == null) throw new IllegalArgumentException("must not be null");
         if (r < 0) throw new IllegalArgumentException("must be greater or equals 0");
@@ -35,8 +41,8 @@ public class Sphere extends Geometry {
     public Hit hit(final Ray r) {
         double a = r.d.dot(r.d);
         double b = r.d.dot(r.o.sub(c).mul(2));
-        double c = r.o.sub(this.c).dot(r.o.sub(this.c)) - this.r*this.r;
-        double d = b*b - 4*a*c;
+        double c = r.o.sub(this.c).dot(r.o.sub(this.c)) - this.r * this.r;
+        double d = b * b - 4 * a * c;
         double precision = Epsilon.precisionFor(b, c, a, d);
         if (d == 0) {
             double t = -b / 2 * a;
@@ -45,17 +51,18 @@ public class Sphere extends Geometry {
         if (d + precision > 0) {
             double sqrt = Math.sqrt(d);
             double t = Math.min((-b + sqrt) / (2 * a), (-b - sqrt) / (2 * a));
-            if(t < 0)
+            if (t < 0)
                 return null;
             return new Hit(t, r, this, normalToRay(r, t));
         }
         return null;
     }
 
-    /**@param r Ray
+    /**
+     * @param r Ray
      * @param t double - must not be null
      * @return Normal3 of a point
-     * */
+     */
     protected Normal3 normalToRay(final Ray r, final double t) {
         if (r == null) throw new IllegalArgumentException("must not be null");
         return r.at(t).sub(c).asNormal();

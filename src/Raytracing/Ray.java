@@ -5,23 +5,33 @@ import MathFunc.Vector3;
 
 public class Ray {
 
-    /** Point3 representing the origin of a ray */
+    /**
+     * Point3 representing the origin of a ray
+     */
     final public Point3 o;
-    /** Vector3 representing the direction of a ray */
+    /**
+     * Vector3 representing the direction of a ray
+     */
     final public Vector3 d;
 
-    /** constructor used for a ray object with Point3 o and Vector3 d*/
-    public Ray(final Point3 o, final Vector3 d){
+    /**
+     * constructor used for a ray object with Point3 o and Vector3 d
+     */
+    public Ray(final Point3 o, final Vector3 d) {
         this.o = o;
         this.d = d;
     }
 
-    /** Subtracts double t from Vector3 d and adds it to Point3, returning the position  */
+    /**
+     * Subtracts double t from Vector3 d and adds it to Point3, returning the position
+     */
     public Point3 at(final double t) {
         return o.add(d.mul(t));
     }
 
-    /** Returns ray at position p*/
+    /**
+     * Returns ray at position p
+     */
     public double tOf(final Point3 p) {
         return (p.x - o.x) / d.x;
     }

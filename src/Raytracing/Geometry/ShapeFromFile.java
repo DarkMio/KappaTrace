@@ -94,12 +94,12 @@ public class ShapeFromFile extends Geometry {
                     objects.add(new Triangle(material, p1, up, p3, up, p4, up));
                     System.out.println("new poly");
             }*/
+            }
         }
-    }
         if (!faces3.isEmpty()) {
             if (!normals.isEmpty()) {
                 int[] check = faces3.get(0);
-                if(check.length > 6) {
+                if (check.length > 6) {
                     for (int[] a : faces3) {
                         Point3 p1 = points.get(a[0]);
                         Point3 p2 = points.get(a[1]);
@@ -119,8 +119,8 @@ public class ShapeFromFile extends Geometry {
                         Normal3 n3 = normals.get(a[5]);
                         objects.add(new Triangle(material, p1, n1, p2, n2, p3, n3));
                     }
-                    }
-                 } else {
+                }
+            } else {
                 for (int[] a : faces3) {
                     Point3 p1 = points.get(a[0]);
                     Point3 p2 = points.get(a[1]);
@@ -137,15 +137,15 @@ public class ShapeFromFile extends Geometry {
             processFacesWithN(array, faces3);
         } else if (array[1].matches("\\d/\\d")) {
             processFacesWithT(array, faces3);
-        } else if (array[1].matches("\\d/\\d/\\d")){
+        } else if (array[1].matches("\\d/\\d/\\d")) {
             processFacesWithNAndT(array, faces3);
         } else {
-            processFaces (array, faces3);
+            processFaces(array, faces3);
         }
     }
 
-    private void processFacesWithN(String[] array, ArrayList<int[]> faces3){
-        if(array.length == 4) {
+    private void processFacesWithN(String[] array, ArrayList<int[]> faces3) {
+        if (array.length == 4) {
             int[] intArray = new int[6];
             intArray[0] = Integer.valueOf(array[1].split("//")[0]) - 1;
             intArray[1] = Integer.valueOf(array[2].split("//")[0]) - 1;
@@ -156,6 +156,7 @@ public class ShapeFromFile extends Geometry {
             faces3.add(intArray);
         }
     }
+
     private void processFacesWithT(String[] array, ArrayList<int[]> faces3) {
         if (array.length == 4) {
             int[] intArray = new int[3];
@@ -165,7 +166,8 @@ public class ShapeFromFile extends Geometry {
             faces3.add(intArray);
         }
     }
-    private void processFacesWithNAndT(String[] array, ArrayList<int[]> faces3){
+
+    private void processFacesWithNAndT(String[] array, ArrayList<int[]> faces3) {
         if (array.length == 4) {
             int[] intArray = new int[9];
             intArray[0] = Integer.valueOf(array[1].split("/")[0]) - 1;
@@ -180,7 +182,8 @@ public class ShapeFromFile extends Geometry {
             faces3.add(intArray);
         }
     }
-    private void processFaces (String [] array, ArrayList<int[]> faces3){
+
+    private void processFaces(String[] array, ArrayList<int[]> faces3) {
         if (array.length == 4) {
             int[] intArray = new int[3];
             intArray[0] = Integer.valueOf(array[1].split("//")[0]) - 1;

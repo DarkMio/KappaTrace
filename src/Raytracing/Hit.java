@@ -3,22 +3,33 @@ package Raytracing;
 /**
  * class used for ray hits
  */
+
 import MathFunc.Normal3;
 import Raytracing.Geometry.Geometry;
 
 public class Hit {
 
-    /** double representing the smallest t, where the ray hits an object */
+    /**
+     * double representing the smallest t, where the ray hits an object
+     */
     public final double t;
-    /** Ray representing a ray object */
+    /**
+     * Ray representing a ray object
+     */
     public final Ray ray;
-    /** Geometry representing a geometry object */
+    /**
+     * Geometry representing a geometry object
+     */
     public final Geometry geo;
 
-    /** Normal3 represnting a Normal */
+    /**
+     * Normal3 represnting a Normal
+     */
     public final Normal3 n;
 
-    /** constructor used for a ray hit with the parameters double t, Ray ray, Geometry geo and a Normal3 n*/
+    /**
+     * constructor used for a ray hit with the parameters double t, Ray ray, Geometry geo and a Normal3 n
+     */
     public Hit(final double t, final Ray ray, final Geometry geo, final Normal3 n) {
         this.n = n;
         this.t = t;

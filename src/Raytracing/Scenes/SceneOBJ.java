@@ -3,8 +3,7 @@ package Raytracing.Scenes;
 import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
-import Raytracing.MultiThreading.MultiRaytracer;
-import Raytracing.Camera.PerspectiveCamera;
+import Raytracing.Camera.FishEyeCamera;
 import Raytracing.Color;
 import Raytracing.Constants.Colors;
 import Raytracing.Constants.Materials;
@@ -14,6 +13,7 @@ import Raytracing.Geometry.Plane;
 import Raytracing.Geometry.ShapeFromFile;
 import Raytracing.Light.Light;
 import Raytracing.Light.PointLight;
+import Raytracing.MultiThreading.MultiRaytracer;
 import Raytracing.Sampling.EvenlyDistributedPattern;
 import Raytracing.World;
 
@@ -49,6 +49,7 @@ public class SceneOBJ {
     private static void fifthOBJSceneFactory() {
         SceneGenerator("./src/OBJFiles/cube-v-vt-vn.obj", new Point3(4, 4, 4));
     }
+
     private static void sixthOBJSceneFactory() {
         SceneGenerator("./src/OBJFiles/bunny.obj", new Point3(20, 20, 20));
     }
@@ -66,13 +67,13 @@ public class SceneOBJ {
                 new BoundingBox(scene),
                 new Plane(Materials.BLACK_REFLECTIVE, new Point3(0, -1, 0), new Normal3(0, 1, 0))
         ));
-        for(Geometry g: boundingScene) {
+        for (Geometry g : boundingScene) {
             System.out.println("Something");
         }
-        PerspectiveCamera ppc = new PerspectiveCamera(camera, new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(1));
+        FishEyeCamera ppc = new FishEyeCamera(camera, new Vector3(-1, -1, -1), new Vector3(0, 1, 0), 5, new EvenlyDistributedPattern(1));
         ArrayList<Light> lights2 = new ArrayList<>();
-        lights2.add(new PointLight(new Point3(10,40,0), Colors.WHITE, true));
-        new MultiRaytracer(640, 480, new World(background, boundingScene, ambientLight, lights2), ppc, 12);
+        lights2.add(new PointLight(new Point3(10, 40, 0), Colors.WHITE, true));
+        new MultiRaytracer(640, 480, new World(background, boundingScene, ambientLight, lights2), ppc, 7);
         // new MultiRaytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc, 7);
 
     }

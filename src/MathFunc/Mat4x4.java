@@ -43,28 +43,28 @@ public class Mat4x4 {
         this.m43 = m43;
         this.m44 = m44;
         determinant = m11 * m22 * m33 * m44
-                    + m12 * m23 * m34 * m41
-                    + m13 * m24 * m31 * m42
-                    + m14 * m21 * m32 * m43
-                    - m41 * m32 * m23 * m14
-                    - m42 * m33 * m24 * m11
-                    - m43 * m34 * m21 * m12
-                    - m44 * m31 * m22 * m13;
+                + m12 * m23 * m34 * m41
+                + m13 * m24 * m31 * m42
+                + m14 * m21 * m32 * m43
+                - m41 * m32 * m23 * m14
+                - m42 * m33 * m24 * m11
+                - m43 * m34 * m21 * m12
+                - m44 * m31 * m22 * m13;
 
     }
 
     public Vector3 mul(Vector3 o) { // o = other
         if (o == null) throw new IllegalArgumentException("Parameter must not be null");
         return new Vector3(m11 * o.x + m12 * o.y + m13 * o.z,
-                           m21 * o.x + m22 * o.y + m23 * o.z,
-                           m31 * o.x + m32 * o.y + m33 * o.z);
+                m21 * o.x + m22 * o.y + m23 * o.z,
+                m31 * o.x + m32 * o.y + m33 * o.z);
     }
 
     public Point3 mul(Point3 o) { // o = other
         if (o == null) throw new IllegalArgumentException("Parameter must not be null");
         return new Point3(m11 * o.x + m12 * o.y + m13 * o.z + m14,
-                          m21 * o.x + m22 * o.y + m23 * o.z + m24,
-                          m31 * o.x + m32 * o.y + m33 * o.z + m34);
+                m21 * o.x + m22 * o.y + m23 * o.z + m24,
+                m31 * o.x + m32 * o.y + m33 * o.z + m34);
     }
 
     public Mat4x4 mul(Mat4x4 o) { // o = other, n = new
@@ -87,16 +87,16 @@ public class Mat4x4 {
         final double n43 = m41 * o.m13 + m42 * o.m23 + m43 * o.m33 + m44 * o.m43;
         final double n44 = m41 * o.m14 + m42 * o.m24 + m43 * o.m34 + m44 * o.m44;
         return new Mat4x4(n11, n12, n13, n14,
-                          n21, n22, n23, n24,
-                          n31, n32, n33, n34,
-                          n41, n42, n43, n44);
+                n21, n22, n23, n24,
+                n31, n32, n33, n34,
+                n41, n42, n43, n44);
     }
 
     public Mat4x4 transpose() {
         return new Mat4x4(m11, m21, m31, m41,
-                          m12, m22, m32, m42,
-                          m13, m23, m33, m43,
-                          m14, m24, m34, m44);
+                m12, m22, m32, m42,
+                m13, m23, m33, m43,
+                m14, m24, m34, m44);
     }
 
     @Override

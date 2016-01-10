@@ -3,6 +3,7 @@ package Raytracing.Geometry;
 /**
  * class for geometric functions
  */
+
 import Raytracing.Hit;
 import Raytracing.Material.Material;
 import Raytracing.Ray;
@@ -10,19 +11,24 @@ import Raytracing.Ray;
 @SuppressWarnings("ConstantConditions")
 public abstract class Geometry {
 
-    /** Material representing material */
+    /**
+     * Material representing material
+     */
     public final Material material;
 
     /**
      * Construct an AxisAlignedBox
+     *
      * @param material Material for color - must not be null
      */
-        public Geometry(final Material material) {
+    public Geometry(final Material material) {
         if (material == null) throw new IllegalArgumentException("must not be null");
         this.material = material;
     }
 
-    /** abstract constructor for a ray hit */
+    /**
+     * abstract constructor for a ray hit
+     */
     public abstract Hit hit(final Ray r);
 
     @Override

@@ -12,22 +12,38 @@ import java.awt.image.BufferedImage;
 
 public class Raytracer {
 
-    /** int determining the width of a raytracer */
+    /**
+     * int determining the width of a raytracer
+     */
     final private int width;
-    /** int determining the height of a raytracer */
+    /**
+     * int determining the height of a raytracer
+     */
     final private int height;
-    /** JFrame for raytracer */
+    /**
+     * JFrame for raytracer
+     */
     final private JFrame jf;
-    /** BufferedImage for raytracer */
+    /**
+     * BufferedImage for raytracer
+     */
     final private BufferedImage img;
-    /** Camera for raytracer */
+    /**
+     * Camera for raytracer
+     */
     final private Camera cam;
-    /** World for raytracer */
+    /**
+     * World for raytracer
+     */
     final private World world;
-    /** ImageIcon for raytracer */
+    /**
+     * ImageIcon for raytracer
+     */
     final private ImageIcon frame;
 
-    /** constructor for a Raytracer with int width, int height, World world and Camera camera */
+    /**
+     * constructor for a Raytracer with int width, int height, World world and Camera camera
+     */
     public Raytracer(final int width, final int height, final World world, final Camera camera) {
         this.width = width;
         this.height = height;
@@ -47,10 +63,12 @@ public class Raytracer {
         jf.setVisible(true);
     }
 
-    /** renders a single image */
+    /**
+     * renders a single image
+     */
     private void render() {
-        for(int x = 0; x < width; x++) {
-            for(int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
                 final Ray[] rays = cam.rayFor(width, height, x, y);
                 Color finalColor = new Color(0, 0, 0);
                 for (Ray ray : rays) {
@@ -60,13 +78,15 @@ public class Raytracer {
                             new Tracer(8, world)));
                 }
                 finalColor = finalColor.mul(1 / (double) rays.length);
-                img.setRGB(x, height-y-1, finalColor.toIntRGB());
+                img.setRGB(x, height - y - 1, finalColor.toIntRGB());
             }
         }
         reload();
     }
 
-    /** reloads the image frame */
+    /**
+     * reloads the image frame
+     */
     private void reload() {
         frame.setImage(img);
     }

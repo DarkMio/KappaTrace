@@ -10,7 +10,7 @@ public class Materials {
     public static final ReflectiveMaterial WHITE_REFLECTIVE = new ReflectiveMaterial(Colors.WHITE, Colors.SUN, 64, Colors.GRAY);
     public static final ReflectiveMaterial RED_REFLECTIVE = new ReflectiveMaterial(Colors.RED, Colors.SUN, 64, Colors.GRAY);
     public static final ReflectiveMaterial GREEN_REFLECTIVE = new ReflectiveMaterial(Colors.GREEN, Colors.SUN, 64, Colors.GRAY);
-    public static final ReflectiveMaterial BLUE_REFLECTIVE = new ReflectiveMaterial(Colors.BLUE, Colors.SUN,64, Colors.GRAY);
+    public static final ReflectiveMaterial BLUE_REFLECTIVE = new ReflectiveMaterial(Colors.BLUE, Colors.SUN, 64, Colors.GRAY);
     public static final ReflectiveMaterial YELLOW_REFLECTIVE = new ReflectiveMaterial(Colors.YELLOW, Colors.SUN, 64, Colors.GRAY);
     public static final ReflectiveMaterial TEAL_REFLECTIVE = new ReflectiveMaterial(Colors.TEAL, Colors.SUN, 64, Colors.GRAY);
     public static final ReflectiveMaterial PURPLE_REFLECTIVE = new ReflectiveMaterial(Colors.PURPLE, Colors.SUN, 64, Colors.GRAY);

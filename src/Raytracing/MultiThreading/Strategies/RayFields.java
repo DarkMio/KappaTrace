@@ -31,7 +31,7 @@ public class RayFields extends RayStrategy {
         height = rt.img.getHeight();
         width = rt.img.getWidth();
         xMin = width * (x) / xThread;
-        xMax = width * (x+1) / xThread;
+        xMax = width * (x + 1) / xThread;
         yMin = height * y / yThread;
         yMax = height * (y + 1) / yThread;
         System.err.println("xMin=" + xMin + " xMax=" + xMax + " yMin=" + yMin + " yMax=" + yMax);
@@ -39,10 +39,10 @@ public class RayFields extends RayStrategy {
 
     public void run() {
         Color pixelColor;
-        for(int x = xMin; x < xMax; x++) {
-            for(int y = yMin; y < yMax; y++) {
+        for (int x = xMin; x < xMax; x++) {
+            for (int y = yMin; y < yMax; y++) {
                 pixelColor = renderPixel(x, y);
-                multiTracer.img.setRGB(x, height-(y+1), pixelColor.toIntRGB());
+                multiTracer.img.setRGB(x, height - (y + 1), pixelColor.toIntRGB());
             }
             multiTracer.update();
         }

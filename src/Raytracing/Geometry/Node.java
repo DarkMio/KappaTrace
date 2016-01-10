@@ -25,7 +25,7 @@ public class Node extends Geometry {
         Ray ray = new Ray(transform.i.mul(r.o), transform.i.mul(r.d));
         double t = Double.MAX_VALUE;
         Hit hit = null;
-        for (Geometry geo: geometries) {
+        for (Geometry geo : geometries) {
             Hit h = geo.hit(ray);
             if (h != null && h.t >= 0 && h.t < t) {
                 hit = h;

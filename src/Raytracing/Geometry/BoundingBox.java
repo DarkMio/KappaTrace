@@ -96,7 +96,7 @@ public class BoundingBox extends Geometry {
         Point3 initPos = (init != null) ? r.at(init.t) : null;
         double c = Double.MAX_VALUE;
         Hit h = null;
-        if(inRange(lbf, initPos, run)) {
+        if (inRange(lbf, initPos, run)) {
             for (Geometry g : geometries) {
                 final Hit hit = g.hit(r);
                 if (hit == null) continue;

@@ -5,20 +5,27 @@ package MathFunc;
  */
 final public class Point3 {
 
-    /** x - describing the Point3s x coordinate */
+    /**
+     * x - describing the Point3s x coordinate
+     */
     public final double x;
-    /** y - describing the Point3s z coordinate */
+    /**
+     * y - describing the Point3s z coordinate
+     */
     public final double y;
-    /** z - describing the Point3s z coordinate */
+    /**
+     * z - describing the Point3s z coordinate
+     */
     public final double z;
 
     /**
      * Standard constructor of Point3
+     *
      * @param x x-coordinate
      * @param y y-coordinate
      * @param z z-coordinate
      */
-    public Point3 (final double x, final double y, final double z) {
+    public Point3(final double x, final double y, final double z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -26,6 +33,7 @@ final public class Point3 {
 
     /**
      * Subtract a Point3 from this Vector3
+     *
      * @param p Point3 that should be subtracted - must not be null
      * @return resulting new Vector3
      */
@@ -43,6 +51,7 @@ final public class Point3 {
      * "The resulting point Q is considered to be the displacement,
      * or �translation�, of the point P in the direction of and by
      * the magnitude of the vector"
+     *
      * @param v A vector to translate - must not be null
      * @return A Point3 translated from v
      */
@@ -83,6 +92,7 @@ final public class Point3 {
 
     /**
      * Subtract a Vector3 from this Point3
+     *
      * @param v Vector3 that should be added - must not be null
      * @return resulting new Point3
      */

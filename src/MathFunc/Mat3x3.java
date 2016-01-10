@@ -5,28 +5,50 @@ package MathFunc;
  */
 final public class Mat3x3 {
 
-    /** m11 - first row, first column of matrix */
+    /**
+     * m11 - first row, first column of matrix
+     */
     public final double m11;
-    /** m12 - first row, second column of matrix */
+    /**
+     * m12 - first row, second column of matrix
+     */
     public final double m12;
-    /** m13 - first row, third column of matrix */
+    /**
+     * m13 - first row, third column of matrix
+     */
     public final double m13;
-    /** m21 - second row, first column of matrix */
+    /**
+     * m21 - second row, first column of matrix
+     */
     public final double m21;
-    /** m22 - second row, second column of matrix */
+    /**
+     * m22 - second row, second column of matrix
+     */
     public final double m22;
-    /** m23 - second row, third column of matrix */
+    /**
+     * m23 - second row, third column of matrix
+     */
     public final double m23;
-    /** m31 - third row, first column of matrix */
+    /**
+     * m31 - third row, first column of matrix
+     */
     public final double m31;
-    /** m32 - third row, second column of matrix */
+    /**
+     * m32 - third row, second column of matrix
+     */
     public final double m32;
-    /** m33 - third row, third column of matrix */
+    /**
+     * m33 - third row, third column of matrix
+     */
     public final double m33;
-    /** determinant - the determinant of the matrix */
+    /**
+     * determinant - the determinant of the matrix
+     */
     public final double determinant;
 
-    /** Abstract constructor for a 3x3 Matrix */
+    /**
+     * Abstract constructor for a 3x3 Matrix
+     */
     public Mat3x3(final double m11, final double m12, final double m13,
                   final double m21, final double m22, final double m23,
                   final double m31, final double m32, final double m33) {
@@ -40,15 +62,16 @@ final public class Mat3x3 {
         this.m32 = m32;
         this.m33 = m33;
         determinant = m11 * m22 * m33
-                    + m12 * m23 * m31
-                    + m13 * m21 * m32
-                    - m31 * m22 * m13
-                    - m32 * m23 * m11
-                    - m33 * m21 * m12;
+                + m12 * m23 * m31
+                + m13 * m21 * m32
+                - m31 * m22 * m13
+                - m32 * m23 * m11
+                - m33 * m21 * m12;
     }
 
     /**
      * Multiply this Mat3x3 with another Mat3x3
+     *
      * @param m Mat3x3 to multiply - must not be null
      * @return resulting new Mat3x3
      */
@@ -69,75 +92,80 @@ final public class Mat3x3 {
 
     /**
      * Multiply a Vector3 to this Mat3x3
+     *
      * @param v Vector3 to be multiplied on Mat3x3 - must not be null
      * @return resulting new Vector3
      */
     public Vector3 mul(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("must not be null");
         final double v1, v2, v3, mg;
-        v1 = m11*v.x + m12*v.y + m13*v.z;
-        v2 = m21*v.x + m22*v.y + m23*v.z;
-        v3 = m31*v.x + m32*v.y + m33*v.z;
-        mg = Math.sqrt(v1*v1 + v2*v2 + v3*v3);
+        v1 = m11 * v.x + m12 * v.y + m13 * v.z;
+        v2 = m21 * v.x + m22 * v.y + m23 * v.z;
+        v3 = m31 * v.x + m32 * v.y + m33 * v.z;
+        mg = Math.sqrt(v1 * v1 + v2 * v2 + v3 * v3);
         return new Vector3(v1, v2, v3, mg);
     }
 
     /**
      * Multiply Point3 on Mat3x3
+     *
      * @param p Point3 to be multiplied on Mat3x3 - must not be null
      * @return resulting new Point3
      */
     public Point3 mul(final Point3 p) {
         if (p == null) throw new IllegalArgumentException("Must not be null");
         final double p1, p2, p3;
-        p1 = m11*p.x + m12*p.y + m13*p.z;
-        p2 = m21*p.x + m22*p.y + m23*p.z;
-        p3 = m31*p.x + m32*p.y + m33*p.z;
+        p1 = m11 * p.x + m12 * p.y + m13 * p.z;
+        p2 = m21 * p.x + m22 * p.y + m23 * p.z;
+        p3 = m31 * p.x + m32 * p.y + m33 * p.z;
         return new Point3(p1, p2, p3);
     }
 
     /**
      * Change the first column with values of this Vector3
+     *
      * @param v Vector3 containing new Data for the column - must not be null
      * @return resulting new Mat3x3
      */
     public Mat3x3 changeCol1(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("Must not be null");
         return new Mat3x3(v.x, m12, m13,
-                          v.y, m22, m23,
-                          v.z, m32, m33);
+                v.y, m22, m23,
+                v.z, m32, m33);
     }
 
     /**
      * Change the second column with values of this Vector3
+     *
      * @param v Vector3 containing new Data for the column - must not be null
      * @return resulting new Mat3x3
      */
     public Mat3x3 changeCol2(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("Must not be null");
         return new Mat3x3(m11, v.x, m13,
-                          m21, v.y, m23,
-                          m31, v.z, m33);
+                m21, v.y, m23,
+                m31, v.z, m33);
     }
 
     /**
      * Change the third column with values of this Vector3
+     *
      * @param v Vector3 containing new Data for the column - must not be null
      * @return resulting new Mat3x3
      */
     public Mat3x3 changeCol3(final Vector3 v) {
         if (v == null) throw new IllegalArgumentException("Must not be null");
         return new Mat3x3(m11, m12, v.x,
-                          m21, m22, v.y,
-                          m31, m32, v.z);
+                m21, m22, v.y,
+                m31, m32, v.z);
     }
 
     @Override
     public String toString() {
         return String.format("Mat3x3:  (%8.2f, %8.2f, %8.2f)\n" +
-                             "         (%8.2f, %8.2f, %8.2f)\n" +
-                             "         (%8.2f, %8.2f, %8.2f)",
-                             m11, m12, m13, m21, m22, m23, m31, m32, m33);
+                        "         (%8.2f, %8.2f, %8.2f)\n" +
+                        "         (%8.2f, %8.2f, %8.2f)",
+                m11, m12, m13, m21, m22, m23, m31, m32, m33);
     }
 
     @Override
