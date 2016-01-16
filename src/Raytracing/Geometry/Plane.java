@@ -10,6 +10,7 @@ import MathFunc.Vector3;
 import Raytracing.Epsilon;
 import Raytracing.Hit;
 import Raytracing.Material.Material;
+import Raytracing.Material.Texturing.TexturePosition;
 import Raytracing.Ray;
 
 public class Plane extends Geometry {
@@ -44,7 +45,17 @@ public class Plane extends Geometry {
         double upper = n.dot(new Vector3(a.x - r.o.x, a.y - r.o.y, a.z - r.o.z)); // Was �ber dem Bruch steht
         if (lower == 0) return null; // You cannot divide through zero, thanks.
         double t = upper / lower;
-        if (t > Epsilon.PRECISION) return new Hit(t, r, this, n);
+        if (t < Epsilon.PRECISION) return null;
+        Point3 pos = r.at(t);
+        Normal3 n = new Normal3(pos.x, pos.y, pos.z);
+        TexturePosition tPos = new TexturePosition(n.x, n.z);
+        return new Hit(t, r, this, n, tPos);
+    }
+
+    private TexturePosition calcTexturePosition(double t, Ray r) {
+        Point3 pos = r.at(t);
+        Normal3 n = new Normal3(pos.x, pos.y, pos.z);
+        TexturePosition tPos = new TexturePosition(n.x, n.z);
         return null;
     }
 

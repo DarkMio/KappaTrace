@@ -3,22 +3,23 @@ package Raytracing.Scenes;
 import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
+import Raytracing.Camera.Camera;
 import Raytracing.Camera.FishEyeCamera;
+import Raytracing.Camera.PerspectiveCamera;
 import Raytracing.Color;
 import Raytracing.Constants.Colors;
 import Raytracing.Constants.Materials;
-import Raytracing.Geometry.BoundingBox;
-import Raytracing.Geometry.Geometry;
-import Raytracing.Geometry.Plane;
-import Raytracing.Geometry.ShapeFromFile;
+import Raytracing.Geometry.*;
 import Raytracing.Light.Light;
 import Raytracing.Light.PointLight;
 import Raytracing.MultiThreading.MultiRaytracer;
 import Raytracing.Sampling.EvenlyDistributedPattern;
+import Raytracing.Transform;
 import Raytracing.World;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class SceneOBJ {
     public static void SceneFactory() {
@@ -43,7 +44,7 @@ public class SceneOBJ {
     }
 
     private static void fourthOBJSceneFactory() {
-        SceneGenerator("./src/OBJFiles/teddy.obj", new Point3(2, 2, 2));
+        SceneGenerator("./src/OBJFiles/teddy.obj", new Point3(0, 0, 5));
     }
 
     private static void fifthOBJSceneFactory() {
@@ -64,16 +65,17 @@ public class SceneOBJ {
                 new Plane(Materials.BLACK_REFLECTIVE, new Point3(0, -1, 0), new Normal3(0, 1, 0))
         ));
         ArrayList<Geometry> boundingScene = new ArrayList<>(Arrays.asList(
-                new BoundingBox(scene),
-                new Plane(Materials.BLACK_REFLECTIVE, new Point3(0, -1, 0), new Normal3(0, 1, 0))
+                new BoundingBox(scene)
         ));
         for (Geometry g : boundingScene) {
             System.out.println("Something");
         }
-        FishEyeCamera ppc = new FishEyeCamera(camera, new Vector3(-1, -1, -1), new Vector3(0, 1, 0), 5, new EvenlyDistributedPattern(1));
+        Camera ppc = new PerspectiveCamera(camera, new Vector3(0, 0, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(1));
         ArrayList<Light> lights2 = new ArrayList<>();
         lights2.add(new PointLight(new Point3(10, 40, 0), Colors.WHITE, true));
-        new MultiRaytracer(640, 480, new World(background, boundingScene, ambientLight, lights2), ppc, 7);
+        ArrayList<Geometry> transform = new ArrayList<>(Collections.singletonList(
+                new Node(Materials.RED_LAMBERT, new Transform().rotateY(Math.PI/2).rotateX(Math.PI/2), boundingScene)));
+        new MultiRaytracer(320, 240, new World(background, transform, ambientLight, lights2), ppc, 7);
         // new MultiRaytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc, 7);
 
     }

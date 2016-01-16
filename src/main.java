@@ -1,4 +1,6 @@
+import Raytracing.Scenes.Scene5;
 import Raytracing.Scenes.SceneOBJ;
+import Raytracing.Scenes.SceneTexture;
 
 import javax.swing.*;
 
@@ -20,7 +22,7 @@ public class Main {
         */
       /*  Scene4.SceneFactory();
         time = timeTaken(time, "Scene5"); */
-        SceneOBJ.SceneFactory();
+        SceneTexture.SceneFactory();
         time = timeTaken(time, "OBJ");
         // Scene4.SceneFactory();
 /*        Scene4.SceneFactory();
