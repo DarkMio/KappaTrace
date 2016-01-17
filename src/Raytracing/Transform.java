@@ -1,6 +1,7 @@
 package Raytracing;
 
 import MathFunc.Mat4x4;
+import MathFunc.Normal3;
 import MathFunc.Vector3;
 
 public class Transform {
@@ -168,6 +169,14 @@ public class Transform {
                 i.m31 * cos + i.m32 * -sin, i.m31 * sin + i.m32 * cos, i.m33, i.m34,
                 i.m41 * cos + i.m42 * -sin, i.m41 * sin + i.m42 * cos, i.m43, i.m44);
         return new Transform(tMat, iMat);
+    }
+
+    public Ray mul(final Ray ray) {
+        return new Ray(i.mul(ray.o), i.mul(ray.d));
+    }
+
+    public Normal3 mul(final Normal3 normal) {
+        return (i.transpose().mul(new Vector3(normal.x, normal.y, normal.z))).normalized().asNormal();
     }
 
     @Override

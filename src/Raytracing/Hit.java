@@ -6,7 +6,7 @@ package Raytracing;
 
 import MathFunc.Normal3;
 import Raytracing.Geometry.Geometry;
-import Raytracing.Material.Texturing.TexturePosition;
+import Raytracing.Material.Texturing.TexCoord2;
 
 public class Hit {
 
@@ -31,7 +31,7 @@ public class Hit {
     /**
      * Texture position declares the offset of the texture pixel
      */
-    public final TexturePosition tp;
+    public final TexCoord2 tp;
 
     /**
      * constructor used for a ray hit with the parameters double t, Ray ray, Geometry geo and a Normal3 n
@@ -41,10 +41,10 @@ public class Hit {
         this.t = t;
         this.ray = ray;
         this.geo = geo;
-        tp = new TexturePosition(Math.random(), Math.random());
+        tp = new TexCoord2(Math.random(), Math.random());
     }
 
-    public Hit(final double t, final Ray ray, final Geometry geo, final Normal3 n, final TexturePosition tp) {
+    public Hit(final double t, final Ray ray, final Geometry geo, final Normal3 n, final TexCoord2 tp) {
         this.n = n;
         this.t = t;
         this.ray = ray;

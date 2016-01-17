@@ -30,6 +30,15 @@ public class Color {
         this.b = b;
     }
 
+    public Color(int rgb) {
+        int r = (rgb >> 16) & 0xFF;
+        int g = (rgb >> 8) & 0xFF;
+        int b = rgb & 0xFF;
+        this.r = r/255.0;
+        this.g = g/255.0;
+        this.b = b/255.0;
+    }
+
     /**
      * Add this Color with another Color
      *

@@ -9,7 +9,7 @@ import MathFunc.Point3;
 import Raytracing.Epsilon;
 import Raytracing.Hit;
 import Raytracing.Material.Material;
-import Raytracing.Material.Texturing.TexturePosition;
+import Raytracing.Material.Texturing.TexCoord2;
 import Raytracing.Ray;
 
 public class Sphere extends Geometry {
@@ -50,7 +50,7 @@ public class Sphere extends Geometry {
             Point3 sp = r.at(t);
             double u = 0.5 + Math.atan2(sp.z, sp.x)/(2*Math.PI);
             double v = 0.5 + Math.asin(sp.y) / Math.PI;
-            TexturePosition tp =new TexturePosition(u, v);
+            TexCoord2 tp =new TexCoord2(u, v);
             return new Hit(t, r, this, normalToRay(r, t), tp);
         }
         if (d + precision > 0) {
@@ -61,11 +61,10 @@ public class Sphere extends Geometry {
 
             // https://en.wikipedia.org/wiki/UV_mapping
             Point3 sp = r.at(t);
-            Normal3 n = new Normal3(sp.x, sp.y, sp.z);
-            double u = 0.5 + Math.atan2(n.z, n.x) / (2*Math.PI);
-            double v = 0.5 - Math.asin(n.y) / Math.PI;
+            double u = 0.5 + Math.atan2(sp.y - this.c.y, sp.x - this.c.x) / (2*Math.PI);
+            double v = 0.5 - Math.asin((sp.z - this.c.z)/this.r) / Math.PI;
             // System.out.println(sp.y);
-            TexturePosition tp =new TexturePosition(u, v);
+            TexCoord2 tp = new TexCoord2(u, v);
             return new Hit(t, r, this, normalToRay(r, t), tp);
         }
         return null;

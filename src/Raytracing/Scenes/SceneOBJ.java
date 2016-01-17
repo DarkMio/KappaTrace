@@ -74,7 +74,7 @@ public class SceneOBJ {
         ArrayList<Light> lights2 = new ArrayList<>();
         lights2.add(new PointLight(new Point3(10, 40, 0), Colors.WHITE, true));
         ArrayList<Geometry> transform = new ArrayList<>(Collections.singletonList(
-                new Node(Materials.RED_LAMBERT, new Transform().rotateY(Math.PI/2).rotateX(Math.PI/2), boundingScene)));
+                new Node(boundingScene, new Transform().rotateY(Math.PI/2).rotateX(Math.PI/2))));
         new MultiRaytracer(320, 240, new World(background, transform, ambientLight, lights2), ppc, 7);
         // new MultiRaytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc, 7);
 

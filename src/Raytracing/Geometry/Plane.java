@@ -10,7 +10,7 @@ import MathFunc.Vector3;
 import Raytracing.Epsilon;
 import Raytracing.Hit;
 import Raytracing.Material.Material;
-import Raytracing.Material.Texturing.TexturePosition;
+import Raytracing.Material.Texturing.TexCoord2;
 import Raytracing.Ray;
 
 public class Plane extends Geometry {
@@ -47,15 +47,14 @@ public class Plane extends Geometry {
         double t = upper / lower;
         if (t < Epsilon.PRECISION) return null;
         Point3 pos = r.at(t);
-        Normal3 n = new Normal3(pos.x, pos.y, pos.z);
-        TexturePosition tPos = new TexturePosition(n.x, n.z);
+        TexCoord2 tPos = new TexCoord2((1-n.x)*pos.x, (1-n.y)*pos.y - (1-n.z)*pos.z );
         return new Hit(t, r, this, n, tPos);
     }
 
-    private TexturePosition calcTexturePosition(double t, Ray r) {
+    private TexCoord2 calcTexturePosition(double t, Ray r) {
         Point3 pos = r.at(t);
         Normal3 n = new Normal3(pos.x, pos.y, pos.z);
-        TexturePosition tPos = new TexturePosition(n.x, n.z);
+        TexCoord2 tPos = new TexCoord2(n.x, n.z);
         return null;
     }
 

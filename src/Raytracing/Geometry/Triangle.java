@@ -11,6 +11,7 @@ import MathFunc.Vector3;
 import Raytracing.Epsilon;
 import Raytracing.Hit;
 import Raytracing.Material.Material;
+import Raytracing.Material.Texturing.TexCoord2;
 import Raytracing.Ray;
 
 public class Triangle extends Geometry {
@@ -40,6 +41,7 @@ public class Triangle extends Geometry {
      */
     public final Normal3 cn;
 
+    public final TexCoord2 tpA, tpB, tpC;
     /**
      * Construct a Triangle
      *
@@ -66,6 +68,9 @@ public class Triangle extends Geometry {
         this.an = an;
         this.bn = bn;
         this.cn = cn;
+        tpA = new TexCoord2(0,0);
+        tpB = new TexCoord2(0,1);
+        tpC = new TexCoord2(1,0);
     }
 
     public Triangle(final Material material, final Point3 a, final Point3 b, final Point3 c) {
@@ -93,7 +98,8 @@ public class Triangle extends Geometry {
         double t = matrixT.determinant / matrixBase.determinant;
         if (!(t >= 0)) return null;
         final Normal3 temp = an.mul(1 - beta - gamma).add(bn.mul(beta)).add(cn.mul(gamma));
-        return new Hit(t, r, this, temp);
+        TexCoord2 u = tpA.add(tpB.mul(beta).add(tpA.mul(beta).mul(-1))).add(tpC.mul(gamma).add(tpA.mul(gamma).mul(-1))); // basically what the normal does
+        return new Hit(t, r, this, temp, u);
     }
 
     @Override

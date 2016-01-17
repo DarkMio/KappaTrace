@@ -64,6 +64,10 @@ final public class Point3 {
         return new Point3(x, y, z);
     }
 
+    public Point3 x(final Normal3 v) {
+        return new Point3(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

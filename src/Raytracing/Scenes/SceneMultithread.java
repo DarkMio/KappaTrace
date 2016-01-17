@@ -37,7 +37,7 @@ public class SceneMultithread {
         lights2.add(new PointLight(new Point3(8.0, 8.0, 0.0), new Color(1.0, 1.0, 1.0), true));
 
         Transform x = new Transform().scale(new Vector3(3, 1, 1.5));
-        ArrayList<Geometry> scene3 = new ArrayList<>(Collections.singletonList(new Node(Materials.RED_REFLECTIVE, x, scene_reflective)));
+        ArrayList<Geometry> scene3 = new ArrayList<>(Collections.singletonList(new Node(scene_reflective, x)));
         PerspectiveCamera ppc2 = new PerspectiveCamera(new Point3(8, 8, 8), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI / 4, new EvenlyDistributedPattern(3));
         new MultiRaytracer(1280, 960, new World(background, scene_reflective, ambientLight, lights2), ppc2, 8);
     }

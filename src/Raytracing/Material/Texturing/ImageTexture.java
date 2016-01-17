@@ -7,13 +7,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class TextureImage extends Texture{
+public class ImageTexture extends Texture{
 
     /** Totes useful once only.         0xAARRGGBB */
-    private static final int BYTEMASK = 0x000000FF;
+    protected static final int BYTEMASK = 0x000000FF;
     public final BufferedImage image;
 
-    public TextureImage(final String file) {
+    public ImageTexture(final String file) {
         image = getImage(file);
     }
 
@@ -32,12 +32,12 @@ public class TextureImage extends Texture{
     @Override
     public Color colorFor(double u, double v) {
         final int uPos = (int) (u * (image.getWidth() - 1));
-        final int vPos = (int) (v * (image.getWidth() - 1));
+        final int vPos = (int) (v * (image.getHeight() - 1));
         final int rgb = image.getRGB(uPos, vPos);
         int r = (rgb >> 16) & BYTEMASK;
         int g = (rgb >> 8) & BYTEMASK;
         int b = rgb & BYTEMASK;
 
-        return new Color(r/255, g/255, b/255);
+        return new Color(r/255.0, g/255.0, b/255.0);
     }
 }
