@@ -1,10 +1,12 @@
-package MultiThreading;
+package Raytracing.MultiThreading;
 
 /**
  * MultiRaytracer represents class of the raytracer
  */
 
 import Raytracing.Camera.Camera;
+import Raytracing.MultiThreading.Strategies.RayPerLine;
+import Raytracing.MultiThreading.Strategies.RayStrategy;
 import Raytracing.World;
 
 import javax.swing.*;
@@ -25,7 +27,7 @@ public class MultiRaytracer {
     /**
      * JFrame for raytracer
      */
-    public JFrame jf;
+    public final JFrame jf;
     /**
      * BufferedImage for raytracer
      */
@@ -33,25 +35,19 @@ public class MultiRaytracer {
     /**
      * Camera for raytracer
      */
-    public Camera cam;
+    public final Camera cam;
     /**
      * World for raytracer
      */
     public final World world;
-    /**
-     * ImageIcon for raytracer
-     */
-    private ImageIcon frame;
-    private JLabel jl;
-    public final ArrayList<RayPerLine> runnables;
+    private final JLabel jl;
+    public final ArrayList<RayStrategy> runnables;
 
     private int rowCount = 0;
-    private long startTime;
-    private int xThread;
-    private int yThread;
+    private final long startTime;
     private int threadsCompleted = 0;
-    private JProgressBar progress = new JProgressBar(0, 1000);
-    private JLabel status = new JLabel("Estimating rendering time.");
+    private final JProgressBar progress = new JProgressBar(0, 1000);
+    private final JLabel status = new JLabel("Estimating rendering time.");
 
     /**
      * renders a single image
@@ -68,6 +64,9 @@ public class MultiRaytracer {
      * constructor for a MultiRaytracer with int width, int height, World world and Camera camera
      */
     public MultiRaytracer(final int width, final int height, final World world, final Camera camera, final int threads) {
+        // @TODO: Please clean up and reimplement ray tracing strategies.
+        int xThread;
+        int yThread;
         if (threads % 2 == 1) {
             xThread = (threads - 1) / 2;
             yThread = 2;
@@ -84,7 +83,10 @@ public class MultiRaytracer {
         jf.setLayout(new BorderLayout());
         jf.setIconImage(new ImageIcon("./src/Resources/Kappa.png").getImage());
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        frame = new ImageIcon(img);
+        /*
+      ImageIcon for raytracer
+     */
+        ImageIcon frame = new ImageIcon(img);
         jl = new JLabel();
         jl.setIcon(frame);
         jf.add(jl, BorderLayout.NORTH);
@@ -94,7 +96,7 @@ public class MultiRaytracer {
         this.world = world;
         cam = camera;
         runnables = new ArrayList<>();
-        for(int i = 0; i < threads; i++) {
+        for (int i = 0; i < threads; i++) {
             runnables.add(new RayPerLine(this, i, threads));
         }
         /*
@@ -119,7 +121,7 @@ public class MultiRaytracer {
         long inter = perLine * rowSet;
         long i = inter - startTime;
         i = inter / 1000;
-        progress.setValue(rowCount*1000/rowSet);
+        progress.setValue(rowCount * 1000 / rowSet);
         status.setText("Rendering... | Remaining time: " + i / (60 * 60) + "h " + i / (60) % 60 + "m " + i % 60 + "s");
     }
 

@@ -3,7 +3,7 @@ package Raytracing.Constants;
 import Raytracing.Color;
 
 public class Colors {
-    public static final Color SUN = new Color(255.0/255.0, 228.0/255.0, 154.0/255.0);
+    public static final Color SUN = new Color(255.0 / 255.0, 228.0 / 255.0, 154.0 / 255.0);
     public static final Color GRAY = new Color(0.5, 0.5, 0.5);
     public static final Color BLACK = new Color(0.1, 0.11, 0.1);
     public static final Color WHITE = new Color(0.96, 0.96, 0.94);

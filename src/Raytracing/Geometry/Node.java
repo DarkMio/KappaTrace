@@ -1,8 +1,11 @@
 package Raytracing.Geometry;
 
+import MathFunc.Normal3;
 import MathFunc.Vector3;
+import Raytracing.Color;
 import Raytracing.Hit;
 import Raytracing.Material.Material;
+import Raytracing.Material.SingleColorMaterial;
 import Raytracing.Ray;
 import Raytracing.Transform;
 
@@ -12,6 +15,10 @@ public class Node extends Geometry {
 
     private final Transform transform;
     private final List<Geometry> geometries;
+
+    public Node(List<Geometry> geometries, Transform transform) {
+        this(new SingleColorMaterial(new Color(0, 0, 0)), transform, geometries);
+    }
 
     public Node(Material material, Transform transform, List<Geometry> geometries) {
         super(material);
@@ -25,7 +32,7 @@ public class Node extends Geometry {
         Ray ray = new Ray(transform.i.mul(r.o), transform.i.mul(r.d));
         double t = Double.MAX_VALUE;
         Hit hit = null;
-        for (Geometry geo: geometries) {
+        for (Geometry geo : geometries) {
             Hit h = geo.hit(ray);
             if (h != null && h.t >= 0 && h.t < t) {
                 hit = h;
@@ -33,6 +40,6 @@ public class Node extends Geometry {
             }
         }
         if (hit == null) return null;
-        return new Hit(hit.t, r, hit.geo, transform.i.transpose().mul(new Vector3(hit.n.x, hit.n.y, hit.n.z)).asNormal());
+        return new Hit(hit.t, r, hit.geo, transform.mul(hit.n), hit.tp);
     }
 }

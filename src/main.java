@@ -1,8 +1,10 @@
-import Raytracing.Scenes.*;
+import Raytracing.Scenes.Scene5;
+import Raytracing.Scenes.SceneOBJ;
+import Raytracing.Scenes.SceneTexture;
 
 import javax.swing.*;
 
-public class main {
+public class Main {
 
     private static long timeTaken(long initTime, String sceneName) {
         long newTime = System.currentTimeMillis();
@@ -13,21 +15,21 @@ public class main {
     public static void main(String[] args) {
         bootstrap();
         long time = System.currentTimeMillis();
-       /* SceneMultithread.Scene5Factory();
+       /* SceneMultithread.SceneFactory();
         time = timeTaken(time, "SceneMultithread");
-        Scene4.Scene4Factory();
+        Scene4.SceneFactory();
         time = timeTaken(time, "Scene4");
         */
-      /*  Scene4.Scene4Factory();
+      /*  Scene4.SceneFactory();
         time = timeTaken(time, "Scene5"); */
-        SceneOBJ.SceneOBJFactory();
+        SceneTexture.SceneFactory();
         time = timeTaken(time, "OBJ");
-        // Scene4.Scene4Factory();
-/*        Scene4.Scene4Factory();
+        // Scene4.SceneFactory();
+/*        Scene4.SceneFactory();
         time = timeTaken(time, "Scene4");
-        Scene5.Scene5Factory();
+        Scene5.SceneFactory();
         time = timeTaken(time, "Scene5")
-        SceneMultithread.Scene5Factory();
+        SceneMultithread.SceneFactory();
         time = timeTaken(time, "SceneMultithread");
  */
     }
@@ -35,13 +37,7 @@ public class main {
     private static void bootstrap() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
+        } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }

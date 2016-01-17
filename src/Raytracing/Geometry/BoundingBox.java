@@ -1,23 +1,16 @@
 package Raytracing.Geometry;
 
-import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Color;
 import Raytracing.Constants.Materials;
 import Raytracing.Epsilon;
 import Raytracing.Hit;
-import Raytracing.Material.LambertMaterial;
-import Raytracing.Material.Material;
 import Raytracing.Material.SingleColorMaterial;
 import Raytracing.Ray;
-import com.sun.org.apache.xerces.internal.impl.xpath.XPath;
 
 import java.util.List;
 
-/**
- * Created by Mio on 07.01.2016.
- */
 public class BoundingBox extends Geometry {
 
     public final List<Geometry> geometries;
@@ -28,12 +21,12 @@ public class BoundingBox extends Geometry {
         super(new SingleColorMaterial(new Color(1, 1, 1)));
         this.geometries = geometries;
         Point3[] boundingPoints = findBoundaries(geometries);
-        lbf = boundingPoints[0];
-        run = boundingPoints[1];
+        lbf = boundingPoints[0].add(new Vector3(-0.1, -0.1, -0.1));
+        run = boundingPoints[1].add(new Vector3(0.1, 0.1, 0.1));
         box = new AxisAlignedBox(Materials.WHITE_LAMBERT, lbf, run);
     }
 
-    private Point3[] findBoundaries(List<Geometry> geos) {
+    private static Point3[] findBoundaries(List<Geometry> geos) {
         double[] boundaries;
         double minX = 0, minY = 0, minZ = 0;
         double maxX = 0, maxY = 0, maxZ = 0;
@@ -64,7 +57,7 @@ public class BoundingBox extends Geometry {
         return new Point3[]{new Point3(minX, minY, minZ), new Point3(maxX, maxY, maxZ)};
     }
 
-    private double[] getBoundariesAAB(AxisAlignedBox b) {
+    private static double[] getBoundariesAAB(AxisAlignedBox b) {
         double x1, x2, y1, y2, z1, z2;
         x1 = b.lbf.x;
         y1 = b.lbf.y;
@@ -81,13 +74,13 @@ public class BoundingBox extends Geometry {
         return new double[]{x1, y1, z1, x2, y2, z2};
     }
 
-    private double[] getBoundariesSphere(Sphere s) {
+    private static double[] getBoundariesSphere(Sphere s) {
         Point3 min = s.c.sub(new Vector3(s.r, s.r, s.r));
         Point3 max = s.c.add(new Vector3(s.r, s.r, s.r));
         return new double[]{min.x, min.y, min.z, max.x, max.y, max.z};
     }
 
-    private double[] getBoundariesTriangle(Triangle t) {
+    private static double[] getBoundariesTriangle(Triangle t) {
         double minX = Math.min(Math.min(t.a.x, t.b.x), t.c.x);
         double minY = Math.min(Math.min(t.a.y, t.b.y), t.c.y);
         double minZ = Math.min(Math.min(t.a.z, t.b.z), t.c.z);
@@ -100,27 +93,26 @@ public class BoundingBox extends Geometry {
     @Override
     public Hit hit(Ray r) {
         Hit init = box.hit(r);
-        final double t = Double.MAX_VALUE;
-        double c = t;
+        Point3 initPos = (init != null) ? r.at(init.t) : null;
+        double c = Double.MAX_VALUE;
         Hit h = null;
-        for (Geometry g : geometries) {
-            final Hit hit = g.hit(r);
-            if (hit != null ) {
+        if (inRange(lbf, initPos, run)) {
+            for (Geometry g : geometries) {
+                final Hit hit = g.hit(r);
+                if (hit == null) continue;
                 final Point3 pos = r.at(hit.t);
-                if(inRange(lbf, pos, run)) {
-                    if (hit.t < c && hit.t >= Epsilon.PRECISION) {
-                        c = hit.t;
-                        h = hit;
-                    }
+                if (!inRange(lbf, pos, run)) continue;
+                if (hit.t < c && hit.t >= Epsilon.PRECISION) {
+                    c = hit.t;
+                    h = hit;
                 }
             }
         }
-        if (h != null)
-            return new Hit(c, h.ray, h.geo, h.n);
-        else return null;
+        return h;
     }
 
     private static boolean inRange(Point3 lbf, Point3 value, Point3 run) {
+        if (value == null) return false;
         return inRange(lbf.x, value.x, run.x) && inRange(lbf.y, value.y, run.y) && inRange(lbf.z, value.z, run.z);
     }
 

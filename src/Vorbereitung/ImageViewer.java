@@ -21,7 +21,7 @@ public class ImageViewer {
                 try {
                     final String absPath = fc.getSelectedFile().getAbsolutePath();
                     final String s = Files.probeContentType(Paths.get(absPath)); // Better here or in the image panel?
-                                                                                 // or both?
+                    // or both?
                     if (s == null) {
                         JOptionPane.showMessageDialog(null, "Selected file not recorgnized. Maybe corrupt?", "Dialog",
                                 JOptionPane.ERROR_MESSAGE);
@@ -42,6 +42,7 @@ public class ImageViewer {
 
     /**
      * Load image, build ui, display it in new JFra,e
+     *
      * @param image Image file, probably has to be either pmg, jpeg or bmp
      * @throws IOException Just in case, not our fault at this point
      */

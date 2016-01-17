@@ -1,11 +1,14 @@
 package MathFunc;
 
-/**
- * Created by Mio on 06/01/2016.
- */
 public class Point2 {
 
-    public double x;
+    public final double x;
+    public double y;
+
+    public Point2(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 
     @Override
     public String toString() {
@@ -13,13 +16,6 @@ public class Point2 {
                 "x=" + x +
                 ", y=" + y +
                 '}';
-    }
-
-    public double y;
-
-    public Point2(double x, double y) {
-        this.x = x;
-        this.y = y;
     }
 
     @Override

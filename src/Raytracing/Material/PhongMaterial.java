@@ -2,6 +2,7 @@ package Raytracing.Material;
 /**
  * PhongMaterial represents class for all Phong objects
  */
+
 import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Color;
@@ -12,14 +13,22 @@ import Raytracing.World;
 
 public class PhongMaterial extends Material {
 
-    /** Color representing diffuse reflections of rough surfaces */
+    /**
+     * Color representing diffuse reflections of rough surfaces
+     */
     public final Color diffuse;
-    /** Color representing specular reflections*/
+    /**
+     * Color representing specular reflections
+     */
     public final Color specular;
-    /** representing the Phong exponent for the intensity of Phong reflections */
+    /**
+     * representing the Phong exponent for the intensity of Phong reflections
+     */
     public final int exponent;
 
-    /** Constructor used to create PhongMaterial with a Color diffuse, a Color specular and an int exponent */
+    /**
+     * Constructor used to create PhongMaterial with a Color diffuse, a Color specular and an int exponent
+     */
     public PhongMaterial(final Color diffuse, final Color specular, final int exponent) {
         if (diffuse == null) throw new IllegalArgumentException("must not be null");
         if (specular == null) throw new IllegalArgumentException("must not be null");
@@ -59,7 +68,7 @@ public class PhongMaterial extends Material {
         final Color a = world.ambientLight.mul(diffuse);
         Color b = null;
         final Point3 pos = hit.ray.o.add(hit.ray.d.mul(hit.t));
-        for(Light light: world.lights) {
+        for (Light light : world.lights) {
             if (light.illuminates(pos, world)) {
                 final Vector3 l = light.directionFrom(pos).normalized();
                 final Color c1 = diffuse.mul(light.color).mul(Math.max(0, hit.n.dot(l)));
@@ -70,7 +79,7 @@ public class PhongMaterial extends Material {
                 else b.add(b);
             }
         }
-        if(b == null) return a;
+        if (b == null) return a;
         return a.add(b);
     }
 

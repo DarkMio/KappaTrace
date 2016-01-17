@@ -3,27 +3,54 @@ package Raytracing;
 /**
  * class used for ray hits
  */
+
 import MathFunc.Normal3;
 import Raytracing.Geometry.Geometry;
+import Raytracing.Material.Texturing.TexCoord2;
 
 public class Hit {
 
-    /** double representing the smallest t, where the ray hits an object */
+    /**
+     * double representing the smallest t, where the ray hits an object
+     */
     public final double t;
-    /** Ray representing a ray object */
+    /**
+     * Ray representing a ray object
+     */
     public final Ray ray;
-    /** Geometry representing a geometry object */
+    /**
+     * Geometry representing a geometry object
+     */
     public final Geometry geo;
 
-    /** Normal3 represnting a Normal */
+    /**
+     * Normal3 represnting a Normal
+     */
     public final Normal3 n;
 
-    /** constructor used for a ray hit with the parameters double t, Ray ray, Geometry geo and a Normal3 n*/
-    public Hit(final double t, final Ray ray, final Geometry geo, final Normal3 n) {
+    /**
+     * Texture position declares the offset of the texture pixel
+     */
+    public final TexCoord2 tp;
+
+    /**
+     * constructor used for a ray hit with the parameters double t, Ray ray, Geometry geo and a Normal3 n
+     */
+    /*public Hit(final double t, final Ray ray, final Geometry geo, final Normal3 n) {
         this.n = n;
         this.t = t;
         this.ray = ray;
         this.geo = geo;
+        tp = new TexCoord2(Math.random(), Math.random());
+    }
+    */
+
+    public Hit(final double t, final Ray ray, final Geometry geo, final Normal3 n, final TexCoord2 tp) {
+        this.n = n;
+        this.t = t;
+        this.ray = ray;
+        this.geo = geo;
+        this.tp = tp;
     }
 
     @Override

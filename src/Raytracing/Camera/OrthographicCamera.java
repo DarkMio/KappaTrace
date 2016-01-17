@@ -3,17 +3,22 @@ package Raytracing.Camera;
 /**
  * OrthographicCamera represents class for orthographic camera objects
  */
-import Raytracing.Ray;
+
 import MathFunc.Point3;
 import MathFunc.Vector3;
+import Raytracing.Ray;
 import Raytracing.Sampling.SamplingPattern;
 
 public class OrthographicCamera extends Camera {
 
-    /** double s is used for scaling */
+    /**
+     * double s is used for scaling
+     */
     private final double s;
 
-    /** constructor for orthographic camera objects */
+    /**
+     * constructor for orthographic camera objects
+     */
     public OrthographicCamera(final Point3 e, final Vector3 g, final Vector3 t, final double s, final SamplingPattern pattern) {
         super(e, g, t, pattern);
         this.s = s;
@@ -21,22 +26,18 @@ public class OrthographicCamera extends Camera {
 
     @Override
     public Ray[] rayFor(int w, int h, final int x, final int y) {
-        return new Ray[0];
-        /*
+        // Sampling doesn't work?!
         w -= 1;
         h -= 1;
-        final double wHalf = w/2.0;
-        final double hHalf = h/2.0;
-        final double a = ((double)w)/h;
-        final double tempX = (x-wHalf) / w;
-        final double tempY = (y-hHalf) / h;
-        Vector3 posX = u.mul(a*s*tempX);
-        Vector3 posY = v.mul(s*tempY);
-        return new Ray(e.add(posX).add(posY), g);
-
-        */
+        final double wHalf = w / 2.0;
+        final double hHalf = h / 2.0;
+        final double a = ((double) w) / h;
+        final double tempX = (x - wHalf) / w;
+        final double tempY = (y - hHalf) / h;
+        Vector3 posX = u.mul(a * s * tempX);
+        Vector3 posY = v.mul(s * tempY);
+        return new Ray[]{new Ray(e.add(posX).add(posY), g)};
     }
-
 
 
     @Override

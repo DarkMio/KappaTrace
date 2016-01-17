@@ -18,10 +18,11 @@ public class ImageFrame extends JFrame implements ActionListener {
         imgf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         imgf.setVisible(true);
     }
+
     /**
      * Reference to ImagePanel
      */
-    protected ImagePanel ip;
+    protected final ImagePanel ip;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -42,7 +43,7 @@ public class ImageFrame extends JFrame implements ActionListener {
                 File f = new File(fc.getSelectedFile().getAbsolutePath());
                 BufferedImage bi = ip.getImg();
                 ImageIO.write(bi, "png", f);
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -65,8 +66,9 @@ public class ImageFrame extends JFrame implements ActionListener {
 
     /**
      * Builds together a JMenuBar with Datei > {text} to implement a save-functionality.
+     *
      * @param text {text} for save button
-     * @param al ActionListener (in case we ever need a different one)
+     * @param al   ActionListener (in case we ever need a different one)
      * @return JMenuBar with Datei > {text}
      */
     protected static JMenuBar factorySaveButton(String text, ActionListener al) {
