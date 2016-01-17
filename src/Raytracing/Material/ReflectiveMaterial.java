@@ -7,17 +7,20 @@ import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.*;
 import Raytracing.Light.Light;
+import Raytracing.Material.Texturing.InterpolatedImageTexture;
+import Raytracing.Material.Texturing.SingleColorTexture;
+import Raytracing.Material.Texturing.Texture;
 
 public class ReflectiveMaterial extends Material {
 
     /**
      * Color representing diffuse reflections of rough surfaces
      */
-    final Color diffuse;
+    final Texture diffuse;
     /**
      * Color representing specular reflections
      */
-    final Color specular;
+    final Texture specular;
     /**
      * representing the Phong exponent for the intensity of Phong reflections
      */
@@ -25,7 +28,7 @@ public class ReflectiveMaterial extends Material {
     /**
      * Color representing reflections on a plane and objects
      */
-    final Color reflection;
+    final Texture reflection;
 
     /**
      * constructor used to create ReflectiveMaterial
@@ -36,6 +39,13 @@ public class ReflectiveMaterial extends Material {
      * @param reflection Color determining the reflection on the plane and on objects - must not be null
      */
     public ReflectiveMaterial(final Color diffuse, final Color specular, final int exponent, final Color reflection) {
+        this(new SingleColorTexture(diffuse), new SingleColorTexture(specular), exponent, new SingleColorTexture(reflection));
+        if (diffuse == null) throw new IllegalArgumentException("diffuse must not be null!");
+        if (specular == null) throw new IllegalArgumentException("specular must not be null!");
+        if (reflection == null) throw new IllegalArgumentException("reflection must not be null!");
+    }
+
+    public ReflectiveMaterial(final Texture diffuse, final Texture specular, final int exponent, final Texture reflection) {
         if (diffuse == null) throw new IllegalArgumentException("diffuse must not be null!");
         if (specular == null) throw new IllegalArgumentException("specular must not be null!");
         if (reflection == null) throw new IllegalArgumentException("reflection must not be null!");
@@ -45,39 +55,35 @@ public class ReflectiveMaterial extends Material {
         this.reflection = reflection;
     }
 
+    public ReflectiveMaterial() {
+        this(new InterpolatedImageTexture("./src/Resources/CheckerboardTextureGray.png"), new SingleColorTexture(new Color(0.5, 0.5, 0.5)), 64, new SingleColorTexture(new Color(0.75, 0.75, 0.75)));
+    }
+
 
     //c = cd*ca + summe(i=1 bis imax)(cd*cl*imax(0, Vn * Vl)+ cs * cl * imax(0, Ve * Vn)^p + cr*fr(t * Vpr, Vrd))
     // ^ nice comment, m8, reel funny FUCK YOJ - in Love, Mio.
     @Override
-    public Color colorFor(final Hit hit, final World world, final Tracer tracer) {
-        if (hit == null) {
-            throw new IllegalArgumentException("The Hit cannot be null!");
-        }
-        if (world == null) {
-            throw new IllegalArgumentException("The World cannot be null!");
-        }
-        if (tracer == null) {
-            throw new IllegalArgumentException("The Tracer cannot be null!");
-        }
-
-        Color color = world.ambientLight.mul(this.diffuse);
-        final Point3 point = hit.ray.at(hit.t);
+    public Color colorFor(Hit hit, World world, Tracer tracer) {
+        final Point3 hitPoint = hit.ray.at(hit.t);
         final double cosinusPhi = hit.n.dot(hit.ray.d.mul(-1.0)) * 2;
         final Vector3 v = hit.ray.d.mul(-1).normalized();
-
-        for (final Light currentLight : world.lights) {
-
-            if (currentLight.illuminates(point, world)) {
-                final Vector3 lightlVector = currentLight.directionFrom(point);
-                final Vector3 reflectedVector = lightlVector.reflectedOn(hit.n);
-
-                final double maxNL = Math.max(0.0, hit.n.dot(lightlVector));
-                final double maxER = Math.pow(Math.max(0.0, reflectedVector.dot(v)), this.exponent);
-                color = color.add(currentLight.color.mul(this.diffuse).mul(maxNL)).add(currentLight.color.mul(this.specular).mul(maxER));
+        Color c = world.ambientLight.mul(this.diffuse.colorFor(hit.tp.u, hit.tp.v));
+        // check each light in scene
+        for (final Light light : world.lights) {
+            // check if light illuminates this point
+            boolean lighting = light.illuminates(hitPoint, world);
+            if (lighting) {
+                Vector3 normalVector = light.directionFrom(hitPoint);
+                // the opposite vector
+                Vector3 reflectedVector = normalVector.reflectedOn(hit.n);
+                // if light illuminates hit point, there is need to calculate new xolor
+                double firstMaximum = Math.max(0.0, hit.n.dot(normalVector));
+                double secondMaximum = Math.pow(Math.max(0.0, reflectedVector.dot(v)), this.exponent);
+                c = c.add(light.color.mul(this.diffuse.colorFor(hit.tp.u, hit.tp.v)).mul(firstMaximum)).add(light.color.mul(this.specular.colorFor(hit.tp.u, hit.tp.v)).mul(secondMaximum));
             }
         }
-        final Color reflectedColor = tracer.traceColor(new Ray(point, hit.ray.d.add(hit.n.mul(cosinusPhi))));
-        return color.add(reflection.mul((reflectedColor)));
+        Color reflectedColor = tracer.traceColor(new Ray(hitPoint, hit.ray.d.add(hit.n.mul(cosinusPhi))));
+        return c.add(reflection.colorFor(hit.tp.u, hit.tp.v).mul((reflectedColor)));
     }
 
 }

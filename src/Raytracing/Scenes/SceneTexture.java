@@ -12,6 +12,7 @@ import Raytracing.Geometry.*;
 import Raytracing.Light.Light;
 import Raytracing.Light.PointLight;
 import Raytracing.Material.LambertMaterial;
+import Raytracing.Material.ReflectiveMaterial;
 import Raytracing.Material.Texturing.ImageTexture;
 import Raytracing.Material.Texturing.InterpolatedImageTexture;
 import Raytracing.MultiThreading.MultiRaytracer;
@@ -27,10 +28,10 @@ public class SceneTexture {
 
     public static void SceneFactory() {
         Color background = new Color(0.1, 0.1, 0.1);
-        Color ambientLight = new Color(1, 1, 1);
+        Color ambientLight = new Color(0.1, 0.1, 0.1);
         Normal3 up = new Normal3(0, 1, 0);
         ArrayList<Geometry> scene = new ArrayList<>(Arrays.asList(
-                new Plane(Materials.RED_REFLECTIVE, new Point3(0, 0, 0), new Normal3(0, 1, 0)),
+                new Plane(new ReflectiveMaterial(), new Point3(0, 0, 0), new Normal3(0, 1, 0)),
                 new Sphere(new LambertMaterial(new InterpolatedImageTexture("./src/Resources/earth.png")), new Point3(1, 1, 1), 0.5),
                 new AxisAlignedBox(new LambertMaterial(new InterpolatedImageTexture("./src/Resources/ScratchTexture.png")), new Point3(-1.5, 0.5, 0.5), new Point3(-0.5, 1.5, 1.5)),
                 new Triangle(new LambertMaterial(new InterpolatedImageTexture("./src/Resources/PipiAndVagina.png")), new Point3(0, 0, -2), up, new Point3(2, 0, -2), up, new Point3(2, 2, -2), up)

@@ -36,13 +36,14 @@ public class Hit {
     /**
      * constructor used for a ray hit with the parameters double t, Ray ray, Geometry geo and a Normal3 n
      */
-    public Hit(final double t, final Ray ray, final Geometry geo, final Normal3 n) {
+    /*public Hit(final double t, final Ray ray, final Geometry geo, final Normal3 n) {
         this.n = n;
         this.t = t;
         this.ray = ray;
         this.geo = geo;
         tp = new TexCoord2(Math.random(), Math.random());
     }
+    */
 
     public Hit(final double t, final Ray ray, final Geometry geo, final Normal3 n, final TexCoord2 tp) {
         this.n = n;
