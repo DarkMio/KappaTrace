@@ -26,7 +26,7 @@ public class main {
         //SceneTexture.SceneFactory();
         //time = timeTaken(time, "OBJ");
        // SceneOBJ.SceneFactory();
-         Scene4.SceneFactory();
+         SceneTexture.SceneFactory();
 /*        Scene4.SceneFactory();
         time = timeTaken(time, "Scene4");
         Scene5.SceneFactory();
