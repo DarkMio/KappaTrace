@@ -39,7 +39,7 @@ public class Scene4 {
         ArrayList<Light> lights = new ArrayList<>();
         lights.add(new PointLight(new Point3(8.0, 8.0, 8.0), new Color(1.0, 1.0, 1.0), true));
 
-        DepthPerspectiveCamera ppc = new DepthPerspectiveCamera(new Point3(3, 3, 3), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI / 4, new EvenlyDistributedPattern(5),5, 5);
+        DepthPerspectiveCamera ppc = new DepthPerspectiveCamera(new Point3(3, 3, 3), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI / 4, new EvenlyDistributedPattern(3),0.35, 6);
         new MultiRaytracer(1920, 1000, new World(background, scene_reflective, ambientLight, lights), ppc, 8);
     }
 
