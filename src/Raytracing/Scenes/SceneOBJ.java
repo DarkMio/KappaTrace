@@ -4,6 +4,7 @@ import MathFunc.Normal3;
 import MathFunc.Point3;
 import MathFunc.Vector3;
 import Raytracing.Camera.Camera;
+import Raytracing.Camera.DepthPerspectiveCamera;
 import Raytracing.Camera.FishEyeCamera;
 import Raytracing.Camera.PerspectiveCamera;
 import Raytracing.Color;
@@ -23,10 +24,10 @@ import java.util.Collections;
 
 public class SceneOBJ {
     public static void SceneFactory() {
-        // firstOBJSceneFactory();
+         firstOBJSceneFactory();
         //secondOBJSceneFactory();
         //thirdOBJSceneFactory();
-        fourthOBJSceneFactory();
+        //fourthOBJSceneFactory();
         // fifthOBJSceneFactory();
         // sixthOBJSceneFactory();
     }
@@ -70,12 +71,12 @@ public class SceneOBJ {
         for (Geometry g : boundingScene) {
             System.out.println("Something");
         }
-        Camera ppc = new PerspectiveCamera(camera, new Vector3(0, 0, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(1));
+        Camera ppc = new DepthPerspectiveCamera(camera, new Vector3(0, 0, -1), new Vector3(0, 1, 0), Math.PI/4, new EvenlyDistributedPattern(1), 5,5);
         ArrayList<Light> lights2 = new ArrayList<>();
         lights2.add(new PointLight(new Point3(10, 40, 0), Colors.WHITE, true));
         ArrayList<Geometry> transform = new ArrayList<>(Collections.singletonList(
                 new Node(boundingScene, new Transform().rotateY(Math.PI/2).rotateX(Math.PI/2))));
-        new MultiRaytracer(320, 240, new World(background, transform, ambientLight, lights2), ppc, 7);
+        new MultiRaytracer(1280, 960, new World(background, transform, ambientLight, lights2), ppc, 7);
         // new MultiRaytracer(640, 480, new World(background, scene, ambientLight, lights2), ppc, 7);
 
     }
