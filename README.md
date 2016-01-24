@@ -25,4 +25,4 @@ This Raytracer is written in Java and runs only on your CPU.
     1. Lambert Material 
     2. Phong Material
     3. Reflective Phong Material
-10. UI is simply, but predicts total time and shows progress bargs
+10. UI is simple, but predicts total time and shows progress bargs
