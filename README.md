@@ -1,6 +1,8 @@
 # Computergrafik-I
 This Raytracer is written in Java and runs only on your CPU.
 
+![Test Scene Render](http://i.imgur.com/xvCihNn.png)
+
 ### Keyfeatures
 1. Geometries:
     1. Triangle
